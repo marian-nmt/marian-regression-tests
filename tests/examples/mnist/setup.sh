@@ -4,9 +4,7 @@
 set -e
 
 # Setup code goes here
-if [ $(ls -1 *-ubyte 2>/dev/null | wc -l) == 4 ]; then 
-    exit 0
-fi
+(( $(ls -1 *-ubyte 2>/dev/null | wc -l) == 4 )) && exit 0
 
 wget -nc http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
 wget -nc http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
