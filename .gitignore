@@ -1,0 +1,9 @@
+*~
+*.swo
+*.swp
+
+*.stderr
+*.stdout
+
+marian
+models/wmt16.en-de
