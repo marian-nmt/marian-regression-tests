@@ -4,9 +4,9 @@ SHELL=/bin/bash
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
+export MRT_MARIAN=$MRT_TOOLS/marian
 export MRT_MODELS=$MRT_ROOT/models
 
-export MRT_MARIAN=$MRT_ROOT/marian
 export MRT_GPUS=0
 
 

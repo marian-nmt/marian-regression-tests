@@ -2,6 +2,8 @@
 *.swo
 *.swp
 
+*.out
+*.log
 *.stderr
 *.stdout
 
@@ -10,4 +12,4 @@ models/*/model.npz
 models/*/model.npz.json
 models/*/vocab.*
 models/*/*.bpe
-models/*/truecase.*
+models/*/truecase*
