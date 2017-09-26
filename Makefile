@@ -3,6 +3,7 @@ THREADS=16
 
 GIT_MARIAN=http://github.com/marian-nmt/marian-dev.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
+GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
 URL_MODELS=
 
@@ -10,10 +11,16 @@ URL_MODELS=
 .SECONDARY:
 
 
-install: marian/build/marian
+install: marian/build/marian tools
 
-download:
-	test $(URL_MODELS) && wget -q --show-progress $(URL_MODELS)
+tools:
+	mkdir -p $@
+	cd $@ && git clone $(GIT_MOSES_SCRIPTS)
+	cd $@ && git clone $(GIT_SUBWORD_NMT)
+
+models:
+	mkdir -p $@
+	cd $@ && bash download_wmt16.sh
 
 #####################################################################
 

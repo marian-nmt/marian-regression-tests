@@ -13,5 +13,5 @@ trap clean_up EXIT
 $MRT_MARIAN/build/iris_example > iris.out
 diff -q iris.out iris.expected
 
-# exit with success code
+# Exit with success code
 exit 0

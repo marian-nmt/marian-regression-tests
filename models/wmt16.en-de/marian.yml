@@ -1,0 +1,11 @@
+relative-paths: true
+type: amun
+models:
+  - model.npz
+dim-emb: 500
+vocabs:
+  - vocab.en.json
+  - vocab.de.json
+dim-vocabs: 
+  - 85000
+  - 85000

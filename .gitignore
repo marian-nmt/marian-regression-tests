@@ -6,4 +6,8 @@
 *.stdout
 
 marian
-models/wmt16.en-de
+models/*/model.npz
+models/*/model.npz.json
+models/*/vocab.*
+models/*/*.bpe
+models/*/truecase.*

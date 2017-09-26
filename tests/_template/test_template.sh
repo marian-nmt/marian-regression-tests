@@ -12,5 +12,5 @@ trap clean_up EXIT
 # Test code goes here
 # ...
 
-# exit with success code
+# Exit with success code
 exit 0

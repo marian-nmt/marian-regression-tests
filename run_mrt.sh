@@ -20,13 +20,11 @@ function logn {
 
 function format_time {
     dt=$(echo "$2 - $1" | bc)
-    dd=$(echo "$dt/86400" | bc)
-    dt2=$(echo "$dt-86400*$dd" | bc)
-    dh=$(echo "$dt2/3600" | bc)
-    dt3=$(echo "$dt2-3600*$dh" | bc)
-    dm=$(echo "$dt3/60" | bc)
-    ds=$(echo "$dt3-60*$dm" | bc)
-    printf "%d:%02d:%02d:%02.3fs" $dd $dh $dm $ds
+    dh=$(echo "$dt/3600" | bc)
+    dt2=$(echo "$dt-3600*$dh" | bc)
+    dm=$(echo "$dt2/60" | bc)
+    ds=$(echo "$dt2-60*$dm" | bc)
+    printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
 count_passed=0
@@ -48,22 +46,24 @@ do
         log "Running setup script"
 
         cd $test_dir
-        $SHELL setup.sh &> setup.stderr
+        $SHELL setup.sh &> setup.log
         if [ $? -ne 0 ]; then
             log "Error: setup script returns a non-success exit code"
             success=false
             break
         else
-            rm setup.stderr
+            rm setup.log
         fi
         cd $MRT_ROOT
     fi
 
-    test $success || break
+    # Don't run tests if setup failed
+    test $success || continue
 
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
     do
+        test_time_start=$(date +%s.%N)
         ((++count_all))
 
         # Tests are executed from their directory
@@ -85,11 +85,17 @@ do
             echo " failed"
             success=false
         fi
+        
+        # Report time
+        test_time_end=$(date +%s.%N)
+        test_time=$(format_time $test_time_start $test_time_end)
+        log "Test took $test_time"
 
         cd $MRT_ROOT
     done
     cd $MRT_ROOT
 
+    # Don't teardown if a test failed
     test $success || break
 
     # Run teardown script if exists
@@ -97,12 +103,12 @@ do
         log "Running teardown script"
 
         cd $test_dir
-        $SHELL teardown.sh &> teardown.stderr
+        $SHELL teardown.sh &> teardown.log
         if [ $? -ne 0 ]; then
             log "Error: teardown script returns a non-success exit code"
             break
         else
-            rm teardown.stderr
+            rm teardown.log
         fi
         cd $MRT_ROOT
     fi
