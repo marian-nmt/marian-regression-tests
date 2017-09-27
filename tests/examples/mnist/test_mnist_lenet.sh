@@ -18,7 +18,11 @@ $MRT_MARIAN/build/mnist_lenet \
     --log train.log
 
 cat train.log | grep '\[valid\]' | sed 's/.*\[valid\] //' > lenet.out
-#diff -q lenet.out lenet.expected
+
+# It seems it's not possible to set a fixed seed and disable the randomness in
+# Marian's convnets. It's probably a bug! As a workaround, we check if accuracy
+# is higher than a treshold.
+# diff -q lenet.out lenet.expected
 (( $(grep -c '0\.97' lenet.out) > 1 ))
 
 # Exit with success code
