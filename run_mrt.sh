@@ -2,6 +2,8 @@
 
 SHELL=/bin/bash
 
+set -e
+
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN=$MRT_TOOLS/marian
@@ -34,6 +36,7 @@ function format_time {
     printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
+success=false
 count_passed=0
 count_failed=0
 count_all=0
@@ -45,7 +48,6 @@ cd $MRT_ROOT
 for test_dir in $(find $prefix -type d | grep -v "/_")
 do
     log "Checking directory: $test_dir"
-
     success=true
 
     # Run setup script if exists
@@ -65,7 +67,7 @@ do
     fi
 
     # Don't run tests if setup failed
-    test $success || continue
+    test $success || break
 
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
@@ -113,6 +115,7 @@ do
         $SHELL teardown.sh &> teardown.log
         if [ $? -ne 0 ]; then
             log "Error: teardown script returns a non-success exit code"
+            success=false
             break
         else
             rm teardown.log
@@ -125,3 +128,6 @@ time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
 
 echo "Ran $count_all tests in $time_total, $count_passed passed, $count_failed failed"
+
+# Exit code
+[ $success ] && [ $count_all -gt 0 ]
