@@ -9,6 +9,11 @@ export MRT_MODELS=$MRT_ROOT/models
 
 export MRT_GPUS=0
 
+prefix=tests
+if [ $# -ge 1 ]; then
+    prefix="$1"
+fi
+
 
 function log {
     echo [$(date "+%m/%d/%Y %T")] $@
@@ -35,7 +40,7 @@ time_start=$(date +%s.%N)
 
 # Traverse test directories
 cd $MRT_ROOT
-for test_dir in $(find tests -type d | grep -v "/_")
+for test_dir in $(find $prefix -type d | grep -v "/_")
 do
     log "Checking directory: $test_dir"
 
