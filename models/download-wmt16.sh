@@ -17,5 +17,5 @@ mkdir -p wmt16.$SRC-$TRG
 
 for model_file in ${MODEL_FILES[@]}; do
     echo $model_file
-    wget -q --no-clobber --directory-prefix wmt16.$SRC-$TRG --show-progress $model_file
+    wget -q --no-clobber --directory-prefix wmt16.$SRC-$TRG $model_file
 done

@@ -23,4 +23,4 @@ tools/marian:
 
 models:
 	mkdir -p $@
-	cd $@ && bash ./download_wmt16.sh
+	cd $@ && bash ./download-wmt16.sh
