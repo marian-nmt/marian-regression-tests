@@ -7,7 +7,11 @@
 *.stderr
 *.stdout
 
-marian
+tools/marian
+tools/marian-dev
+tools/moses-scripts
+tools/subword-nmt
+
 models/*/model.npz
 models/*/model.npz.json
 models/*/vocab.*
