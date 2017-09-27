@@ -5,7 +5,7 @@ GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
-.PHONY: tools/marian-dev tools/marian install
+.PHONY: tools/marian-dev tools/marian install models
 .SECONDARY:
 
 
@@ -23,4 +23,4 @@ tools/marian:
 
 models:
 	mkdir -p $@
-	cd $@ && bash download_wmt16.sh
+	cd $@ && bash ./download_wmt16.sh
