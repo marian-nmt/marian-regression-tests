@@ -1,0 +1,4 @@
+rescorer.src
+rescorer.trg
+scores.decoder
+scores.rescorer

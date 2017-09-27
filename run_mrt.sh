@@ -6,8 +6,10 @@ export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN=$MRT_TOOLS/marian
 export MRT_MODELS=$MRT_ROOT/models
+export MRT_DATA=$MRT_ROOT/data
 
 export MRT_GPUS=0
+export MRT_GPU=0
 
 prefix=tests
 if [ $# -ge 1 ]; then
@@ -90,7 +92,7 @@ do
             echo " failed"
             success=false
         fi
-        
+
         # Report time
         test_time_end=$(date +%s.%N)
         test_time=$(format_time $test_time_start $test_time_end)
