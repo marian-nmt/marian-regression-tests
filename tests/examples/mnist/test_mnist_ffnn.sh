@@ -18,7 +18,7 @@ $MRT_MARIAN/build/mnist_example \
     --log train.log
 
 cat train.log | grep '\[valid\]' | sed 's/.*\[valid\] //' > ffnn.out
-$MRT_TOOLS/diff-floats.py ffnn.out ffnn.expected > ffnn.diff
+$MRT_TOOLS/diff-floats.py ffnn.out ffnn.expected -p 0.003 > ffnn.diff
 
 # Exit with success code
 exit 0
