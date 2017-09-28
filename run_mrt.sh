@@ -2,8 +2,6 @@
 
 SHELL=/bin/bash
 
-set -e
-
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN=$MRT_TOOLS/marian
@@ -67,7 +65,7 @@ do
     fi
 
     # Don't run tests if setup failed
-    test $success || break
+    test $success || continue
 
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
@@ -105,7 +103,7 @@ do
     cd $MRT_ROOT
 
     # Don't teardown if a test failed
-    test $success || break
+    test $success || continue
 
     # Run teardown script if exists
     if [ -e $test_dir/teardown.sh ]; then
