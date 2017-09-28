@@ -11,7 +11,7 @@ trap clean_up EXIT
 
 # Test code goes here
 $MRT_MARIAN/build/iris_example > iris.out
-diff iris.out iris.expected > iris.diff
+$MRT_TOOLS/diff-floats.py iris.out iris.expected > iris.diff
 
 # Exit with success code
 exit 0
