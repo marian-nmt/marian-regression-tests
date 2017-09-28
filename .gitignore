@@ -2,6 +2,7 @@
 *.swo
 *.swp
 
+*.diff
 *.out
 *.log
 *.stderr

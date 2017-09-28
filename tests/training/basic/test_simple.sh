@@ -21,8 +21,8 @@ test -e toy/model.npz
 test -e toy/model.npz.yml
 test -e toy/model.npz.amun.yml
 
-cat toy.log | grep ' : Cost ' | sed -r 's/.*(Ep\..*) : Time.*/\1/' > toy.out
-diff -q toy.out toy.expected
+cat toy.log | grep 'Cost ' | sed -r 's/.*Cost (.*) : Time.*/\1/' > toy.out
+paste toy.out toy.expected | $MRT_TOOLS/compare_floats.py 0.1
 
 # Exit with success code
 exit 0

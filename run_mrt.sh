@@ -125,6 +125,7 @@ done
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
 
+echo "---------------------"
 echo "Ran $count_all tests in $time_total, $count_passed passed, $count_failed failed"
 
 # Exit code
