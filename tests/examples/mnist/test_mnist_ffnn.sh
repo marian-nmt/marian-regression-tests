@@ -18,7 +18,7 @@ $MRT_MARIAN/build/mnist_example \
     --log train.log
 
 cat train.log | grep '\[valid\]' | sed 's/.*\[valid\] //' > ffnn.out
-#diff -q ffnn.out ffnn.expected
+diff ffnn.out ffnn.expected > ffnn.diff
 
 # Exit with success code
 exit 0

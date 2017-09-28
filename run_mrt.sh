@@ -129,4 +129,4 @@ echo "---------------------"
 echo "Ran $count_all tests in $time_total, $count_passed passed, $count_failed failed"
 
 # Exit code
-[ $success ] && [ $count_all -gt 0 ]
+$success && [ $count_all -gt 0 ]
