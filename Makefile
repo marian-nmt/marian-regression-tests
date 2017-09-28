@@ -5,13 +5,16 @@ GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
-.PHONY: tools/marian-dev tools/marian install models
+.PHONY: tools/marian-dev tools/marian install tools models run
 .SECONDARY:
 
 
 #####################################################################
 
 install: tools models
+
+run: install
+	bash ./run_mrt.sh
 
 tools: tools/marian
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
