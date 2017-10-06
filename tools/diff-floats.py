@@ -44,6 +44,10 @@ def main():
                 print "Line {}: {} != {}".format(i, n1, n2)
                 exit_code = 1
 
+    for _ in args.file2:
+        print "Extra line in the second file!"
+        exit_code = 1
+
     return exit_code
 
 
