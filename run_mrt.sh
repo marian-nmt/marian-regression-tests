@@ -80,7 +80,7 @@ do
 
         # Run test
         logn "Running $test_path ... "
-        $SHELL $test_file > $test_name.stdout 2> $test_name.stderr
+        $SHELL -x $test_file > $test_name.stdout 2> $test_name.stderr
 
         # Check exit code
         if [ $? -eq 0 ]; then
