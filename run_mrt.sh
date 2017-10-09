@@ -8,6 +8,8 @@ export MRT_MARIAN=$MRT_TOOLS/marian
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
+export MRT_MARIAN_USE_CUDNN=$(cmake -L 2> /dev/null | grep -q -P "USE_CUDNN:BOOL=(ON|1)")
+
 export MRT_GPUS=0
 export MRT_GPU=0
 
@@ -36,6 +38,7 @@ function format_time {
 
 success=false
 count_passed=0
+count_skipped=0
 count_failed=0
 count_all=0
 
@@ -81,12 +84,16 @@ do
         # Run test
         logn "Running $test_path ... "
         $SHELL -x $test_file > $test_name.stdout 2> $test_name.stderr
+        exit_code=$?
 
         # Check exit code
-        if [ $? -eq 0 ]; then
+        if [ $exit_code -eq 0 ]; then
             ((++count_passed))
             echo " OK"
             rm $test_name.stdout $test_name.stderr
+        elif [ $exit_code -eq 100 ]; then
+            ((++count_skipped))
+            echo " skipped"
         else
             ((++count_failed))
             echo " failed"
@@ -126,7 +133,7 @@ time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
 
 echo "---------------------"
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_failed failed"
+echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed"
 
 # Exit code
 $success && [ $count_all -gt 0 ]

@@ -9,6 +9,11 @@ clean_up() {
 }
 trap clean_up EXIT
 
+# Skip if no CUDNN found
+if [ ! $MRT_MARIAN_USE_CUDNN ]; then
+    exit 100
+fi
+
 # Test code goes here
 $MRT_MARIAN/build/mnist_lenet \
     --after-epochs 10 --mini-batch 200 --valid-freq 600 \
