@@ -1,3 +1,5 @@
 toy
 valid
-script.temp
+trans
+*.temp
+vocab.*.yml
