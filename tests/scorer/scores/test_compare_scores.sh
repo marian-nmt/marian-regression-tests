@@ -17,6 +17,7 @@ cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > rescorer.trg
 
 # Run rescorer
 $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
+  -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
   -t $(pwd)/rescorer.src $(pwd)/rescorer.trg > scores.rescorer
 
 # Compare scores
