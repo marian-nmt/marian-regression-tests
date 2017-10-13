@@ -11,7 +11,7 @@ GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
 #####################################################################
 
-install: tools models
+install: tools models data
 
 run: install
 	bash ./run_mrt.sh
@@ -27,3 +27,7 @@ tools/marian:
 models:
 	mkdir -p $@
 	cd $@ && bash ./download-wmt16.sh
+
+data:
+	mkdir -p $@
+	cd $@ && bash ./download-data.sh
