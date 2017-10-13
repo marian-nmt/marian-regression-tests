@@ -27,6 +27,7 @@ tools/marian:
 models:
 	mkdir -p $@
 	cd $@ && bash ./download-wmt16.sh
+	cd $@ && bash ./download-wmt17.sh
 
 data:
 	mkdir -p $@

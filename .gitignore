@@ -14,11 +14,10 @@ tools/marian-dev
 tools/moses-scripts
 tools/subword-nmt
 
-models/*/model.npz
-models/*/model.npz.json
-models/*/vocab.*
-models/*/*.bpe
-models/*/truecase*
+models/wmt16_systems/en-de
+models/wmt17_systems/en-de
+models/wmt17_systems/scripts
+models/wmt17_systems/vars
 
 data/*/corpus.*
 data/*/*.bpe

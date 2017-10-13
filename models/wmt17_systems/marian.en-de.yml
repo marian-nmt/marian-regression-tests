@@ -1,0 +1,21 @@
+type: nematus
+enc-depth: 1
+enc-cell-depth: 4
+enc-type: bidirectional
+dec-depth: 1
+dec-cell-base-depth: 8
+dec-cell-high-depth: 1
+dec-cell: gru-nematus
+enc-cell: gru-nematus
+tied-embeddings: true
+layer-normalization: true
+relative-paths: true
+models:
+  - en-de/model.l2r.ens1.npz
+dim-emb: 500
+vocabs:
+  - en-de/vocab.en.json
+  - en-de/vocab.de.json
+dim-vocabs:
+  - 51100
+  - 74383

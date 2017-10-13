@@ -12,7 +12,10 @@ for file in ${MODEL_FILES[@]}; do
     mkdir -p $(dirname $file)
 
     if [[ $file = *.gz ]]; then
-        wget -qO- $URL/$file | gzip -dc > "${file%.*}"
-    fi
+        target="${file%.*}"
 
+        if [ ! -s $target ]; then
+            wget -qO- $URL/$file | gzip -dc > $target
+        fi
+    fi
 done
