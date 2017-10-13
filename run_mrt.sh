@@ -86,8 +86,7 @@ do
         logn "Running $test_path ... "
         if [ "$nosetup" = true ]; then
             ((++count_skipped))
-            echo " no setup"
-
+            echo " skipped"
             cd $MRT_ROOT
             continue;
         fi
