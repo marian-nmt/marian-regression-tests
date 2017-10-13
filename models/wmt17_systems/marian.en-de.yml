@@ -12,7 +12,7 @@ layer-normalization: true
 relative-paths: true
 models:
   - en-de/model.l2r.ens1.npz
-dim-emb: 500
+dim-emb: 512
 vocabs:
   - en-de/vocab.en.json
   - en-de/vocab.de.json
