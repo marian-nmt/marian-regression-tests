@@ -2,6 +2,9 @@
 
 SHELL=/bin/bash
 
+export EXIT_CODE_SUCCESS=0
+export EXIT_CODE_SKIP=100
+
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN=$MRT_TOOLS/marian
@@ -12,6 +15,7 @@ export MRT_MARIAN_USE_CUDNN=$(cmake -L 2> /dev/null | grep -q -P "USE_CUDNN:BOOL
 
 export MRT_GPUS=0
 export MRT_GPU=0
+
 
 prefix=tests
 if [ $# -ge 1 ]; then
@@ -36,7 +40,7 @@ function format_time {
     printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
-success=false
+success=true
 count_passed=0
 count_skipped=0
 count_failed=0
@@ -49,7 +53,7 @@ cd $MRT_ROOT
 for test_dir in $(find $prefix -type d | grep -v "/_")
 do
     log "Checking directory: $test_dir"
-    success=true
+    nosetup=false
 
     # Run setup script if exists
     if [ -e $test_dir/setup.sh ]; then
@@ -58,17 +62,14 @@ do
         cd $test_dir
         $SHELL setup.sh &> setup.log
         if [ $? -ne 0 ]; then
-            log "Error: setup script returns a non-success exit code"
+            log "Warning: setup script returns a non-success exit code"
             success=false
-            break
+            nosetup=true
         else
             rm setup.log
         fi
         cd $MRT_ROOT
     fi
-
-    # Don't run tests if setup failed
-    test $success || continue
 
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
@@ -81,17 +82,26 @@ do
         test_file=$(basename $test_path)
         test_name="${test_file%.*}"
 
-        # Run test
+        # Skip tests if setup failed
         logn "Running $test_path ... "
+        if [ "$nosetup" = true ]; then
+            ((++count_skipped))
+            echo " no setup"
+
+            cd $MRT_ROOT
+            continue;
+        fi
+
+        # Run test
         $SHELL -x $test_file > $test_name.stdout 2> $test_name.stderr
         exit_code=$?
 
         # Check exit code
-        if [ $exit_code -eq 0 ]; then
+        if [ $exit_code -eq $EXIT_CODE_SUCCESS ]; then
             ((++count_passed))
-            echo " OK"
             rm $test_name.stdout $test_name.stderr
-        elif [ $exit_code -eq 100 ]; then
+            echo " OK"
+        elif [ $exit_code -eq $EXIT_CODE_SKIP ]; then
             ((++count_skipped))
             echo " skipped"
         else
@@ -109,9 +119,6 @@ do
     done
     cd $MRT_ROOT
 
-    # Don't teardown if a test failed
-    test $success || continue
-
     # Run teardown script if exists
     if [ -e $test_dir/teardown.sh ]; then
         log "Running teardown script"
@@ -119,9 +126,8 @@ do
         cd $test_dir
         $SHELL teardown.sh &> teardown.log
         if [ $? -ne 0 ]; then
-            log "Error: teardown script returns a non-success exit code"
+            log "Warning: teardown script returns a non-success exit code"
             success=false
-            break
         else
             rm teardown.log
         fi
