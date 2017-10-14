@@ -5,7 +5,7 @@ GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
-.PHONY: tools/marian-dev tools/marian install tools models run
+.PHONY: tools/marian-dev tools/marian install tools models data run
 .SECONDARY:
 
 
