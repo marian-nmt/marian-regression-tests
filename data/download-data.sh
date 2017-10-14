@@ -8,14 +8,14 @@ MODEL_FILES=(
 )
 
 for file in ${MODEL_FILES[@]}; do
-    echo $file
+    echo Downloading $file ...
     mkdir -p $(dirname $file)
 
     if [[ $file = *.gz ]]; then
         target="${file%.*}"
 
         if [ ! -s $target ]; then
-            wget -qO- $URL/$file | gzip -dc > $target
+            wget -nv -O- $URL/$file | gzip -dc > $target
         fi
     fi
 done
