@@ -16,6 +16,7 @@ Directories:
 * `tests` - regression tests
 * `tools` - scripts and repositories
 * `models` - models used in regression tests
+* `data` - data used for training or translating
 
 Each test consists of:
 
@@ -42,6 +43,12 @@ or a specific group of tests, e.g.:
 ```
 ./run_mrt tests/translation
 ```
+
+## TODO:
+
+* add a test for marian-server
+* add a test for restarting training
+* add descriptions of tests
 
 ## Acknowledgements
 
