@@ -12,6 +12,7 @@ $MRT_MARIAN/build/marian \
     -m valid/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     -v vocab.en.yml vocab.de.yml \
+    --dim-vocabs 50000 50000 \
     --disp-freq 10 --valid-freq 30 --after-batches 150 \
     --seed 2222 \
     --valid-metrics cross-entropy valid-script --valid-script-path ./valid_script.sh \
