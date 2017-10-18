@@ -26,7 +26,7 @@ Each test consists of:
 
 ## Usage
 
-Download models and compile tools:
+Download data and compile tools:
 
 ```
 make install
@@ -42,6 +42,13 @@ or a specific group of tests, e.g.:
 
 ```
 ./run_mrt tests/translation
+```
+
+To specify which GPU device should be used to run tests, set the
+`CUDA_VISIBLE_DEVICES` variable, e.g.:
+
+```
+CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
 ```
 
 ## TODO:

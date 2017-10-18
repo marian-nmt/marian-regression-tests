@@ -8,7 +8,6 @@ mkdir -p toy
 rm -f toy/* toy.log
 
 $MRT_MARIAN/build/marian \
-    -d $MRT_GPU \
     -m toy/model.npz \
     -t $MRT_DATA/europarl.de-en/toy.bpe.en $MRT_DATA/europarl.de-en/toy.bpe.de \
     -v toy/vocab.en.yml toy/vocab.de.yml \

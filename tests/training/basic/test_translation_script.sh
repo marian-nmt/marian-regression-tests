@@ -7,7 +7,7 @@ set -e
 rm -rf trans trans.log trans_script.temp
 mkdir -p trans
 
-$MRT_MARIAN/build/marian -d $MRT_GPU \
+$MRT_MARIAN/build/marian \
     --no-shuffle \
     -m trans/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \

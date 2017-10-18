@@ -13,9 +13,6 @@ export MRT_DATA=$MRT_ROOT/data
 
 export MRT_MARIAN_USE_CUDNN=$(cmake -L 2> /dev/null | grep -q -P "USE_CUDNN:BOOL=(ON|1)")
 
-export MRT_GPUS=0
-export MRT_GPU=0
-
 
 prefix=tests
 if [ $# -ge 1 ]; then
