@@ -12,17 +12,17 @@ cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > text.out
 diff text.out text.expected > text.diff
 
 # Prepare source and target files for rescoring
-cat text.in | perl -ne 'for$i(1..12){print}' > rescorer.src
-cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > rescorer.trg
+cat text.in | perl -ne 'for$i(1..12){print}' > compare.src
+cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > compare.trg
 
 # Run rescorer
 $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
   -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
-  -t $(pwd)/rescorer.src $(pwd)/rescorer.trg > scores.rescorer
+  -t $(pwd)/compare.src $(pwd)/compare.trg > compare.scorer.out
 
 # Compare scores
-cat nbest.out | sed 's/ ||| /\t/g' | cut -f4 > scores.decoder
-$MRT_TOOLS/diff-floats.py scores.rescorer scores.decoder -p 0.0003
+cat nbest.out | sed 's/ ||| /\t/g' | cut -f4 > compare.decoder.out
+$MRT_TOOLS/diff-floats.py compare.scorer.out compare.decoder.out -p 0.0003
 
 # Exit with success code
 exit 0
