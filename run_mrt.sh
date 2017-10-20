@@ -34,7 +34,7 @@ function format_time {
     dt2=$(echo "$dt-3600*$dh" | bc)
     dm=$(echo "$dt2/60" | bc)
     ds=$(echo "$dt2-60*$dm" | bc)
-    printf "%02d:%02d:%02.3fs" $dh $dm $ds
+    LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
 success=true
