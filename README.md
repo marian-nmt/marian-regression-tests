@@ -56,6 +56,7 @@ CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
 * add a test for marian-server
 * add a test for restarting training
 * add descriptions of tests
+* add logging tests
 
 ## Acknowledgements
 
