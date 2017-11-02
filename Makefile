@@ -5,6 +5,8 @@ GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
+BRANCH=master
+
 .PHONY: tools/marian-dev tools/marian install tools models data run
 .SECONDARY:
 
@@ -21,7 +23,7 @@ tools: tools/marian
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
 
 tools/marian:
-	git -C $@ pull || git clone $(GIT_MARIAN_DEV) $@
+	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
 	mkdir -p $@/build && cd $@/build && cmake .. -DCOMPILE_EXAMPLES=ON -DUSE_CUDNN=ON && make -j$(THREADS)
 
 models:
