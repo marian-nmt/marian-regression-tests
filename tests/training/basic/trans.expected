@@ -1,6 +1,4 @@
 [valid] 60 : cross-entropy : 161.994 : new best
-[valid] Translating validation set...
 [valid] 60 : translation : 1 : new best
 [valid] 120 : cross-entropy : 150.881 : new best
-[valid] Translating validation set...
 [valid] 120 : translation : 2 : new best
