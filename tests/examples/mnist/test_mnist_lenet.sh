@@ -15,7 +15,7 @@ if [ ! $MRT_MARIAN_USE_CUDNN ]; then
 fi
 
 # Test code goes here
-$MRT_MARIAN/build/mnist_lenet \
+$MRT_MARIAN/build/mnist_example --type mnist-lenet\
     --after-epochs 10 --mini-batch 200 --valid-freq 600 \
     --train-sets train-images-idx3-ubyte train-labels-idx1-ubyte \
     --valid-sets t10k-images-idx3-ubyte t10k-labels-idx1-ubyte \
