@@ -9,6 +9,9 @@
 *.stdout
 *.tgz
 
+vocab.de.yml
+vocab.en.yml
+
 tools/marian
 tools/marian-dev
 tools/moses-scripts
