@@ -7,11 +7,15 @@ export EXIT_CODE_SKIP=100
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN=$MRT_TOOLS/marian
+export MRT_MARIAN=${MARIAN:-$MRT_TOOLS/marian}
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
+# Check if Marian is compiled with CUDNN
 export MRT_MARIAN_USE_CUDNN=$(cmake -L 2> /dev/null | grep -q -P "USE_CUDNN:BOOL=(ON|1)")
+
+# Number of available devices
+export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
 
 
 prefix=tests
@@ -36,6 +40,10 @@ function format_time {
     ds=$(echo "$dt2-60*$dm" | bc)
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
+
+log "Using Marian: $MRT_MARIAN"
+log "Using number of devices: $MRT_NUM_DEVICES"
+log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
 success=true
 count_passed=0
