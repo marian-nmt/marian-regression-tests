@@ -28,28 +28,24 @@ Each test consists of:
 
 Download data and compile tools:
 
-```
-make install
-```
+    make install
 
 Run regression tests:
 
-```
-./run_mrt.sh
-```
+    ./run_mrt.sh
 
 or a specific group of tests, e.g.:
 
-```
-./run_mrt tests/translation
-```
+    ./run_mrt tests/translation
 
 To specify which GPU device should be used to run tests, set the
 `CUDA_VISIBLE_DEVICES` variable, e.g.:
 
-```
-CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
-```
+    CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
+
+You can also provide a path to marian-dev repository:
+
+    MARIAN=/path/to/marian-dev ./run_mrt.sh
 
 ## TODO:
 
