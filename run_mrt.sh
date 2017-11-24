@@ -12,7 +12,7 @@ export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
 # Check if Marian is compiled with CUDNN
-export MRT_MARIAN_USE_CUDNN=$(cmake -L 2> /dev/null | grep -q -P "USE_CUDNN:BOOL=(ON|1)")
+export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 
 # Number of available devices
 export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
