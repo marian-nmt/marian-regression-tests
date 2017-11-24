@@ -30,6 +30,7 @@ models:
 	mkdir -p $@
 	cd $@ && bash ./download-wmt16.sh
 	cd $@ && bash ./download-wmt17.sh
+	cd $@ && bash ./download-char-s2s.sh
 
 data:
 	mkdir -p $@
