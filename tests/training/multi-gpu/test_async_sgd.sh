@@ -26,7 +26,7 @@ test -e vocab.de.yml
 test -e async_sgd.log
 
 cat async_sgd.log | $MRT_TOOLS/strip-timestamps.sh | grep -oP "Ep\. 1 .* Cost [0-9.]*" > async_sgd.out
-$MRT_TOOLS/diff-floats.py async_sgd.out async_sgd.expected -p 0.8 --max-diff-nums 5 > async_sgd.diff
+$MRT_TOOLS/diff-floats.py async_sgd.out async_sgd.expected -p 6.00 --max-diff-nums 2 > async_sgd.diff
 
 # Exit with success code
 exit 0
