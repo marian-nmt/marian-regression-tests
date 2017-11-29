@@ -42,6 +42,7 @@ function format_time {
 }
 
 log "Using Marian: $MRT_MARIAN"
+log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using number of devices: $MRT_NUM_DEVICES"
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
