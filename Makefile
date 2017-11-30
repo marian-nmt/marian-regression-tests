@@ -6,9 +6,11 @@ GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
 BRANCH=master
+USE_CUDNN=ON
 
 .PHONY: tools/marian-dev tools/marian install tools models data run
 .SECONDARY:
+
 
 
 #####################################################################
@@ -24,7 +26,7 @@ tools: tools/marian
 
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
-	mkdir -p $@/build && cd $@/build && cmake .. -DCOMPILE_EXAMPLES=ON -DUSE_CUDNN=ON && make -j$(THREADS)
+	mkdir -p $@/build && cd $@/build && cmake .. -DCOMPILE_EXAMPLES=ON -DUSE_CUDNN=$(USE_CUDNN) && make -j$(THREADS)
 
 models:
 	mkdir -p $@
