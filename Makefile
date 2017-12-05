@@ -4,25 +4,27 @@ GIT_MARIAN_DEV=http://github.com/marian-nmt/marian-dev.git
 GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
+GIT_NEMATUS=http://github.com/EdinburghNLP/nematus.git
 
 BRANCH=master
 USE_CUDNN=ON
 
-.PHONY: tools/marian-dev tools/marian install tools models data run
+.PHONY: tools/marian install tools models data run
 .SECONDARY:
 
 
 
 #####################################################################
 
-install: tools models data
+install: tools tools/marian models data
 
 run: install
 	bash ./run_mrt.sh
 
-tools: tools/marian
+tools:
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
+	git -C $@/nematus pull || git clone $(GIT_NEMATUS) $@/nematus
 
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
