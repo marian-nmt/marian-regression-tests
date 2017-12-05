@@ -1,0 +1,4 @@
+nematus.b6n.out:
+	cd $(MODEL) && THEANO_FLAGS=mode=FAST_RUN,floatX=float32,device=cuda,on_unused_input=warn \
+		python $(TOOLS)/nematus/nematus/translate.py -m model.l2r.ens1.npz --suppress-unk -v \
+		-k 6 -n -p 5
