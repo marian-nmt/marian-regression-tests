@@ -12,7 +12,7 @@ fi
 rm -rf async_sgd async_sgd.log
 mkdir -p async_sgd
 
-$MRT_MARIAN/build/marian \
+$MRT_RUN_MARIAN \
     --no-shuffle --seed 1111 \
     --devices 0 1 \
     -m async_sgd/model.npz \

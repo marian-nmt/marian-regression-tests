@@ -10,6 +10,9 @@ export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN=${MARIAN:-$MRT_TOOLS/marian}
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
+export MRT_RUN_MARIAN=$MRT_MARIAN/build/marian
+export MRT_RUN_MARIAN_DECODER=$MRT_MARIAN/build/marian-decoder
+export MRT_RUN_MARIAN_SCORER=$MRT_MARIAN/build/marian-scorer
 
 # Check if Marian is compiled with CUDNN
 export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")

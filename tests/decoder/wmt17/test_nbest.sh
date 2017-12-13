@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt17_systems/marian.en-de.yml \
+$MRT_RUN_MARIAN_DECODER -c $MRT_MODELS/wmt17_systems/marian.en-de.yml \
   -b 5 --n-best --normalize < text.in | tail -n +6 > nbest.out
 
 # Compare n-best lists

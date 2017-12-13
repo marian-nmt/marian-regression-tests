@@ -7,7 +7,7 @@ set -e
 rm -rf dynamic dynamic.log
 mkdir -p dynamic
 
-$MRT_MARIAN/build/marian \
+$MRT_RUN_MARIAN \
     --no-shuffle \
     -m dynamic/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \

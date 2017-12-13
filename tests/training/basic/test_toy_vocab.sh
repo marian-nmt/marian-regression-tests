@@ -7,7 +7,7 @@ set -e
 mkdir -p toy
 rm -f toy/* toy.log
 
-$MRT_MARIAN/build/marian \
+$MRT_RUN_MARIAN \
     -m toy/model.npz \
     -t $MRT_DATA/europarl.de-en/toy.bpe.en $MRT_DATA/europarl.de-en/toy.bpe.de \
     -v toy/vocab.en.yml toy/vocab.de.yml \

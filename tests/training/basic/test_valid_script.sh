@@ -7,7 +7,7 @@ set -e
 rm -rf valid valid.log valid_script.temp
 mkdir -p valid
 
-$MRT_MARIAN/build/marian \
+$MRT_RUN_MARIAN \
     --no-shuffle \
     -m valid/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
