@@ -20,6 +20,7 @@ echo "RUN_PREFIX: $RUN_PREFIX"
 export MRT_RUN_MARIAN="$RUN_PREFIX $MRT_MARIAN/build/marian"
 export MRT_RUN_MARIAN_DECODER="$RUN_PREFIX $MRT_MARIAN/build/marian-decoder"
 export MRT_RUN_MARIAN_SCORER="$MRT_MARIAN/build/marian-scorer"
+export MRT_RUN_MARIAN_MULTI_DOMAIN="$MRT_MARIAN/build/marian-multi-domain"
 
 # Check if Marian is compiled with CUDNN
 export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")

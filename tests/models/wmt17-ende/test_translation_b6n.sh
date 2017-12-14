@@ -6,7 +6,7 @@ set -e
 rm -f marian.b6n.out
 
 # Run Marian
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt17_systems/marian.en-de.yml -b 6 -n 1.0 < text.b6n.in > marian.b6n.out
+$MRT_RUN_MARIAN_DECODER -c $MRT_MODELS/wmt17_systems/marian.en-de.yml -b 6 -n 1.0 < text.b6n.in > marian.b6n.out
 
 # Compare with Marian and Nematus
 diff marian.b6n.out marian.b6n.expected > marian.b6n.diff
