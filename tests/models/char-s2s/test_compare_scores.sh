@@ -3,6 +3,11 @@
 # Exit on error
 set -e
 
+# Skip if no CUDNN found
+if [ ! $MRT_MARIAN_USE_CUDNN ]; then
+    exit 100
+fi
+
 # Translate with s2s
 $MRT_MARIAN/build/marian-decoder  \
   -c $MRT_MODELS/char-s2s/translate.yml \
