@@ -22,7 +22,7 @@ cat text.in | perl -ne 'for$i(1..12){print}' > compare.src
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f2  > compare.trg
 
 # Run rescorer
-$MRT_RUN_MARIAN_SCORER -c $MRT_MODELS/char-s2s/translate.yml \
+$MRT_MARIAN/build/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
   -m $MRT_MODELS/char-s2s/model.npz \
   --max-length 7000 \
   --workspace 256 \
