@@ -4,7 +4,7 @@
 set -e
 
 # Translate with s2s
-$MRT_RUN_MARIAN_DECODER \
+$MRT_MARIAN/build/marian-decoder  \
   -c $MRT_MODELS/char-s2s/translate.yml \
   -b 12 \
   --n-best < text.in > nbest.out
