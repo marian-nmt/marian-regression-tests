@@ -24,7 +24,7 @@ tools:
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
 	git -C $@/nematus pull || git clone $(GIT_NEMATUS) $@/nematus
-	pip3 install websocket websocket-client
+	pip3 install --user websocket-client
 
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
