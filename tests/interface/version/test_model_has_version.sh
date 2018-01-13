@@ -16,7 +16,7 @@ $MRT_MARIAN/build/marian \
 
 # Check if the model contains a version
 test -e version/model.npz
-python3 $MRT_MARIAN/scripts/contrib/model_info.py -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+\+.*"
+python3 $MRT_MARIAN/scripts/contrib/model_info.py -s -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+\+.*"
 
 # Check if the version is printed
 echo "test" | $MRT_MARIAN/build/marian-decoder \
