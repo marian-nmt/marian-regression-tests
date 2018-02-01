@@ -9,6 +9,8 @@ GIT_NEMATUS=http://github.com/EdinburghNLP/nematus.git
 BRANCH=master
 USE_CUDNN=ON
 
+PIP_PACKAGES=websocket-client pyyaml
+
 .PHONY: tools/marian install tools models data run
 .SECONDARY:
 
@@ -24,7 +26,7 @@ tools:
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
 	git -C $@/nematus pull || git clone $(GIT_NEMATUS) $@/nematus
-	pip3 install --user websocket-client
+	pip3 install --user $(PIP_PACKAGES)
 
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
