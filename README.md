@@ -49,7 +49,6 @@ You can also provide a path to marian-dev repository:
 
 ## TODO:
 
-* add a test for marian-server
 * add a test for restarting training
 * add descriptions of tests
 * add logging tests
@@ -59,8 +58,9 @@ You can also provide a path to marian-dev repository:
 The development of Marian received funding from the European Union's
 _Horizon 2020 Research and Innovation Programme_ under grant agreements
 688139 ([SUMMA](http://www.summa-project.eu); 2016-2019),
-645487 ([Modern MT](http://www.modernmt.eu); 2015-2017) and
+645487 ([Modern MT](http://www.modernmt.eu); 2015-2017),
 644333 ([TraMOOC](http://tramooc.eu/); 2015-2017),
+644402 ([HiML](http://www.himl.eu/); 2015-2017),
 the Amazon Academic Research Awards program, and
 the World Intellectual Property Organization.
 
