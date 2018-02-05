@@ -20,7 +20,7 @@ export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
 
 prefix=tests
 if [ $# -ge 1 ]; then
-    prefix="$1"
+    prefix="$@"
 fi
 
 
