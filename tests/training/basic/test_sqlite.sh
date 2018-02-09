@@ -1,0 +1,39 @@
+#!/bin/bash -x
+
+# Exit on error
+set -e
+
+# Test code goes here
+rm -rf sqlite *sqlite.log
+mkdir -p sqlite
+
+$MRT_MARIAN/build/marian \
+    --seed 1111 --no-shuffle \
+    -m sqlite/model.nosqlite.npz \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
+    -v sqlite/vocab.{en,de}.yml \
+    --disp-freq 10 --after-batches 100 \
+    --log nosqlite.log
+
+test -e sqlite/model.nosqlite.npz
+test -e nosqlite.log
+
+$MRT_TOOLS/extract-costs.sh < nosqlite.log > nosqlite.out
+
+$MRT_MARIAN/build/marian \
+    --seed 1111 --no-shuffle \
+    -m sqlite/model.npz \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} --sqlite \
+    -v sqlite/vocab.{en,de}.yml \
+    --disp-freq 10 --after-batches 100 \
+    --log sqlite.log
+
+test -e sqlite/model.npz
+test -e sqlite.log
+
+$MRT_TOOLS/extract-costs.sh < sqlite.log > sqlite.out
+
+$MRT_TOOLS/diff-floats.py nosqlite.out sqlite.out -p 0.2 > sqlite.diff
+
+# Exit with success code
+exit 0

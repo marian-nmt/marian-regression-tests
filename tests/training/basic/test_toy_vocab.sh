@@ -20,7 +20,7 @@ test -e toy/model.npz
 test -e toy/model.npz.yml
 test -e toy/model.npz.amun.yml
 
-cat toy.log | grep 'Cost ' | sed -r 's/.*Cost (.*) : Time.*/\1/' > toy.out
+cat toy.log | $MRT_TOOLS/extract-costs.sh > toy.out
 $MRT_TOOLS/diff-floats.py toy.out toy.expected -p 0.9 > toy.diff
 
 # Exit with success code
