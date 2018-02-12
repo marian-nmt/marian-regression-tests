@@ -7,9 +7,6 @@ set -e
 rm -rf word_noweights* word_ones*
 mkdir -p word_noweights word_ones
 
-test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/toy.bpe.de > vocab.de.yml
-test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/toy.bpe.en > vocab.en.yml
-
 $MRT_MARIAN/build/marian \
     --seed 1111 --no-shuffle \
     -m word_noweights/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \

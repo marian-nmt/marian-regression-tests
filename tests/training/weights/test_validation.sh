@@ -7,9 +7,6 @@ set -e
 rm -rf valid valid_script.temp
 mkdir -p valid
 
-test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
-test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
-
 $MRT_MARIAN/build/marian \
     --seed 4444 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 \
     -m valid/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
