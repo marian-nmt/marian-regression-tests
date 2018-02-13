@@ -52,11 +52,19 @@ count_skipped=0
 count_failed=0
 count_all=0
 
+test_dirs=$(find $prefix -type d | grep -v "/_")
+
+if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
+    test_one_file=$(basename $prefix)
+    test_dirs=$(dirname $prefix)
+fi
+
+
 time_start=$(date +%s.%N)
 
 # Traverse test directories
 cd $MRT_ROOT
-for test_dir in $(find $prefix -type d | grep -v "/_")
+for test_dir in $test_dirs
 do
     log "Checking directory: $test_dir"
     nosetup=false
@@ -80,6 +88,9 @@ do
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
     do
+        if [[ -n "$test_one_file" && $test_path != *"$test_one_file"* ]]; then
+            continue
+        fi
         test_time_start=$(date +%s.%N)
         ((++count_all))
 
