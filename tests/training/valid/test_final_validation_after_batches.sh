@@ -22,7 +22,7 @@ test -e final_batch/model.npz
 test -e final_batch.log
 
 $MRT_TOOLS/strip-timestamps.sh < final_batch.log > final_batch.out
-$MRT_TOOLS/diff-floats.py final_batch.out final_batch.expected -p 0.1 > final_batch.diff
+$MRT_TOOLS/diff-floats.py final_batch.out final_batch.expected -p 0.2 > final_batch.diff
 
 # Exit with success code
 exit 0

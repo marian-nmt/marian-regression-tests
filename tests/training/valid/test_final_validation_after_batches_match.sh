@@ -22,7 +22,7 @@ test -e final_match/model.npz
 test -e final_match.log
 
 $MRT_TOOLS/strip-timestamps.sh < final_match.log > final_match.out
-$MRT_TOOLS/diff-floats.py final_match.out final_match.expected -p 0.1 > final_match.diff
+$MRT_TOOLS/diff-floats.py final_match.out final_match.expected -p 0.2 > final_match.diff
 
 # Exit with success code
 exit 0
