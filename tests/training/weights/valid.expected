@@ -1,8 +1,8 @@
-[valid] 15 : cross-entropy : 276.149 : new best
+[valid] 15 : cross-entropy : 276.231 : new best
 [valid] 15 : valid-script : 1 : new best
-[valid] 30 : cross-entropy : 270.361 : new best
+[valid] 30 : cross-entropy : 271.226 : new best
 [valid] 30 : valid-script : 2 : new best
-[valid] 45 : cross-entropy : 277.11 : stalled 1 times
+[valid] 45 : cross-entropy : 278.417 : stalled 1 times
 [valid] 45 : valid-script : 3 : new best
-[valid] 50 : cross-entropy : 280.511 : stalled 2 times
+[valid] 50 : cross-entropy : 282.218 : stalled 2 times
 [valid] 50 : valid-script : 4 : new best
