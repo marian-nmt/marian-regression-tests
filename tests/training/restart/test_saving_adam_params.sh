@@ -23,9 +23,9 @@ $MRT_TOOLS/diff-floats.py adam.costs.out adam.costs.expected -p 0.2 > adam.costs
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz > adam.keys.out
 diff adam.keys.out adam.keys.expected > adam.keys.diff
 
-python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k mt_ > adam.mt.out
+python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_mt" > adam.mt.out
 $MRT_TOOLS/diff-floats.py -p 0.0001  adam.mt.out adam.mt.expected > adam.mt.diff
-python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k vt_ > adam.vt.out
+python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_vt" > adam.vt.out
 $MRT_TOOLS/diff-floats.py -p 0.000005 adam.vt.out adam.vt.expected > adam.vt.diff
 
 # Exit with success code
