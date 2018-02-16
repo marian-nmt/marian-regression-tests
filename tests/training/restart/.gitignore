@@ -1,3 +1,4 @@
-adam_npz
+adam_load
+adam
+adam_async
 sgd_2e
-adam_2e

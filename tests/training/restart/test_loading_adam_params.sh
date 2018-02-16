@@ -1,0 +1,38 @@
+#!/bin/bash -x
+
+# Exit on error
+set -e
+
+# Test code goes here
+rm -rf adam_load adam_load_?.log
+mkdir -p adam_load
+
+extra_opts="--no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 8 --dim-rnn 64 --dim-emb 32"
+
+$MRT_MARIAN/build/marian \
+    -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    --disp-freq 1 --after-batches 3 -l 0.1 $extra_opts \
+    --log adam_load_1.log
+
+test -e adam_load/model.npz
+test -e adam_load/model.npz.optimizer.npz
+test -e adam_load_1.log
+
+cat adam_load_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load_1.out
+
+$MRT_MARIAN/build/marian \
+    -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    --disp-freq 1 --after-batches 6 -l 0.1 $extra_opts \
+    --log adam_load_2.log
+
+test -e adam_load/model.npz
+test -e adam_load/model.npz.optimizer.npz
+test -e adam_load_2.log
+
+cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load_2.out
+
+$MRT_TOOLS/diff-floats.py -p 0.99 adam_load_1.out adam_load_1.expected > adam_load_1.diff
+$MRT_TOOLS/diff-floats.py -p 0.99 adam_load_2.out adam_load_2.expected > adam_load_2.diff
+
+# Exit with success code
+exit 0
