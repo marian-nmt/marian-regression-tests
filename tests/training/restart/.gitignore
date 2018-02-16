@@ -1,4 +1,5 @@
-adam_load
+sgd_2e
 adam
 adam_async
-sgd_2e
+adam_sync
+adam_load
