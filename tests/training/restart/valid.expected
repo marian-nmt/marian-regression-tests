@@ -1,0 +1,10 @@
+[valid] 20 : valid-script : 222.4 : new best
+[valid] 40 : valid-script : 222.3 : stalled 1 times
+[valid] 60 : valid-script : 222.2 : stalled 2 times
+[valid] 80 : valid-script : 222.1 : stalled 3 times
+[valid] 100 : valid-script : 222.6 : new best
+[valid] 120 : valid-script : 222.5 : stalled 1 times
+[valid] 140 : valid-script : 222.4 : stalled 2 times
+[valid] 150 : valid-script : 222.3 : stalled 3 times
+[valid] 160 : valid-script : 222.2 : stalled 4 times
+[valid] 180 : valid-script : 222.1 : stalled 5 times

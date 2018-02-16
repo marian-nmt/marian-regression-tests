@@ -1,0 +1,44 @@
+#!/bin/bash -x
+
+# Exit on error
+set -e
+
+# Test code goes here
+rm -rf valid valid_?.log valid_script.temp
+mkdir -p valid
+
+$MRT_MARIAN/build/marian \
+    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
+    --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
+    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    --disp-freq 10 --valid-freq 20 --after-batches 150 --early-stopping 5 \
+    --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
+    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
+    --valid-log valid_1.log
+
+test -e valid/model.npz
+test -e valid/model.npz.yml
+test -e valid_1.log
+
+cp valid/model.npz.yml valid/model.npz.yml.bac
+
+cat valid_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" > valid.out
+#$MRT_TOOLS/diff-floats.py valid_1.out valid_1.expected -p 0.2 > valid_1.diff
+
+$MRT_MARIAN/build/marian \
+    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
+    --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
+    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    --disp-freq 10 --valid-freq 20 --after-batches 300 --early-stopping 5 \
+    --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
+    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
+    --valid-log valid_2.log
+
+test -e valid/model.npz
+test -e valid_2.log
+
+cat valid_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" >> valid.out
+diff valid.out valid.expected > valid.diff
+
+# Exit with success code
+exit 0
