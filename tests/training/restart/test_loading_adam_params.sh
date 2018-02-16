@@ -32,7 +32,7 @@ test -e adam_load_2.log
 cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load_2.out
 
 $MRT_TOOLS/diff-floats.py -p 0.99 adam_load_1.out adam_load_1.expected > adam_load_1.diff
-$MRT_TOOLS/diff-floats.py -p 0.99 adam_load_2.out adam_load_2.expected > adam_load_2.diff
+$MRT_TOOLS/diff-floats.py -p 0.99 -n 1 adam_load_2.out adam_load_2.expected > adam_load_2.diff
 
 # Exit with success code
 exit 0
