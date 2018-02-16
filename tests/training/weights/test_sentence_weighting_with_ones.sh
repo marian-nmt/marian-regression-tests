@@ -8,7 +8,7 @@ rm -rf noweights* ones*
 mkdir -p noweights ones
 
 $MRT_MARIAN/build/marian \
-    --seed 2222 --no-shuffle \
+    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 -o sgd \
     -m noweights/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log noweights.log --disp-freq 5 -e 2
 
@@ -19,7 +19,7 @@ cat noweights.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ T
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/.*/1/g' > ones.weights.txt
 
 $MRT_MARIAN/build/marian \
-    --seed 2222 --no-shuffle \
+    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 -o sgd \
     -m ones/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log ones.log --disp-freq 5 -e 2 \
     --data-weighting ones.weights.txt
