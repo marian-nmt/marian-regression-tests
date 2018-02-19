@@ -29,8 +29,9 @@ python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimize
 diff adam_sync.keys.out adam.keys.expected > adam_sync.keys.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_mt" > adam_sync.mt.out
-$MRT_TOOLS/diff-floats.py -p 0.0001  adam_sync.mt.out adam_sync.mt.expected > adam_sync.mt.diff
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_vt" > adam_sync.vt.out
+
+$MRT_TOOLS/diff-floats.py -p 0.0001  adam_sync.mt.out adam_sync.mt.expected > adam_sync.mt.diff
 $MRT_TOOLS/diff-floats.py -p 0.0000009 adam_sync.vt.out adam_sync.vt.expected > adam_sync.vt.diff
 
 # Exit with success code

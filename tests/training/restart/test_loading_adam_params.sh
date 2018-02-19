@@ -18,7 +18,7 @@ test -e adam_load/model.npz
 test -e adam_load/model.npz.optimizer.npz
 test -e adam_load_1.log
 
-cat adam_load_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load_1.out
+cat adam_load_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load.out
 
 $MRT_MARIAN/build/marian \
     -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
@@ -29,10 +29,9 @@ test -e adam_load/model.npz
 test -e adam_load/model.npz.optimizer.npz
 test -e adam_load_2.log
 
-cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load_2.out
+cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' >> adam_load.out
 
-$MRT_TOOLS/diff-floats.py -p 0.99 adam_load_1.out adam_load_1.expected > adam_load_1.diff
-$MRT_TOOLS/diff-floats.py -p 0.99 -n 1 adam_load_2.out adam_load_2.expected > adam_load_2.diff
+$MRT_TOOLS/diff-floats.py -p 0.99 adam_load.out adam_load.expected > adam_load.diff
 
 # Exit with success code
 exit 0

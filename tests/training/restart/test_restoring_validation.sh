@@ -23,7 +23,6 @@ test -e valid_1.log
 cp valid/model.npz.yml valid/model.npz.yml.bac
 
 cat valid_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" > valid.out
-#$MRT_TOOLS/diff-floats.py valid_1.out valid_1.expected -p 0.2 > valid_1.diff
 
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
