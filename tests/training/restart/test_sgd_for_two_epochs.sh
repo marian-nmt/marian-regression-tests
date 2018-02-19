@@ -42,7 +42,7 @@ test -e sgd_2nd_epoch.log
 cat sgd_2nd_epoch.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sgd_2nd_epoch.out
 cat sgd_1st_epoch.out sgd_2nd_epoch.out > sgd_2e.out
 
-$MRT_TOOLS/diff-floats.py sgd_2e.out sgd_2e.expected -p 0.01 > sgd_2e.diff
+$MRT_TOOLS/diff-floats.py sgd_2e.out sgd_2e.expected -p 0.3 > sgd_2e.diff
 
 # Exit with success code
 exit 0
