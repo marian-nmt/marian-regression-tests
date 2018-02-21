@@ -6,3 +6,9 @@ adam
 adam_async
 adam_sync
 adam_load
+corpus
+corpus.expected
+corpus_sqlite
+corpus_sqlite.expected
+corpus_mini
+corpus_mini.expected
