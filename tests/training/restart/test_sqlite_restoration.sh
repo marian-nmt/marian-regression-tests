@@ -4,47 +4,47 @@
 set -e
 
 # Test code goes here
-rm -rf corpus_sqlite corpus_sqlite*.log
-mkdir -p corpus_sqlite
+rm -rf sqlite sqlite*.log
+mkdir -p sqlite
 
 test -e vocab.de.yml
 test -e vocab.en.yml
 
-extra_opts="--seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --restore-corpus"
+extra_opts="--seed 3333 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --restore-corpus"
 
 $MRT_MARIAN/build/marian \
-    -m corpus_sqlite/model_full.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
-    --after-batches 70 --sqlite corpus_sqlite/dbfull.sqlite3 $extra_opts \
-    --log corpus_sqlite.log
+    -m sqlite/model_full.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    --after-batches 75 --sqlite sqlite/dbfull.sqlite3 $extra_opts \
+    --log sqlite.log
 
-test -e corpus_sqlite/model_full.npz
-test -e corpus_sqlite.log
+test -e sqlite/model_full.npz
+test -e sqlite.log
 
-cat corpus_sqlite.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_sqlite.expected
-
-$MRT_MARIAN/build/marian \
-    -m corpus_sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
-    --after-batches 40 --sqlite corpus_sqlite/db.sqlite3 $extra_opts \
-    --log corpus_sqlite_1.log
-
-test -e corpus_sqlite/model.npz
-test -e corpus_sqlite_1.log
-
-cat corpus_sqlite_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_sqlite_1.out
-cp corpus_sqlite/model.npz.yml corpus_sqlite/model.npz.1.yml
+cat sqlite.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite.expected
 
 $MRT_MARIAN/build/marian \
-    -m corpus_sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
-    --after-batches 70 --sqlite corpus_sqlite/db.sqlite3 $extra_opts \
-    --log corpus_sqlite_2.log
+    -m sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    --after-batches 50 --sqlite sqlite/db.sqlite3 $extra_opts \
+    --log sqlite_1.log
 
-test -e corpus_sqlite/model.npz
-test -e corpus_sqlite_2.log
+test -e sqlite/model.npz
+test -e sqlite_1.log
 
-cat corpus_sqlite_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_sqlite_2.out
-cat corpus_sqlite_1.out corpus_sqlite_2.out > corpus_sqlite.out
+cat sqlite_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite_1.out
+cp sqlite/model.npz.yml sqlite/model.npz.1.yml
 
-$MRT_TOOLS/diff-floats.py corpus_sqlite.out corpus_sqlite.expected -p 0.1 > corpus_sqlite.diff
+$MRT_MARIAN/build/marian \
+    -m sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    --after-batches 75 --sqlite sqlite/db.sqlite3 $extra_opts \
+    --log sqlite_2.log
+
+test -e sqlite/model.npz
+test -e sqlite_2.log
+
+cat sqlite_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite_2.out
+cat sqlite_1.out sqlite_2.out > sqlite.out
+
+$MRT_TOOLS/diff-floats.py sqlite.out sqlite.expected -p 0.1 -n 1 > sqlite.diff
 
 # Exit with success code
 exit 0

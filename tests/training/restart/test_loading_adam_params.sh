@@ -7,7 +7,7 @@ set -e
 rm -rf adam_load adam_load_?.log
 mkdir -p adam_load
 
-extra_opts="--no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 8 --dim-rnn 64 --dim-emb 32"
+extra_opts="--no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 2 --dim-rnn 64 --dim-emb 32"
 
 $MRT_MARIAN/build/marian \
     -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
@@ -31,7 +31,7 @@ test -e adam_load_2.log
 
 cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' >> adam_load.out
 
-$MRT_TOOLS/diff-floats.py -p 3.0 adam_load.out adam_load.expected > adam_load.diff
+$MRT_TOOLS/diff-floats.py -p 5.0 adam_load.out adam_load.expected > adam_load.diff
 
 # Exit with success code
 exit 0
