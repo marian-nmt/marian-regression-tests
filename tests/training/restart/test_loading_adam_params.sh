@@ -10,7 +10,7 @@ mkdir -p adam_load
 extra_opts="--no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 2 --dim-rnn 64 --dim-emb 32"
 
 $MRT_MARIAN/build/marian \
-    -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m adam_load/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --disp-freq 1 --after-batches 3 -l 0.1 $extra_opts \
     --log adam_load_1.log
 
@@ -21,7 +21,7 @@ test -e adam_load_1.log
 cat adam_load_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_load.out
 
 $MRT_MARIAN/build/marian \
-    -m adam_load/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m adam_load/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --disp-freq 1 --after-batches 6 -l 0.1 $extra_opts \
     --log adam_load_2.log
 

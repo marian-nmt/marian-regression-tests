@@ -13,7 +13,7 @@ test -e vocab.en.yml
 extra_opts="--seed 3333 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --restore-corpus"
 
 $MRT_MARIAN/build/marian \
-    -m sqlite/model_full.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sqlite/model_full.npz -t $MART_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 75 --sqlite sqlite/dbfull.sqlite3 $extra_opts \
     --log sqlite.log
 
@@ -23,7 +23,7 @@ test -e sqlite.log
 cat sqlite.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite.expected
 
 $MRT_MARIAN/build/marian \
-    -m sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sqlite/model.npz -t $MART_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 50 --sqlite sqlite/db.sqlite3 $extra_opts \
     --log sqlite_1.log
 
@@ -34,7 +34,7 @@ cat sqlite_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Tim
 cp sqlite/model.npz.yml sqlite/model.npz.1.yml
 
 $MRT_MARIAN/build/marian \
-    -m sqlite/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sqlite/model.npz -t $MART_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 75 --sqlite sqlite/db.sqlite3 $extra_opts \
     --log sqlite_2.log
 

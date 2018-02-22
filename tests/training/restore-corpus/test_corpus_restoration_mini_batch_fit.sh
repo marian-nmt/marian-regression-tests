@@ -13,7 +13,7 @@ test -e vocab.en.yml
 extra_opts="--seed 5555 --maxi-batch 8 --maxi-batch-sort src --mini-batch 32 --mini-batch-fit -w 100 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --restore-corpus"
 
 $MRT_MARIAN/build/marian \
-    -m corpus_fit/model_full.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m corpus_fit/model_full.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 80 $extra_opts \
     --log corpus_fit.log
 
@@ -23,7 +23,7 @@ test -e corpus_fit.log
 cat corpus_fit.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_fit.expected
 
 $MRT_MARIAN/build/marian \
-    -m corpus_fit/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m corpus_fit/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 60 $extra_opts \
     --log corpus_fit_1.log
 
@@ -34,7 +34,7 @@ cat corpus_fit_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ :
 cp corpus_fit/model.npz.yml corpus_fit/model.npz.1.yml
 
 $MRT_MARIAN/build/marian \
-    -m corpus_fit/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m corpus_fit/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --after-batches 80 $extra_opts \
     --log corpus_fit_2.log
 

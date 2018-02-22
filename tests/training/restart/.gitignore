@@ -6,17 +6,3 @@ adam
 adam_async
 adam_sync
 adam_load
-corpus
-corpus.expected
-corpus_mini
-corpus_mini.expected
-corpus_one
-corpus_one.expected
-corpus_maxi
-corpus_maxi.expected
-corpus_fit
-corpus_fit.expected
-sqlite
-sqlite.expected
-sqlite_maxi
-sqlite_maxi.expected

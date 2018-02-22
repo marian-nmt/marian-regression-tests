@@ -21,7 +21,7 @@ extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --min
 #test -e sgd_two_epochs.log
 
 $MRT_MARIAN/build/marian \
-    -m sgd_2e/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --disp-freq 4 --save-freq 32 --after-epoch 1 -l 0.1 $extra_opts \
     --log sgd_1st_epoch.log
 
@@ -32,7 +32,7 @@ cat sgd_1st_epoch.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ 
 cp sgd_2e/model.npz.yml sgd_2e/model.npz.1st_epoch.yml
 
 $MRT_MARIAN/build/marian \
-    -m sgd_2e/model.npz -t train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
     --disp-freq 4 --save-freq 32 --after-epoch 2 -l 0.1 $extra_opts \
     --log sgd_2nd_epoch.log
 
