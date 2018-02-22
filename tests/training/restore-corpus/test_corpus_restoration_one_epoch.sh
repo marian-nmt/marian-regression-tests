@@ -44,7 +44,7 @@ test -e corpus_one_2.log
 cat corpus_one_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_one_2.out
 cat corpus_one_1.out corpus_one_2.out > corpus_one.out
 
-$MRT_TOOLS/diff-floats.py corpus_one.out corpus_one.expected -p 0.1 -n 1 > corpus_one.diff
+$MRT_TOOLS/diff-floats.py corpus_one.out corpus_one.expected -p 0.1 > corpus_one.diff
 
 # Exit with success code
 exit 0
