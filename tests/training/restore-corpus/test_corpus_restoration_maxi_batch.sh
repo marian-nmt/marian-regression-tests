@@ -28,10 +28,12 @@ $MRT_MARIAN/build/marian \
     --log corpus_maxi_1.log
 
 test -e corpus_maxi/model.npz
+test -e corpus_maxi/model.npz.progress.yml
 test -e corpus_maxi_1.log
 
 cat corpus_maxi_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_maxi_1.out
-cp corpus_maxi/model.npz.yml corpus_maxi/model.npz.1.yml
+cp corpus_maxi/model.npz.yml corpus_maxi/model.npz.yml.bac
+cp corpus_maxi/model.npz.progress.yml corpus_maxi/model.npz.progress.yml.bac
 
 $MRT_MARIAN/build/marian \
     -m corpus_maxi/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
