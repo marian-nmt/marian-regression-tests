@@ -52,6 +52,9 @@ count_skipped=0
 count_failed=0
 count_all=0
 
+declare -a tests_skipped
+declare -a tests_failed
+
 test_dirs=$(find $prefix -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
@@ -103,6 +106,7 @@ do
         logn "Running $test_path ... "
         if [ "$nosetup" = true ]; then
             ((++count_skipped))
+            tests_skipped+=($test_path)
             echo " skipped"
             cd $MRT_ROOT
             continue;
@@ -119,9 +123,11 @@ do
             echo " OK"
         elif [ $exit_code -eq $EXIT_CODE_SKIP ]; then
             ((++count_skipped))
+            tests_skipped+=($test_path)
             echo " skipped"
         else
             ((++count_failed))
+            tests_failed+=($test_path)
             echo " failed"
             success=false
         fi
@@ -154,8 +160,22 @@ done
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
 
+# Print skipped and failed tests
+if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
+    echo "---------------------"
+fi
+[[ -z "$tests_skipped" ]] || echo "Skipped:"
+for test_name in "${tests_skipped[@]}"; do
+    echo "  - $test_name"
+done
+[[ -z "$tests_failed" ]] || echo "Failed:"
+for test_name in "${tests_failed[@]}"; do
+    echo "  - $test_name"
+done
+
+# Print summary
 echo "---------------------"
 echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed"
 
-# Exit code
+# Return exit code
 $success && [ $count_all -gt 0 ]
