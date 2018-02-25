@@ -20,8 +20,7 @@ test -e valid/model.npz
 test -e valid/model.npz.yml
 test -e valid_1.log
 
-cp valid/model.npz.yml valid/model.npz.yml.bac
-
+cp valid/model.npz.progress.yml valid/model.npz.progress.yml.bac
 cat valid_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" > valid.out
 
 $MRT_MARIAN/build/marian \
