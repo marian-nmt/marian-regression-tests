@@ -21,13 +21,16 @@ def main():
     for i, line1 in enumerate(args.file1):
         line2 = args.file2.next()
 
-        nums1 = [float(s) for s in line1.rstrip().split() if is_numeric(s)]
-        nums2 = [float(s) for s in line2.rstrip().split() if is_numeric(s)]
+        line1_toks = line1.rstrip().replace("[[-", "[[ -").split()
+        line2_toks = line2.rstrip().replace("[[-", "[[ -").split()
+
+        nums1 = [float(s) for s in line1_toks if is_numeric(s)]
+        nums2 = [float(s) for s in line2_toks if is_numeric(s)]
 
         text1 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line1.rstrip().split()])
+                          for s in line1_toks])
         text2 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line2.rstrip().split()])
+                          for s in line2_toks])
 
         if text1 != text2:
             print "Line {}: different texts:\n< {}\n> {}".format(i, text1, text2)
@@ -41,6 +44,9 @@ def main():
             continue
 
         for j, (n1, n2) in enumerate(zip(nums1, nums2)):
+            if args.abs:
+                n1 = abs(n1)
+                n2 = abs(n2)
             if abs(n1 - n2) > args.precision:
                 if max_diff_nums < 1:
                     print "Line {}: {} != {}".format(i, n1, n2)
@@ -63,6 +69,7 @@ def parse_user_args():
     parser.add_argument("file2", type=argparse.FileType('r'))
     parser.add_argument("-p", "--precision", type=float, default=0.001)
     parser.add_argument("-n", "--max-diff-nums", type=int, default=0)
+    parser.add_argument("-a", "--abs", action="store_true")
     return parser.parse_args()
 
 
