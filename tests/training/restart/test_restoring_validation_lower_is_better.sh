@@ -36,7 +36,7 @@ test -e valid_lowisbet/model.npz
 test -e valid_lowisbet_2.log
 
 cat valid_lowisbet_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "cross-entropy" >> valid_lowisbet.out
-diff valid_lowisbet.out valid_lowisbet.expected > valid_lowisbet.diff
+$MRT_TOOLS/diff-floats.py -p 0.1 valid_lowisbet.out valid_lowisbet.expected > valid_lowisbet.diff
 
 # Exit with success code
 exit 0
