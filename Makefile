@@ -30,6 +30,7 @@ tools:
 
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
+	rm -rf $@/build
 	mkdir -p $@/build && cd $@/build && cmake .. -DCOMPILE_EXAMPLES=ON -DUSE_CUDNN=$(USE_CUDNN) && make -j$(THREADS)
 
 models:
