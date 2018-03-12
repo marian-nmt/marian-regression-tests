@@ -10,7 +10,7 @@ mkdir -p corpus_one
 test -e vocab.de.yml
 test -e vocab.en.yml
 
-extra_opts="--seed 9999 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --restore-corpus"
+extra_opts="--seed 9999 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
 
 $MRT_MARIAN/build/marian \
     -m corpus_one/model_full.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
