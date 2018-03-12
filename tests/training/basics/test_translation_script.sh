@@ -8,13 +8,12 @@ rm -rf trans trans.log trans_script.temp
 mkdir -p trans
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle \
+    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 \
     -m trans/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     -v vocab.en.yml vocab.de.yml \
     --dim-vocabs 50000 50000 \
     --disp-freq 30 --valid-freq 60 --after-batches 150 \
-    --seed 2222 \
     --valid-metrics cross-entropy translation --valid-script-path ./trans_script.sh \
     --valid-sets trans.bpe.en trans.bpe.de \
     --valid-log trans.log

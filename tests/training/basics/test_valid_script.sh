@@ -8,15 +8,13 @@ rm -rf valid valid.log valid_script.temp
 mkdir -p valid
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle \
-    -m valid/model.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
-    -v vocab.en.yml vocab.de.yml \
-    --dim-vocabs 50000 50000 \
+    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 \
+    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
+    -v vocab.{en,de}.yml --dim-vocabs 50000 50000 \
     --disp-freq 10 --valid-freq 30 --after-batches 150 \
-    --seed 2222 \
-    --valid-metrics cross-entropy valid-script --valid-script-path ./valid_script.sh \
-    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.en $MRT_DATA/europarl.de-en/toy.bpe.de \
+    --valid-metrics cross-entropy valid-script \
+    --valid-script-path ./valid_script.sh \
+    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
     --valid-log valid.log
 
 test -e vocab.en.yml
