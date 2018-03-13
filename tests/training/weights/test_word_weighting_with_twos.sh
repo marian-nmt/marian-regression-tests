@@ -21,6 +21,7 @@ test -e word_twos.log
 cat word_twos.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ Time.*//' > word_twos.out
 $MRT_TOOLS/diff-floats.py word_twos.out word_twos.expected -p 0.1 > word_twos.diff
 
+rm -rf word_twos_cfg word_twos_cfg.{log,out,diff}
 mkdir -p word_twos_cfg
 
 echo "data-weighting: word_twos.weights.txt" > word_twos.config.yml
