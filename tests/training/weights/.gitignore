@@ -4,6 +4,10 @@ ones.weights.txt
 word_noweights
 word_ones
 word_ones.weights.txt
+word_twos
+word_twos.weights.txt
+word_twos_cfg
+word_twos.config.yml
 x3copied
 x3weights
 sqlite
