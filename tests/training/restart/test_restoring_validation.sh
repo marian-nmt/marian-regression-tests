@@ -10,7 +10,7 @@ mkdir -p valid
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
-    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 150 --early-stopping 5 \
     --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
     --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
@@ -26,7 +26,7 @@ cat valid_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" > valid.o
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
-    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 300 --early-stopping 5 \
     --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
     --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \

@@ -9,7 +9,7 @@ mkdir -p batch_fit
 
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 1111 --dim-emb 128 --dim-rnn 256 \
-    -m batch_fit/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    -m batch_fit/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 20 --after-batches 100 \
     --log batch_fit.log \
     --mini-batch-fit -w 4000
