@@ -3,6 +3,9 @@
 # Exit on error
 set -e
 
+# Check if 'bc' is installed
+type bc || exit 100
+
 # Test code goes here
 rm -rf batch_fit batch_fit.log
 mkdir -p batch_fit

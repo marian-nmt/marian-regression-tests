@@ -7,6 +7,12 @@ import argparse
 import re
 
 REGEX_NUMERIC = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
+REPLACE_NUMPY = {
+    "[[": "[[ ",
+    "]]": " ]]",
+    "0. ": "0.0 ",
+    "..., ": "... ",
+}
 
 
 def is_numeric(s):
@@ -21,19 +27,22 @@ def main():
     for i, line1 in enumerate(args.file1):
         line2 = args.file2.next()
 
-        line1_toks = line1.rstrip().replace("[[-", "[[ -").split()
-        line2_toks = line2.rstrip().replace("[[-", "[[ -").split()
+        if args.numpy:
+            for k, v in REPLACE_NUMPY.iteritems():
+                line1 = line1.replace(k, v)
+                line2 = line2.replace(k, v)
+        line1_toks = line1.rstrip().split()
+        line2_toks = line2.rstrip().split()
+
 
         nums1 = [float(s) for s in line1_toks if is_numeric(s)]
         nums2 = [float(s) for s in line2_toks if is_numeric(s)]
 
-        text1 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line1_toks])
-        text2 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line2_toks])
+        text1 = ' '.join(["<NUM>" if is_numeric(s) else s for s in line1_toks])
+        text2 = ' '.join(["<NUM>" if is_numeric(s) else s for s in line2_toks])
 
         if text1 != text2:
-            print "Line {}: different texts:\n< {}\n> {}".format(i, text1, text2)
+            print "Line {}: different texts:\n< {}\n> {}".format( i, text1, text2)
             exit_code = 1
             continue
 
@@ -70,6 +79,7 @@ def parse_user_args():
     parser.add_argument("-p", "--precision", type=float, default=0.001)
     parser.add_argument("-n", "--max-diff-nums", type=int, default=0)
     parser.add_argument("-a", "--abs", action="store_true")
+    parser.add_argument("--numpy", action="store_true")
     return parser.parse_args()
 
 
