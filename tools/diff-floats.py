@@ -24,13 +24,21 @@ def main():
     exit_code = 0
     max_diff_nums = args.max_diff_nums
 
-    for i, line1 in enumerate(args.file1):
-        line2 = args.file2.next()
-
+    i = 0
+    while True:
         if args.numpy:
+            line1 = ' '.join(args.file1.readlines()).replace('\n', '')
+            line2 = ' '.join(args.file2.readlines()).replace('\n', '')
+
             for k, v in REPLACE_NUMPY.iteritems():
                 line1 = line1.replace(k, v)
                 line2 = line2.replace(k, v)
+        else:
+            line1 = next(args.file1, None)
+            if line1 is None:
+                break
+            line2 = next(args.file2, None)
+
         line1_toks = line1.rstrip().split()
         line2_toks = line2.rstrip().split()
 
@@ -64,6 +72,10 @@ def main():
                     print "Line {}: {} != {}, allowed diff. numbers: {}" \
                         .format(i, n1, n2, max_diff_nums)
                     max_diff_nums -= 1
+
+        if args.numpy:
+            break
+        i += 1
 
     for _ in args.file2:
         print "Extra line in the second file!"
