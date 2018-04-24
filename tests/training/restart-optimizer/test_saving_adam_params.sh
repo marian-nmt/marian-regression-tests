@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf adam adam*.log
+rm -rf adam adam.log
 mkdir -p adam
 
 $MRT_MARIAN/build/marian \
