@@ -5,3 +5,4 @@ valid_stalled
 sgd_2e
 train.*
 valid.*
+finish*
