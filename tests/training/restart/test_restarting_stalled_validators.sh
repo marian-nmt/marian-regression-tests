@@ -45,6 +45,7 @@ cat valid_stalled_1.log | $MRT_TOOLS/strip-timestamps.sh \
     | grep -P "\[valid\]|Saving model" | grep -v "cross-entropy" \
     | head -n -1 > valid_stalled.out
 
+
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
