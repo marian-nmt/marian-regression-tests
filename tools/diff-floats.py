@@ -6,12 +6,22 @@ import sys
 import argparse
 import re
 
-REGEX_NUMERIC = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
+REGEX_NUMERIC  = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
+REGEX_STRIP_EP = re.compile(r"^\[valid\] Ep\. \d+ : Up\. ")
 
 
 def is_numeric(s):
     return REGEX_NUMERIC.match(s)
 
+
+def process_line(line):
+    line = REGEX_STRIP_EP.sub("[valid] ", line)              # normalize new Ep format "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
+    line_toks = line.rstrip().replace("[[-", "[[ -").split() # tokenize
+    nums = [float(s) for s in line_toks if is_numeric(s)]    # find all numbers
+    text = ' '.join(["<NUM>" if is_numeric(s) else s         # text format with numbers normalized
+                      for s in line_toks])
+    return line_toks, nums, text
+    
 
 def main():
     args = parse_user_args()
@@ -21,16 +31,8 @@ def main():
     for i, line1 in enumerate(args.file1):
         line2 = args.file2.next()
 
-        line1_toks = line1.rstrip().replace("[[-", "[[ -").split()
-        line2_toks = line2.rstrip().replace("[[-", "[[ -").split()
-
-        nums1 = [float(s) for s in line1_toks if is_numeric(s)]
-        nums2 = [float(s) for s in line2_toks if is_numeric(s)]
-
-        text1 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line1_toks])
-        text2 = ' '.join(["<NUM>" if is_numeric(s) else s
-                          for s in line2_toks])
+        line1_toks, nums1, text1 = process_line(line1)
+        line2_toks, nums2, text2 = process_line(line2)
 
         if text1 != text2:
             print "Line {}: different texts:\n< {}\n> {}".format(i, text1, text2)
