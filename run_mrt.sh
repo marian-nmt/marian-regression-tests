@@ -1,6 +1,13 @@
 #!/bin/bash
 
+# Marian test script. Invocation examples:
+#  ./run_mrt.sh
+#  ./run_mrt.sh tests/training/weights
+#  ./run_mrt.sh tests/training/restart/test_loading_adam_params.sh
+
 SHELL=/bin/bash
+
+export LC_ALL=C.UTF-8
 
 export EXIT_CODE_SUCCESS=0
 export EXIT_CODE_SKIP=100
@@ -69,8 +76,9 @@ time_start=$(date +%s.%N)
 
 # Traverse test directories
 cd $MRT_ROOT
-for test_dir in $test_dirs
+for test_dir_rel in $test_dirs
 do
+    test_dir=$MRT_ROOT/$test_dir_rel
     log "Checking directory: $test_dir"
     nosetup=false
 
@@ -115,13 +123,13 @@ do
         fi
 
         # Run test
-        $SHELL -x $test_file > $test_name.stdout 2> $test_name.stderr
+        test_log=$test_dir/$test_name.log
+        $SHELL -x $test_file > $test_log 2>&1
         exit_code=$?
 
         # Check exit code
         if [ $exit_code -eq $EXIT_CODE_SUCCESS ]; then
             ((++count_passed))
-            rm $test_name.stdout $test_name.stderr
             echo " OK"
         elif [ $exit_code -eq $EXIT_CODE_SKIP ]; then
             ((++count_skipped))
@@ -131,6 +139,8 @@ do
             ((++count_failed))
             tests_failed+=($test_path)
             echo " failed"
+            log "- LOG: $test_log"
+            log "- DIR: "`pwd`
             success=false
         fi
 
