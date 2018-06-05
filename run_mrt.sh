@@ -41,11 +41,11 @@ function logn {
 }
 
 function format_time {
-    dt=$(echo "$2 - $1" | bc)
-    dh=$(echo "$dt/3600" | bc)
-    dt2=$(echo "$dt-3600*$dh" | bc)
-    dm=$(echo "$dt2/60" | bc)
-    ds=$(echo "$dt2-60*$dm" | bc)
+    dt=$(echo "$2 - $1" | bc 2>/dev/null)
+    dh=$(echo "$dt/3600" | bc 2>/dev/null)
+    dt2=$(echo "$dt-3600*$dh" | bc 2>/dev/null)
+    dm=$(echo "$dt2/60" | bc 2>/dev/null)
+    ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 

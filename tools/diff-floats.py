@@ -6,36 +6,51 @@ import sys
 import argparse
 import re
 
-REGEX_NUMERIC  = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
-REGEX_STRIP_EP = re.compile(r"^\[valid\] Ep\. \d+ : Up\. ")
+REGEX_NUMERIC = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
+REPLACE_NUMPY = {
+    "[[": "[[ ",
+    "]]": " ]]",
+    "0. ": "0.0 ",
+    "..., ": "... ",
+}
 
 
 def is_numeric(s):
     return REGEX_NUMERIC.match(s)
 
 
-def process_line(line):
-    line = REGEX_STRIP_EP.sub("[valid] ", line)              # normalize new Ep format "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
-    line_toks = line.rstrip().replace("[[-", "[[ -").split() # tokenize
-    nums = [float(s) for s in line_toks if is_numeric(s)]    # find all numbers
-    text = ' '.join(["<NUM>" if is_numeric(s) else s         # text format with numbers normalized
-                      for s in line_toks])
-    return line_toks, nums, text
-    
-
 def main():
     args = parse_user_args()
     exit_code = 0
     max_diff_nums = args.max_diff_nums
 
-    for i, line1 in enumerate(args.file1):
-        line2 = args.file2.next()
+    i = 0
+    while True:
+        if args.numpy:
+            line1 = ' '.join(args.file1.readlines()).replace('\n', '')
+            line2 = ' '.join(args.file2.readlines()).replace('\n', '')
 
-        line1_toks, nums1, text1 = process_line(line1)
-        line2_toks, nums2, text2 = process_line(line2)
+            for k, v in REPLACE_NUMPY.iteritems():
+                line1 = line1.replace(k, v)
+                line2 = line2.replace(k, v)
+        else:
+            line1 = next(args.file1, None)
+            if line1 is None:
+                break
+            line2 = next(args.file2, None)
+
+        line1_toks = line1.rstrip().split()
+        line2_toks = line2.rstrip().split()
+
+
+        nums1 = [float(s) for s in line1_toks if is_numeric(s)]
+        nums2 = [float(s) for s in line2_toks if is_numeric(s)]
+
+        text1 = ' '.join(["<NUM>" if is_numeric(s) else s for s in line1_toks])
+        text2 = ' '.join(["<NUM>" if is_numeric(s) else s for s in line2_toks])
 
         if text1 != text2:
-            print "Line {}: different texts:\n< {}\n> {}".format(i, text1, text2)
+            print "Line {}: different texts:\n< {}\n> {}".format( i, text1, text2)
             exit_code = 1
             continue
 
@@ -58,6 +73,10 @@ def main():
                         .format(i, n1, n2, max_diff_nums)
                     max_diff_nums -= 1
 
+        if args.numpy:
+            break
+        i += 1
+
     for _ in args.file2:
         print "Extra line in the second file!"
         exit_code = 1
@@ -72,6 +91,7 @@ def parse_user_args():
     parser.add_argument("-p", "--precision", type=float, default=0.001)
     parser.add_argument("-n", "--max-diff-nums", type=int, default=0)
     parser.add_argument("-a", "--abs", action="store_true")
+    parser.add_argument("--numpy", action="store_true")
     return parser.parse_args()
 
 

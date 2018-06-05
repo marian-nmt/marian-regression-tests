@@ -15,7 +15,7 @@ mkdir -p async_sgd
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --dim-emb 128 --dim-rnn 256 \
     --devices 0 1 \
-    -m async_sgd/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    -m async_sgd/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 20 --after-batches 400 \
     --log async_sgd.log
 
