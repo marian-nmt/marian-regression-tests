@@ -7,6 +7,9 @@ set -e
 rm -rf x3copied* x3weights*
 mkdir -p x3copied x3weights
 
+test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
+
 $MRT_MARIAN/build/marian \
     --seed 2222 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 --dim-emb 128 --dim-rnn 256 -o sgd \
     -m x3copied/model.npz -t train.x3.{de,en} -v vocab.{de,en}.yml \

@@ -7,6 +7,9 @@ set -e
 rm -rf valid valid_script.temp
 mkdir -p valid
 
+test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
+
 $MRT_MARIAN/build/marian \
     --seed 4444 --no-shuffle --maxi-batch 1 --maxi-batch-sort none \
     -m valid/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
@@ -21,10 +24,10 @@ test -e valid/valid.log
 test -e valid/train.log
 
 $MRT_TOOLS/strip-timestamps.sh < valid/valid.log > valid.out
-$MRT_TOOLS/diff-floats.py valid.out valid.expected -p 0.4 > valid.diff
+$MRT_TOOLS/diff-floats.py valid.out valid.expected -p 1.99 > valid.diff
 
 $MRT_TOOLS/extract-costs.sh < valid/train.log > train.out
-$MRT_TOOLS/diff-floats.py train.out train.expected -p 0.4 > train.diff
+$MRT_TOOLS/diff-floats.py train.out train.expected -p 1.99 > train.diff
 
 # Exit with success code
 exit 0

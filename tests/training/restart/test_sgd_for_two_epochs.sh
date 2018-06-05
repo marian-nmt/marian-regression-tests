@@ -7,9 +7,6 @@ set -e
 rm -rf sgd_2e sgd_1st_epoch.log sgd_2nd_epoch.log
 mkdir -p sgd_2e
 
-test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
-test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
-
 extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 -o sgd"
 
 #$MRT_MARIAN/build/marian \
@@ -21,7 +18,7 @@ extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --min
 #test -e sgd_two_epochs.log
 
 $MRT_MARIAN/build/marian \
-    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 4 --save-freq 32 --after-epoch 1 -l 0.1 $extra_opts \
     --log sgd_1st_epoch.log
 
@@ -32,7 +29,7 @@ cat sgd_1st_epoch.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ 
 cp sgd_2e/model.npz.yml sgd_2e/model.npz.1st_epoch.yml
 
 $MRT_MARIAN/build/marian \
-    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.{en,de}.yml \
+    -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 4 --save-freq 32 --after-epoch 2 -l 0.1 $extra_opts \
     --log sgd_2nd_epoch.log
 

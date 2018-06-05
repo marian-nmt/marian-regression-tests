@@ -14,7 +14,7 @@ fi
 
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 128 --dim-rnn 256 \
-    -m adam_async/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.{en,de}.yml \
+    -m adam_async/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --after-batches 100 --save-freq 60 \
     --log adam_async.log --devices 0 1
 
@@ -31,8 +31,8 @@ diff adam_async.keys.out adam.keys.expected > adam_async.keys.diff
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_mt" > adam_async.mt.out
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_vt" > adam_async.vt.out
 
-$MRT_TOOLS/diff-floats.py -a -p 0.02  adam_async.mt.out adam_async.mt.expected > adam_async.mt.diff
-$MRT_TOOLS/diff-floats.py    -p 0.001 adam_async.vt.out adam_async.vt.expected > adam_async.vt.diff
+$MRT_TOOLS/diff-floats.py --numpy -a -p 0.02  adam_async.mt.out adam_async.mt.expected > adam_async.mt.diff
+$MRT_TOOLS/diff-floats.py --numpy    -p 0.001 adam_async.vt.out adam_async.vt.expected > adam_async.vt.diff
 
 # Exit with success code
 exit 0

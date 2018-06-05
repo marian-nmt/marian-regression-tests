@@ -1,4 +1,4 @@
-[valid] 60 : cross-entropy : 213.1 : new best
-[valid] 60 : translation : 1 : new best
-[valid] 120 : cross-entropy : 188.014 : new best
-[valid] 120 : translation : 2 : new best
+[valid] Ep. 1 : Up. 60 : cross-entropy : 213.075 : new best
+[valid] Ep. 1 : Up. 60 : translation : 1 : new best
+[valid] Ep. 1 : Up. 120 : cross-entropy : 187.979 : new best
+[valid] Ep. 1 : Up. 120 : translation : 2 : new best

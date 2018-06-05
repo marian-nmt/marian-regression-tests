@@ -12,3 +12,5 @@ sqlite
 sqlite.expected
 sqlite_maxi
 sqlite_maxi.expected
+corpus_noshuf
+corpus_noshuf.expected

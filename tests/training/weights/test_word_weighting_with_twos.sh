@@ -7,6 +7,9 @@ set -e
 rm -rf word_twos word_twos.{log,out,diff}
 mkdir -p word_twos
 
+test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
+
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/2/g' > word_twos.weights.txt
 
 $MRT_MARIAN/build/marian \
