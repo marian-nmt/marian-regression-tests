@@ -24,6 +24,7 @@ Each test consists of:
 * `setup.sh` (optional)
 * `teardown.sh` (optional)
 
+
 ## Usage
 
 Download data and compile tools:
@@ -38,20 +39,11 @@ or a specific group of tests, e.g.:
 
     ./run_mrt tests/translation
 
-To specify which GPU device should be used to run tests, set the
-`CUDA_VISIBLE_DEVICES` variable, e.g.:
-
-    CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
-
-You can also provide a path to marian-dev repository:
+More examples:
 
     MARIAN=/path/to/marian-dev ./run_mrt.sh
+    CUDA_VISIBLE_DEVICES=2 ./run_mrt.sh
 
-## TODO:
-
-* add a test for restarting training
-* add descriptions of tests
-* add logging tests
 
 ## Acknowledgements
 

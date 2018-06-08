@@ -1,13 +1,15 @@
 #!/bin/bash
 
-SHELL=/bin/bash
+# Environment variables:
+# * MARIAN - path to Marian root directory
+# * CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
+# * NUM_DEVICES - maximum number of GPU devices to be used
 
-export EXIT_CODE_SUCCESS=0
-export EXIT_CODE_SKIP=100
+SHELL=/bin/bash
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN=${MARIAN:-$MRT_TOOLS/marian}
+export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
@@ -17,6 +19,10 @@ export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "M
 
 # Number of available devices
 export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
+
+# Exit codes
+export EXIT_CODE_SUCCESS=0
+export EXIT_CODE_SKIP=100
 
 
 prefix=tests
