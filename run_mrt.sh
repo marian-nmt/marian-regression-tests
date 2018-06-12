@@ -1,11 +1,18 @@
 #!/bin/bash
 
+# Marian regression test script. Invocation examples:
+#  ./run_mrt.sh
+#  ./run_mrt.sh tests/training/basics
+#  ./run_mrt.sh tests/training/basics/test_valid_script.sh
+
 # Environment variables:
-# * MARIAN - path to Marian root directory
-# * CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
-# * NUM_DEVICES - maximum number of GPU devices to be used
+#  - MARIAN - path to Marian root directory
+#  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
+#  - NUM_DEVICES - maximum number of GPU devices to be used
 
 SHELL=/bin/bash
+
+export LC_ALL=C.UTF-8
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
@@ -121,13 +128,14 @@ do
         fi
 
         # Run test
-        $SHELL -x $test_file > $test_name.stdout 2> $test_name.stderr
+        test_stdout=$test_name.stdout
+        test_stderr=$test_name.stderr
+        $SHELL -x $test_file > $test_stdout 2> $test_stderr
         exit_code=$?
 
         # Check exit code
         if [ $exit_code -eq $EXIT_CODE_SUCCESS ]; then
             ((++count_passed))
-            rm $test_name.stdout $test_name.stderr
             echo " OK"
         elif [ $exit_code -eq $EXIT_CODE_SKIP ]; then
             ((++count_skipped))
@@ -179,6 +187,10 @@ done
 [[ -z "$tests_failed" ]] || echo "Failed:"
 for test_name in "${tests_failed[@]}"; do
     echo "  - $test_name"
+done
+[[ -z "$tests_failed" ]] || echo "Logs:"
+for test_name in "${tests_failed[@]}"; do
+    echo "  - $(realpath $test_name | sed 's/.sh/.stderr/')"
 done
 
 # Print summary
