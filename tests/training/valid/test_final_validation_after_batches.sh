@@ -10,7 +10,7 @@ mkdir -p final_batch
 $MRT_MARIAN/build/marian \
     --no-shuffle --seed 1111 -o sgd --dim-emb 64 --dim-rnn 128 \
     -m final_batch/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
-    -v vocab.{en,de}.yml --dim-vocabs 50000 50000 \
+    -v vocab.en.yml vocab.de.yml --dim-vocabs 50000 50000 \
     --disp-freq 30 --valid-freq 60 --after-batches 150 \
     --valid-metrics cross-entropy --valid-sets valid.bpe.{en,de} \
     --valid-log final_batch.log

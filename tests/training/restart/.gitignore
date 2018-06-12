@@ -1,9 +1,8 @@
 valid
-valid_script.temp
+valid_script*.temp
 valid_lowisbet
+valid_stalled
 sgd_2e
-adagrad
-adam
-adam_async
-adam_sync
-adam_load
+train.*
+valid.*
+finish*

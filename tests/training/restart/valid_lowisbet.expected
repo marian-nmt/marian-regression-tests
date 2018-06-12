@@ -1,10 +1,10 @@
-[valid] 30 : cross-entropy : 299.66 : new best
-[valid] 60 : cross-entropy : 298.711 : new best
-[valid] 90 : cross-entropy : 293.688 : new best
-[valid] 120 : cross-entropy : 292.312 : new best
-[valid] 150 : cross-entropy : 291.82 : new best
-[valid] 160 : cross-entropy : 291.761 : new best
-[valid] 180 : cross-entropy : 291.246 : new best
-[valid] 210 : cross-entropy : 291.019 : new best
-[valid] 240 : cross-entropy : 291.036 : stalled 1 times
-[valid] 270 : cross-entropy : 291.224 : stalled 2 times
+[valid] Ep. 1 : Up. 30 : cross-entropy : 299.654 : new best
+[valid] Ep. 2 : Up. 60 : cross-entropy : 298.676 : new best
+[valid] Ep. 3 : Up. 90 : cross-entropy : 293.624 : new best
+[valid] Ep. 4 : Up. 120 : cross-entropy : 292.256 : new best
+[valid] Ep. 5 : Up. 150 : cross-entropy : 291.772 : new best
+[valid] Ep. 5 : Up. 160 : cross-entropy : 291.715 : new best
+[valid] Ep. 6 : Up. 180 : cross-entropy : 291.193 : new best
+[valid] Ep. 7 : Up. 210 : cross-entropy : 290.962 : new best
+[valid] Ep. 8 : Up. 240 : cross-entropy : 290.982 : stalled 1 times
+[valid] Ep. 9 : Up. 270 : cross-entropy : 291.173 : stalled 2 times

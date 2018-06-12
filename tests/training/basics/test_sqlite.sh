@@ -11,7 +11,7 @@ $MRT_MARIAN/build/marian \
     --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 -o sgd \
     -m sqlite/model.nosqlite.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
-    -v sqlite/vocab.{en,de}.yml \
+    -v sqlite/vocab.en.yml sqlite/vocab.de.yml \
     --disp-freq 10 --after-batches 100 \
     --log nosqlite.log
 
@@ -24,7 +24,7 @@ $MRT_MARIAN/build/marian \
     --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 -o sgd \
     -m sqlite/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} --sqlite \
-    -v sqlite/vocab.{en,de}.yml \
+    -v sqlite/vocab.en.yml sqlite/vocab.de.yml \
     --disp-freq 10 --after-batches 100 \
     --log sqlite.log
 

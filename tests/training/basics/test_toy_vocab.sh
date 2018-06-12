@@ -9,7 +9,7 @@ rm -f toy/* toy.log
 
 $MRT_MARIAN/build/marian \
     --seed 1111 --dim-emb 256 --dim-rnn 512 \
-    -m toy/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v toy/vocab.{en,de}.yml \
+    -m toy/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v toy/vocab.en.yml toy/vocab.de.yml \
     --log toy.log --disp-freq 5 -e 5
 
 test -e toy/vocab.en.yml

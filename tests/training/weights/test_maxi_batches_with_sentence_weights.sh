@@ -7,6 +7,9 @@ set -e
 mkdir -p maxibatch
 rm -rf maxibatch/* maxibatch.log
 
+test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
+
 $MRT_MARIAN/build/marian \
     --seed 3333 --no-shuffle --dim-emb 128 --dim-rnn 256 -o sgd \
     -m maxibatch/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \

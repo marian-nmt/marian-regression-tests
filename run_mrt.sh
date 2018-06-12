@@ -1,20 +1,22 @@
 #!/bin/bash
 
-# Marian test script. Invocation examples:
+# Marian regression test script. Invocation examples:
 #  ./run_mrt.sh
-#  ./run_mrt.sh tests/training/weights
-#  ./run_mrt.sh tests/training/restart/test_loading_adam_params.sh
+#  ./run_mrt.sh tests/training/basics
+#  ./run_mrt.sh tests/training/basics/test_valid_script.sh
+
+# Environment variables:
+#  - MARIAN - path to Marian root directory
+#  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
+#  - NUM_DEVICES - maximum number of GPU devices to be used
 
 SHELL=/bin/bash
 
 export LC_ALL=C.UTF-8
 
-export EXIT_CODE_SUCCESS=0
-export EXIT_CODE_SKIP=100
-
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN=${MARIAN:-$MRT_TOOLS/marian}
+export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
@@ -24,6 +26,10 @@ export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "M
 
 # Number of available devices
 export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
+
+# Exit codes
+export EXIT_CODE_SUCCESS=0
+export EXIT_CODE_SKIP=100
 
 
 prefix=tests
@@ -41,11 +47,11 @@ function logn {
 }
 
 function format_time {
-    dt=$(echo "$2 - $1" | bc)
-    dh=$(echo "$dt/3600" | bc)
-    dt2=$(echo "$dt-3600*$dh" | bc)
-    dm=$(echo "$dt2/60" | bc)
-    ds=$(echo "$dt2-60*$dm" | bc)
+    dt=$(echo "$2 - $1" | bc 2>/dev/null)
+    dh=$(echo "$dt/3600" | bc 2>/dev/null)
+    dt2=$(echo "$dt-3600*$dh" | bc 2>/dev/null)
+    dm=$(echo "$dt2/60" | bc 2>/dev/null)
+    ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
@@ -76,9 +82,8 @@ time_start=$(date +%s.%N)
 
 # Traverse test directories
 cd $MRT_ROOT
-for test_dir_rel in $test_dirs
+for test_dir in $test_dirs
 do
-    test_dir=$MRT_ROOT/$test_dir_rel
     log "Checking directory: $test_dir"
     nosetup=false
 
@@ -123,8 +128,9 @@ do
         fi
 
         # Run test
-        test_log=$test_dir/$test_name.log
-        $SHELL -x $test_file > $test_log 2>&1
+        test_stdout=$test_name.stdout
+        test_stderr=$test_name.stderr
+        $SHELL -x $test_file > $test_stdout 2> $test_stderr
         exit_code=$?
 
         # Check exit code
@@ -139,8 +145,6 @@ do
             ((++count_failed))
             tests_failed+=($test_path)
             echo " failed"
-            log "- LOG: $test_log"
-            log "- DIR: "`pwd`
             success=false
         fi
 
@@ -183,6 +187,10 @@ done
 [[ -z "$tests_failed" ]] || echo "Failed:"
 for test_name in "${tests_failed[@]}"; do
     echo "  - $test_name"
+done
+[[ -z "$tests_failed" ]] || echo "Logs:"
+for test_name in "${tests_failed[@]}"; do
+    echo "  - $(realpath $test_name | sed 's/.sh/.stderr/')"
 done
 
 # Print summary
