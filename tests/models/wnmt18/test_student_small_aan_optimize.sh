@@ -18,7 +18,7 @@ cat optimize_aan.out | perl -pe 's/@@ //g' \
     | $MRT_TOOLS/moses-scripts/scripts/generic/multi-bleu.perl newstest2014.ref \
     | $MRT_TOOLS/extract-bleu.sh > optimize_aan.bleu
 
-$MRT_TOOLS/diff-floats.py optimize_aan.bleu optimize_aan.bleu.expected -p 0.1 > optimize_aan.bleu.diff
+$MRT_TOOLS/diff-floats.py optimize_aan.bleu optimize_aan.bleu.expected -p 0.3 > optimize_aan.bleu.diff
 
 # Exit with success code
 exit 0
