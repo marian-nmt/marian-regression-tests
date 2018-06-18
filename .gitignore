@@ -23,6 +23,7 @@ models/wmt17_systems/en-de
 models/wmt17_systems/scripts
 models/wmt17_systems/vars
 models/char-s2s
+models/wnmt18
 
 data/*/corpus.*
 data/*/*.bpe

@@ -20,9 +20,10 @@ export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
-# Check if Marian is compiled with CUDNN
-export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+# Check Marian compilation settings
 export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND")
+export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
 
 # Number of available devices
 export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
@@ -56,8 +57,9 @@ function format_time {
 }
 
 log "Using Marian: $MRT_MARIAN"
-log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
+log "Using version: $MRT_MARIAN_VERSION"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
+log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using number of devices: $MRT_NUM_DEVICES"
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
