@@ -3,7 +3,8 @@
 # Exit on error
 set -e
 
-# Skip if no CUDNN found
+
+# Skip if no MKL found
 if [ ! $MRT_MARIAN_USE_MKL ]; then
     exit 100
 fi
