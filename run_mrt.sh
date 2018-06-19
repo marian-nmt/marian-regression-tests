@@ -20,9 +20,10 @@ export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
-# Check if Marian is compiled with CUDNN
-export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+# Check Marian compilation settings
 export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND")
+export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
 
 # Number of available devices
 export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
@@ -56,8 +57,9 @@ function format_time {
 }
 
 log "Using Marian: $MRT_MARIAN"
-log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
+log "Using version: $MRT_MARIAN_VERSION"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
+log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using number of devices: $MRT_NUM_DEVICES"
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
@@ -175,18 +177,19 @@ done
 
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
+prev_log=previous.log
 
 # Print skipped and failed tests
 if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
     echo "---------------------"
 fi
-[[ -z "$tests_skipped" ]] || echo "Skipped:"
+[[ -z "$tests_skipped" ]] || echo "Skipped:" | tee $prev_log
 for test_name in "${tests_skipped[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
 done
-[[ -z "$tests_failed" ]] || echo "Failed:"
+[[ -z "$tests_failed" ]] || echo "Failed:" | tee -a $prev_log
 for test_name in "${tests_failed[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
 done
 [[ -z "$tests_failed" ]] || echo "Logs:"
 for test_name in "${tests_failed[@]}"; do
@@ -194,8 +197,8 @@ for test_name in "${tests_failed[@]}"; do
 done
 
 # Print summary
-echo "---------------------"
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed"
+echo "---------------------" | tee -a $prev_log
+echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
 
 # Return exit code
 $success && [ $count_all -gt 0 ]
