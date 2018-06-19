@@ -177,18 +177,19 @@ done
 
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
+prev_log=previous.log
 
 # Print skipped and failed tests
 if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
     echo "---------------------"
 fi
-[[ -z "$tests_skipped" ]] || echo "Skipped:"
+[[ -z "$tests_skipped" ]] || echo "Skipped:" | tee $prev_log
 for test_name in "${tests_skipped[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
 done
-[[ -z "$tests_failed" ]] || echo "Failed:"
+[[ -z "$tests_failed" ]] || echo "Failed:" | tee -a $prev_log
 for test_name in "${tests_failed[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
 done
 [[ -z "$tests_failed" ]] || echo "Logs:"
 for test_name in "${tests_failed[@]}"; do
@@ -196,8 +197,8 @@ for test_name in "${tests_failed[@]}"; do
 done
 
 # Print summary
-echo "---------------------"
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed"
+echo "---------------------" | tee -a $prev_log
+echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
 
 # Return exit code
 $success && [ $count_all -gt 0 ]
