@@ -32,7 +32,7 @@ $MRT_MARIAN/build/marian \
     --log expsmooth_sync_1.log
 
 test -e expsmooth_sync/model.npz
-#test -e expsmooth_sync/model.npz.mvavg.npz
+test -e expsmooth_sync/model.npz.mvavg.npz
 test -e expsmooth_sync_1.log
 
 cat expsmooth_sync_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > expsmooth_sync.out
@@ -44,7 +44,7 @@ $MRT_MARIAN/build/marian \
     --log expsmooth_sync_2.log
 
 test -e expsmooth_sync/model.npz
-#test -e expsmooth_sync/model.npz.mvavg.npz
+test -e expsmooth_sync/model.npz.mvavg.npz
 test -e expsmooth_sync_2.log
 
 cat expsmooth_sync_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' >> expsmooth_sync.out
