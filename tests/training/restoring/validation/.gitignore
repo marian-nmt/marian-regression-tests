@@ -1,6 +1,6 @@
 valid
 valid_script*.temp
-sgd_2e
+valid_lowisbet
+valid_stalled
 train.*
 valid.*
-finish*
