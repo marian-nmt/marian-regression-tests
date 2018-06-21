@@ -177,13 +177,15 @@ done
 
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
+
 prev_log=previous.log
+rm -f $prev_log
 
 # Print skipped and failed tests
 if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
     echo "---------------------"
 fi
-[[ -z "$tests_skipped" ]] || echo "Skipped:" | tee $prev_log
+[[ -z "$tests_skipped" ]] || echo "Skipped:" | tee -a $prev_log
 for test_name in "${tests_skipped[@]}"; do
     echo "  - $test_name" | tee -a $prev_log
 done
