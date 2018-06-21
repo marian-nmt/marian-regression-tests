@@ -1,9 +1,5 @@
-sgd_2e
 adagrad
 adam
 adam_async
 adam_sync
 adam_load
-
-expsmooth
-expsmooth.expected
