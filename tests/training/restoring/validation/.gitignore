@@ -2,5 +2,8 @@ valid
 valid_script*.temp
 valid_lowisbet
 valid_stalled
+valid_add
 train.*
 valid.*
+dev.bpe.de
+dev.bpe.en

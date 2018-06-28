@@ -13,7 +13,7 @@ $MRT_MARIAN/build/marian \
     -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 150 --early-stopping 5 \
     --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
-    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
+    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} --valid-mini-batch 64 \
     --valid-log valid_1.log
 
 test -e valid/model.npz
@@ -29,7 +29,7 @@ $MRT_MARIAN/build/marian \
     -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 300 --early-stopping 5 \
     --valid-metrics valid-script cross-entropy --valid-script-path ./valid_script.sh \
-    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
+    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} --valid-mini-batch 64 \
     --valid-log valid_2.log
 
 test -e valid/model.npz
