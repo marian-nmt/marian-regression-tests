@@ -7,9 +7,6 @@ set -e
 rm -rf sqlite sqlite.log
 mkdir -p sqlite
 
-test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
-test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
-
 $MRT_MARIAN/build/marian \
     --seed 1111 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 --dim-emb 128 --dim-rnn 256 -o sgd \
     -m sqlite/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \

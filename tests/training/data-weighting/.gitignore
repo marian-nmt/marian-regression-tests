@@ -11,6 +11,8 @@ word_twos.config.yml
 x3copied
 x3weights
 sqlite
+sqlite_word
+sqlite_word.weights.txt
 valid
 valid_script.temp
 maxibatch
