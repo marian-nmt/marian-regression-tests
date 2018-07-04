@@ -1,0 +1,10 @@
+expsmooth*
+expsmooth*.check
+expsmooth*.expected
+
+sync
+sync.expected
+
+valid.bpe.en
+valid.bpe.de
+
