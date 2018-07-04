@@ -7,12 +7,14 @@ import argparse
 import re
 
 REGEX_NUMERIC = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
-REPLACE_NUMPY = {
-    "[[": "[[ ",
-    "]]": " ]]",
-    "0. ": "0.0 ",
-    "..., ": "... ",
-}
+REPLACE_NUMPY = [
+    ("[[", "[[ "),
+    ("]]", " ]]"),
+    ("0. ", "0.0 "),
+    ("...) ", "... "),
+    ("]", " ]"),
+    ("[", "[ ")
+]
 
 
 def is_numeric(s):
@@ -30,7 +32,7 @@ def main():
             line1 = ' '.join(args.file1.readlines()).replace('\n', '')
             line2 = ' '.join(args.file2.readlines()).replace('\n', '')
 
-            for k, v in REPLACE_NUMPY.iteritems():
+            for k, v in REPLACE_NUMPY:
                 line1 = line1.replace(k, v)
                 line2 = line2.replace(k, v)
         else:
