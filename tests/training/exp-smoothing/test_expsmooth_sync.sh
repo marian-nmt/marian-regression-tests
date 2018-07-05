@@ -9,7 +9,7 @@ if (( $MRT_NUM_DEVICES < 2 )); then
 fi
 
 # Test code goes here
-rm -rf expsmooth_sync expsmooth_sync_*.log
+rm -rf expsmooth_sync expsmooth_sync*.log
 mkdir -p expsmooth_sync
 
 

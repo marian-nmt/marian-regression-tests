@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf expsmooth expsmooth_*.log
+rm -rf expsmooth expsmooth*.log
 mkdir -p expsmooth
 
 
