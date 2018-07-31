@@ -76,7 +76,7 @@ declare -a tests_failed
 test_dirs=$(find $prefix -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
-    test_one_file=$(basename $prefix)
+    test_single_files=$(printf '%s\n' $prefix | sed 's!*/!!')
     test_dirs=$(dirname $prefix)
 fi
 
@@ -109,7 +109,11 @@ do
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
     do
-        if [[ -n "$test_one_file" && $test_path != *"$test_one_file"* ]]; then
+        test_file=$(basename $test_path)
+        test_name="${test_file%.*}"
+
+        # In non-traverse mode skip tests if not requested
+        if [[ -n "$test_single_files" && $test_single_files != *"$test_file"* ]]; then
             continue
         fi
         test_time_start=$(date +%s.%N)
@@ -117,8 +121,6 @@ do
 
         # Tests are executed from their directory
         cd $test_dir
-        test_file=$(basename $test_path)
-        test_name="${test_file%.*}"
 
         # Skip tests if setup failed
         logn "Running $test_path ... "
