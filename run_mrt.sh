@@ -4,6 +4,8 @@
 #  ./run_mrt.sh
 #  ./run_mrt.sh tests/training/basics
 #  ./run_mrt.sh tests/training/basics/test_valid_script.sh
+#  ./run_mrt.sh previous.log
+# where previous.log contains a list of test files in separate lines.
 
 # Environment variables:
 #  - MARIAN - path to Marian root directory
@@ -34,11 +36,16 @@ export EXIT_CODE_SUCCESS=0
 export EXIT_CODE_SKIP=100
 
 
+# Default directory with all regression tests
 prefix=tests
 if [ $# -ge 1 ]; then
-    prefix="$@"
+    if [[ "$1" = *.log ]]; then
+        # Extract test names from .log file
+        prefix=$(cat $1 | grep '/test_.*\.sh' | grep -v '/_' | sed 's/^ *- *//' | tr '\n' ' ' | sed 's/ *$//')
+    else
+        prefix="$@"
+    fi
 fi
-
 
 function log {
     echo [$(date "+%m/%d/%Y %T")] $@
