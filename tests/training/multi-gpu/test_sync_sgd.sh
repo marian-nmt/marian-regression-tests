@@ -24,7 +24,7 @@ test -e sync_sgd/model.full.npz
 test -e sync_sgd.log
 
 cat sync_sgd.log | $MRT_TOOLS/extract-costs.sh > sync_sgd.out
-$MRT_TOOLS/diff-floats.py sync_sgd.out sync_sgd.expected -p 0.03 > sync_sgd.diff
+$MRT_TOOLS/diff-floats.py sync_sgd.out sync_sgd.expected -p 0.1 > sync_sgd.diff
 
 # Exit with success code
 exit 0
