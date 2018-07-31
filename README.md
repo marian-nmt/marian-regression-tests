@@ -27,15 +27,17 @@ Each test consists of:
 
 ## Usage
 
-Download data and compile tools:
+Download data and tools, compile Marian, and run tests:
 
     make install
+    make marian
+    make run
 
 Run single-GPU regression tests:
 
     ./run_mrt.sh
 
-or including multi-GPU tests:
+or include multi-GPU tests:
 
     CUDA_VISIBLE_DEVICES=0,1 ./run_mrt.sh
 
