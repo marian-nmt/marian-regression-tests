@@ -31,18 +31,22 @@ Download data and compile tools:
 
     make install
 
-Run regression tests:
+Run single-GPU regression tests:
 
     ./run_mrt.sh
 
-or a specific group of tests, e.g.:
+or including multi-GPU tests:
 
-    ./run_mrt tests/translation
+    CUDA_VISIBLE_DEVICES=0,1 ./run_mrt.sh
 
-More examples:
+More invocation examples:
 
     MARIAN=/path/to/marian-dev ./run_mrt.sh
-    CUDA_VISIBLE_DEVICES=2 ./run_mrt.sh
+    ./run_mrt.sh tests/training/basics
+    ./run_mrt.sh tests/training/basics/test_valid_script.sh
+    ./run_mrt.sh previous.log
+
+where _previous.log_ contains a list of test files in separate lines.
 
 
 ## Acknowledgements
