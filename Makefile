@@ -6,10 +6,9 @@ GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
 BRANCH=master
-CUDA=/usr/local/cuda
-CUDNN=off
 
-CMAKE_FLAGS=-DCUDA_TOOLKIT_ROOT_DIR=$(CUDA) -DUSE_CUDNN=$(CUDNN) -DCMAKE_BUILD_TYPE=Release
+EXTRA_FLAGS=
+CMAKE_FLAGS=-DUSE_CUDNN=off -DCOMPILE_EXAMPLES=on -DCMAKE_BUILD_TYPE=Release $(EXTRA_FLAGS)
 
 PIP_PACKAGES=websocket-client pyyaml
 
@@ -44,5 +43,5 @@ marian: tools/marian
 tools/marian:
 	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
 	rm -rf $@/build
-	mkdir -p $@/build && cd $@/build && cmake .. -DCOMPILE_EXAMPLES=ON $(CMAKE_FLAGS) && make -j$(THREADS)
+	mkdir -p $@/build && cd $@/build && cmake .. $(CMAKE_FLAGS) && make -j$(THREADS)
 
