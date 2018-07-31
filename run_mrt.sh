@@ -84,9 +84,8 @@ test_dirs=$(find $prefix -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
     test_single_files=$(printf '%s\n' $prefix | sed 's!*/!!')
-    test_dirs=$(dirname $prefix)
+    test_dirs=$(dirname $prefix | sort | uniq)
 fi
-
 
 time_start=$(date +%s.%N)
 
