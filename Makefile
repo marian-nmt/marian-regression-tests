@@ -12,7 +12,7 @@ CMAKE_FLAGS=-DUSE_CUDNN=off -DCOMPILE_EXAMPLES=on -DCMAKE_BUILD_TYPE=Release $(E
 
 PIP_PACKAGES=websocket-client pyyaml
 
-.PHONY: marian install tools models data run
+.PHONY: marian install tools models data run tools/marian
 .SECONDARY:
 
 
