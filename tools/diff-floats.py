@@ -42,6 +42,13 @@ def main():
                 break
             line2 = next(args.file2, None)
 
+            if args.separate_nums:
+                line1 = line1.replace(args.separate_nums,
+                                      ' ' + args.separate_nums + ' ')
+                line2 = line2.replace(args.separate_nums,
+                                      ' ' + args.separate_nums + ' ')
+
+
         line1_toks = line1.rstrip().split()
         line2_toks = line2.rstrip().split()
 
@@ -94,7 +101,9 @@ def parse_user_args():
     parser.add_argument("-p", "--precision", type=float, default=0.001)
     parser.add_argument("-n", "--max-diff-nums", type=int, default=0)
     parser.add_argument("-a", "--abs", action="store_true")
+    parser.add_argument("-s", "--separate-nums", type=str)
     parser.add_argument("--numpy", action="store_true")
+
     return parser.parse_args()
 
 
