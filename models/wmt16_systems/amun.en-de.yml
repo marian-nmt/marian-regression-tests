@@ -1,0 +1,12 @@
+relative-paths: true
+beam-size: 5
+normalize: no
+no-debpe: yes
+scorers:
+  F0:
+    path: en-de/model.npz
+    type: Nematus
+weights:
+  F0: 1.0
+source-vocab: en-de/vocab.en.json
+target-vocab: en-de/vocab.de.json

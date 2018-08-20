@@ -1,0 +1,10 @@
+[valid] Ep. 1 : Up. 20 : cross-entropy : 218.131 : new best
+[valid] Ep. 1 : Up. 40 : cross-entropy : 203.493 : new best
+[valid] Ep. 1 : Up. 60 : cross-entropy : 198.213 : new best
+[valid] Ep. 1 : Up. 80 : cross-entropy : 194.572 : new best
+[valid] Ep. 1 : Up. 100 : cross-entropy : 192.212 : new best
+[valid] Ep. 1 : Up. 120 : cross-entropy : 190.853 : new best
+[valid] Ep. 1 : Up. 140 : cross-entropy : 190.233 : new best
+[valid] Ep. 1 : Up. 160 : cross-entropy : 188.436 : new best
+[valid] Ep. 1 : Up. 180 : cross-entropy : 188.464 : stalled 1 times
+[valid] Ep. 1 : Up. 200 : cross-entropy : 187.836 : new best
