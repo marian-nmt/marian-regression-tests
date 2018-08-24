@@ -34,7 +34,7 @@ log "Using Marian: $MRT_MARIAN"
 
 # Check Marian compilation settings
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
-export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND")
+export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
 export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 
 log "Using version: $MRT_MARIAN_VERSION"
