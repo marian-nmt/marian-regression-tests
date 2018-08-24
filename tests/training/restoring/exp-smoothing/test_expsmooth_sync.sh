@@ -3,6 +3,11 @@
 # Exit on error
 set -e
 
+if (( $MRT_NUM_DEVICES < 2 )); then
+    echo "Too few devices available"
+    exit 100
+fi
+
 # Test code goes here
 rm -rf expsmooth_sync expsmooth_sync_*.log
 mkdir -p expsmooth_sync

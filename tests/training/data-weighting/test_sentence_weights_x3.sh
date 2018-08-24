@@ -13,7 +13,7 @@ test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-e
 $MRT_MARIAN/build/marian \
     --seed 2222 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 --dim-emb 128 --dim-rnn 256 -o sgd \
     -m x3copied/model.npz -t train.x3.{de,en} -v vocab.{de,en}.yml \
-    --log x3copied.log --disp-freq 1 --after-batches 100 1 --mini-batch 4 --cost-type ce-sum
+    --log x3copied.log --disp-freq 1 --after-batches 100 --mini-batch 4 --cost-type ce-sum
 
 test -e x3copied/model.npz
 test -e x3copied.log

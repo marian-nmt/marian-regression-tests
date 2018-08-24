@@ -11,7 +11,7 @@ $MRT_MARIAN/build/marian \
     --cost-type ce-mean-words \
     --seed 9999 \
     -m ce-mean-words/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
-    --disp-freq 2 --after-epoch 1 \
+    --disp-freq 2 --after-epochs 1 \
     --log ce-mean-words.log
 
 test -e ce-mean-words/model.npz
