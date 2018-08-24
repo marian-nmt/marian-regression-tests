@@ -32,10 +32,15 @@ export MRT_DATA=$MRT_ROOT/data
 
 log "Using Marian: $MRT_MARIAN"
 
+# Get CMake settings
+cd $MRT_MARIAN/build
+cmake -L 2> /dev/null > $MRT_ROOT/cmake.log
+cd $MRT_ROOT
+
 # Check Marian compilation settings
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
-export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
-export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
+export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 
 log "Using version: $MRT_MARIAN_VERSION"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
