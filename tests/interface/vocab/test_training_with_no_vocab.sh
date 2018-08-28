@@ -37,8 +37,8 @@ $MRT_MARIAN/build/marian \
     $opts \
     --log novocab_load.log
 
-test -e $MRT_DATA/europarl.de-en/corpus.bpe.en.yml
-test -e $MRT_DATA/europarl.de-en/corpus.bpe.de.yml
+test -s $MRT_DATA/europarl.de-en/corpus.bpe.en.yml
+test -s $MRT_DATA/europarl.de-en/corpus.bpe.de.yml
 
 test -e novocab_load.log
 grep -qv "Creating vocabulary" novocab_load.log
