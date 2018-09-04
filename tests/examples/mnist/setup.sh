@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Setup code goes here
 test -e $MRT_MARIAN/build/mnist_example

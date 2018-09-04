@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Test code goes here
 rm -rf corpus_s2s corpus_s2s*.log

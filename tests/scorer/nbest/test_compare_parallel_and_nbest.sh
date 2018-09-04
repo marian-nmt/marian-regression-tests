@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 test -e text.srcall.in || cat text.src.in | sed 'p;p;p;p' > text.srcall.in
 test -e text.trg.in || cat text.nbest.in | sed 's/ ||| /\t/g' | cut -f2 > text.trg.in

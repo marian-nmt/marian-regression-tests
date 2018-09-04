@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 clean_up() {
     rm -rf nowrite

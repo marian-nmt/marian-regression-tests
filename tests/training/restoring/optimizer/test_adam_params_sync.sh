@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Test code goes here
 rm -rf adam_sync adam_sync*.log

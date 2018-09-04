@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Skip if no MKL found
 if [ ! $MRT_MARIAN_USE_MKL ]; then

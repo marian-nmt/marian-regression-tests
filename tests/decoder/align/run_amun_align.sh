@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Check if amun is compiled
 test -e $MRT_MARIAN/build/amun || exit $EXIT_CODE_SKIP

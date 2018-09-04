@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Test code goes here
 rm -rf sgd_2e sgd_1st_epoch.log sgd_2nd_epoch.log

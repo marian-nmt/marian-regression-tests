@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 rm -f nomodel_decoder.log
 echo "this is a test ." > file.in

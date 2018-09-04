@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Test code goes here
 rm -rf adam_2e adam_1st_epoch.log adam_2nd_epoch.log adam_two_epochs.log

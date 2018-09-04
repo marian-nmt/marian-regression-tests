@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Test code goes here
 rm -rf sqlite_word sqlite_word.{log,out,diff}

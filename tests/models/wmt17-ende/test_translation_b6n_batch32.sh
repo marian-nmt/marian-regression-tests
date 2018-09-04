@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 #cp marian.batch32.out marian.batch32.out.$$ || true
 rm -f marian.batch32.out

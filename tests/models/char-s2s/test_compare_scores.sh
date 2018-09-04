@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit on error
-set -e
+set -eo pipefail
 
 # Skip if no CUDNN found
 if [ ! $MRT_MARIAN_USE_CUDNN ]; then

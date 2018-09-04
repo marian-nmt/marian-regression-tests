@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # Exit on error
-set -e
+set -eo pipefail
 
 if (( $MRT_NUM_DEVICES < 2 )); then
     echo "Too few devices available" >&2
