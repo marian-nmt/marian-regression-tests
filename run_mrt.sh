@@ -138,10 +138,9 @@ do
             continue;
         fi
 
-        # Run test
-        test_stdout=$test_name.stdout
+        # Run test. Note: all output gets written to stderr (very very few cases write to stdout)
         test_stderr=$test_name.stderr
-        $SHELL -x $test_file > $test_stdout 2> $test_stderr
+        $SHELL -x $test_file 2> $test_stderr 1>&2
         exit_code=$?
 
         # Check exit code

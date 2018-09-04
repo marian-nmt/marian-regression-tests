@@ -4,7 +4,7 @@
 set -e
 
 if (( $MRT_NUM_DEVICES < 2 )); then
-    echo "Too few devices available"
+    echo "Too few devices available" >&2
     exit 100
 fi
 
