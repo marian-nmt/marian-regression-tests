@@ -139,7 +139,7 @@ do
         fi
 
         # Run test. Note: all output gets written to stderr (very very few cases write to stdout)
-        test_stderr=$test_name.stderr
+        test_stderr=$test_name.log
         $SHELL -x $test_file 2> $test_stderr 1>&2
         exit_code=$?
 
@@ -203,7 +203,7 @@ for test_name in "${tests_failed[@]}"; do
 done
 [[ -z "$tests_failed" ]] || echo "Logs:"
 for test_name in "${tests_failed[@]}"; do
-    echo "  - $(realpath $test_name | sed 's/.sh/.stderr/')"
+    echo "  - $(realpath $test_name | sed 's/.sh/.log/')"
 done
 
 # Print summary
