@@ -10,7 +10,7 @@ fi
 
 # Test code goes here
 $MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/char-s2s/translate.yml < text.in > text.out
-diff text.out text.expected > text.diff
+diff $(pwd)/text.out $(pwd)/text.expected | tee $(pwd)/text.diff | head
 
 # Exit with success code
 exit 0

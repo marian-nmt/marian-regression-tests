@@ -18,7 +18,7 @@ cat newstest2014.in | $MRT_MARIAN/build/marian-decoder \
     --shortlist $MRT_MODELS/wnmt18/lex.s2t 100 75 --cpu-threads=1 --skip-cost --max-length-factor 1.2 \
     > student_small_aan.out
 
-diff student_small_aan.out student_small_aan.expected > student_small_aan.diff
+diff $(pwd)/student_small_aan.out $(pwd)/student_small_aan.expected | tee $(pwd)/student_small_aan.diff | head
 
 # Exit with success code
 exit 0

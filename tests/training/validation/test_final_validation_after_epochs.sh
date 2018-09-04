@@ -22,7 +22,7 @@ test -e final_epoch/model.npz
 test -e final_epoch.log
 
 $MRT_TOOLS/strip-timestamps.sh < final_epoch.log > final_epoch.out
-$MRT_TOOLS/diff-floats.py final_epoch.out final_epoch.expected -p 0.9 > final_epoch.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/final_epoch.out $(pwd)/final_epoch.expected -p 0.9 | tee $(pwd)/final_epoch.diff | head
 
 # Exit with success code
 exit 0

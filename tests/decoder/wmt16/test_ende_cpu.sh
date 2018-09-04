@@ -11,7 +11,7 @@ fi
 
 # Test code goes here
 $MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml --cpu-threads 4 < text.in > text_cpu.out
-diff text_cpu.out text.expected > text_cpu.diff
+diff $(pwd)/text_cpu.out $(pwd)/text.expected | tee $(pwd)/text_cpu.diff | head
 
 # Exit with success code
 exit 0

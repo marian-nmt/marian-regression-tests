@@ -18,13 +18,13 @@ test -e adagrad/model.npz.optimizer.npz
 test -e adagrad.log
 
 $MRT_TOOLS/extract-costs.sh < adagrad.log > adagrad.costs.out
-$MRT_TOOLS/diff-floats.py adagrad.costs.out adagrad.costs.expected -p 0.2 > adagrad.costs.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/adagrad.costs.out $(pwd)/adagrad.costs.expected -p 0.2 | tee $(pwd)/adagrad.costs.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.npz > adagrad.keys.out
-diff adagrad.keys.out adagrad.keys.expected > adagrad.keys.diff
+diff $(pwd)/adagrad.keys.out $(pwd)/adagrad.keys.expected | tee $(pwd)/adagrad.keys.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.npz -k "adagrad_gt" > adagrad.gt.out
-$MRT_TOOLS/diff-floats.py --numpy -p 0.0001  adagrad.gt.out adagrad.gt.expected > adagrad.gt.diff
+$MRT_TOOLS/diff-floats.py --numpy -p 0.0001  $(pwd)/adagrad.gt.out $(pwd)/adagrad.gt.expected | tee $(pwd)/adagrad.gt.diff | head
 
 # Exit with success code
 exit 0

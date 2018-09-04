@@ -32,7 +32,7 @@ $MRT_MARIAN/build/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
 
 # Compare scores
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f3 | cut -d ' ' -f 2 > compare.decoder.out
-$MRT_TOOLS/diff-floats.py compare.scorer.out compare.decoder.out -p 0.0003 > compare.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/compare.scorer.out $(pwd)/compare.decoder.out -p 0.0003 | tee $(pwd)/compare.diff | head
 
 # Exit with success code
 exit 0

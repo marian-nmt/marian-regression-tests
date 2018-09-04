@@ -20,15 +20,15 @@ $MRT_MARIAN/build/marian-multi-domain \
   -t ubuntu.in ubuntu.ref --log domain.log < ubuntu.in > domain.out
 
 # Check outputs
-diff domain.out domain.expected > domain.diff
+diff $(pwd)/domain.out $(pwd)/domain.expected | tee $(pwd)/domain.diff | head
 
 # Check BLEU
 $MRT_TOOLS/moses-scripts/scripts/generic/multi-bleu.perl -lc ubuntu.ref < domain.out > domain.bleu
-diff domain.bleu domain.bleu.expected > domain.bleu.diff
+diff domain.bleu $(pwd)/domain.bleu.expected | tee $(pwd)/domain.bleu.diff | head
 
 # Check costs
 cat domain.log | grep 'Ep\. ' | $MRT_TOOLS/strip-timestamps.sh | sed 's/ : Time.*//' > costs.out
-$MRT_TOOLS/diff-floats.py -p 0.01 costs.out costs.expected > costs.diff
+$MRT_TOOLS/diff-floats.py -p 0.01 $(pwd)/costs.out $(pwd)/costs.expected | tee $(pwd)/costs.diff | head
 
 # Exit with success code
 exit 0

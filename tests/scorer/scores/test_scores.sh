@@ -9,7 +9,7 @@ $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
   -t $(pwd)/scores.src.in $(pwd)/scores.trg.in > scores.out
 
 # Compare scores
-$MRT_TOOLS/diff-floats.py scores.out scores.expected -p 0.0003 > scores.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/scores.out $(pwd)/scores.expected -p 0.0003 | tee $(pwd)/scores.diff | head
 
 # Exit with success code
 exit 0

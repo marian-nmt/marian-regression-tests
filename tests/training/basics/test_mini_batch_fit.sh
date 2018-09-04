@@ -24,7 +24,7 @@ test -e batch_fit/model.npz.amun.yml
 test -e batch_fit.log
 
 cat batch_fit.log | grep 'Ep\. 1 :' | sed -r 's/.*Up\. ([0-9]+) .*Sen. ([0-9]+).*/\2\/\1/' | bc > batch_fit.out
-diff batch_fit.out batch_fit.expected > batch_fit.diff
+diff $(pwd)/batch_fit.out $(pwd)/batch_fit.expected | tee $(pwd)/batch_fit.diff | head
 
 # Exit with success code
 exit 0

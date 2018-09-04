@@ -49,7 +49,7 @@ test -e valid_add/model.npz
 test -e valid_add_2.log
 
 cat valid_add_2.log | $MRT_TOOLS/strip-timestamps.sh >> valid_add.out
-diff valid_add.out valid_add.expected > valid_add.diff
+diff $(pwd)/valid_add.out $(pwd)/valid_add.expected | tee $(pwd)/valid_add.diff | head
 
 # Exit with success code
 exit 0

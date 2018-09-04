@@ -41,11 +41,11 @@ cat expsmooth_sync.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v
 cat expsmooth_sync.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 'valid' | sed 's/ : Time.*//' > expsmooth_sync.valid.out
 
 
-$MRT_TOOLS/diff-floats.py -p 0.1 expsmooth_sync.out expsmooth_sync.expected > expsmooth_sync.diff
-$MRT_TOOLS/diff-floats.py -p 0.1 expsmooth_sync.valid.out expsmooth_sync.valid.expected > expsmooth_sync.valid.diff
+$MRT_TOOLS/diff-floats.py -p 0.1 $(pwd)/expsmooth_sync.out $(pwd)/expsmooth_sync.expected | tee $(pwd)/expsmooth_sync.diff | head
+$MRT_TOOLS/diff-floats.py -p 0.1 $(pwd)/expsmooth_sync.valid.out $(pwd)/expsmooth_sync.valid.expected | tee $(pwd)/expsmooth_sync.valid.diff | head
 
 # There should be no difference in costs between training w/ and w/o exponential smoothing
-$MRT_TOOLS/diff-floats.py -p 0.1 expsmooth_sync.out noexpsmooth_sync.out > noexpsmooth_sync.diff
+$MRT_TOOLS/diff-floats.py -p 0.1 $(pwd)/expsmooth_sync.out $(pwd)/noexpsmooth_sync.out | tee $(pwd)/noexpsmooth_sync.diff | head
 
 # Exit with success code
 exit 0

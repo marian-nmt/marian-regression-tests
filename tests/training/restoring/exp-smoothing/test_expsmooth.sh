@@ -77,8 +77,8 @@ cat expsmooth_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 'vali
 
 
 # Results
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.out expsmooth.expected > expsmooth.diff
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.valid.out expsmooth.valid.expected > expsmooth.valid.diff
+$MRT_TOOLS/diff-floats.py -p 0.01 $(pwd)/expsmooth.out $(pwd)/expsmooth.expected | tee $(pwd)/expsmooth.diff | head
+$MRT_TOOLS/diff-floats.py -p 0.01 $(pwd)/expsmooth.valid.out $(pwd)/expsmooth.valid.expected | tee $(pwd)/expsmooth.valid.diff | head
 
 
 # Exit with success code

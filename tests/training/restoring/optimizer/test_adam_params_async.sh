@@ -23,16 +23,16 @@ test -e adam_async/model.npz.optimizer.npz
 test -e adam_async.log
 
 $MRT_TOOLS/extract-costs.sh < adam_async.log > adam_async.costs.out
-$MRT_TOOLS/diff-floats.py adam_async.costs.out adam_async.costs.expected -p 10.00 -n 2 > adam_async.costs.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/adam_async.costs.out $(pwd)/adam_async.costs.expected -p 10.00 -n 2 | tee $(pwd)/adam_async.costs.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz > adam_async.keys.out
-diff adam_async.keys.out adam.keys.expected > adam_async.keys.diff
+diff $(pwd)/adam_async.keys.out $(pwd)/adam.keys.expected | tee $(pwd)/adam_async.keys.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_mt" > adam_async.mt.out
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_vt" > adam_async.vt.out
 
-$MRT_TOOLS/diff-floats.py --numpy -a -p 0.02  adam_async.mt.out adam_async.mt.expected > adam_async.mt.diff
-$MRT_TOOLS/diff-floats.py --numpy    -p 0.001 adam_async.vt.out adam_async.vt.expected > adam_async.vt.diff
+$MRT_TOOLS/diff-floats.py --numpy -a -p 0.02  $(pwd)/adam_async.mt.out $(pwd)/adam_async.mt.expected | tee $(pwd)/adam_async.mt.diff | head
+$MRT_TOOLS/diff-floats.py --numpy    -p 0.001 $(pwd)/adam_async.vt.out $(pwd)/adam_async.vt.expected | tee $(pwd)/adam_async.vt.diff | head
 
 # Exit with success code
 exit 0

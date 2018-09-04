@@ -39,8 +39,8 @@ test -e adam_2nd_epoch.log
 
 cat adam_2nd_epoch.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > adam_2nd_epoch.out
 
-$MRT_TOOLS/diff-floats.py adam_1st_epoch.out adam_2e_1st.expected -p 0.01 > adam_2e_1st.diff
-$MRT_TOOLS/diff-floats.py adam_2nd_epoch.out adam_2e_2nd.expected -p 0.1 > adam_2e_2nd.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/adam_1st_epoch.out $(pwd)/adam_2e_1st.expected -p 0.01 | tee $(pwd)/adam_2e_1st.diff | head
+$MRT_TOOLS/diff-floats.py $(pwd)/adam_2nd_epoch.out $(pwd)/adam_2e_2nd.expected -p 0.1 | tee $(pwd)/adam_2e_2nd.diff | head
 
 # Exit with success code
 exit 0

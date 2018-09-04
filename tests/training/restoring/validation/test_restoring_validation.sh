@@ -36,7 +36,7 @@ test -e valid/model.npz
 test -e valid_2.log
 
 cat valid_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" >> valid.out
-diff valid.out valid.expected > valid.diff
+diff $(pwd)/valid.out $(pwd)/valid.expected | tee $(pwd)/valid.diff | head
 
 # Exit with success code
 exit 0

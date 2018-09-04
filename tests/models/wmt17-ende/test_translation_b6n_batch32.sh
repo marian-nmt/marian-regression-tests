@@ -12,8 +12,8 @@ $MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt17_systems/marian.en-de.yml -
     < text.b6n.in > marian.batch32.out
 
 # Compare with Marian and Nematus
-diff marian.batch32.out marian.b6n.expected > marian.batch32.diff
-diff marian.batch32.out nematus.b6n.out > nematus.batch32.diff
+diff $(pwd)/marian.batch32.out $(pwd)/marian.b6n.expected | tee $(pwd)/marian.batch32.diff | head
+diff $(pwd)/marian.batch32.out $(pwd)/nematus.b6n.out | tee $(pwd)/nematus.batch32.diff | head
 
 # Exit with success code
 exit 0

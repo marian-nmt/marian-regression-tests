@@ -19,13 +19,13 @@ test -e lm/model.npz.yml
 test -e lm.log
 
 cat lm.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > lm.out
-$MRT_TOOLS/diff-floats.py lm.out lm.expected -p 0.02 > lm.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/lm.out $(pwd)/lm.expected -p 0.02 | tee $(pwd)/lm.diff | head
 
 # Scoring with LM
 test -s temp.bpe.en || tail $MRT_DATA/europarl.de-en/corpus.bpe.en > test.bpe.en
 
 $MRT_MARIAN/build/marian-scorer -m lm/model.npz -t test.bpe.en -v vocab.en.yml > lm.scores.out
-$MRT_TOOLS/diff-floats.py lm.scores.out lm.scores.expected -p 0.002 > lm.scores.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/lm.scores.out $(pwd)/lm.scores.expected -p 0.002 | tee $(pwd)/lm.scores.diff | head
 
 # Exit with success code
 exit 0

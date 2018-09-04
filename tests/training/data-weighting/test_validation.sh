@@ -21,10 +21,10 @@ test -e valid/valid.log
 test -e valid/train.log
 
 $MRT_TOOLS/strip-timestamps.sh < valid/valid.log > valid.out
-$MRT_TOOLS/diff-floats.py valid.out valid.expected -p 1.99 > valid.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/valid.out $(pwd)/valid.expected -p 1.99 | tee $(pwd)/valid.diff | head
 
 $MRT_TOOLS/extract-costs.sh < valid/train.log > train.out
-$MRT_TOOLS/diff-floats.py train.out train.expected -p 1.99 > train.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/train.out $(pwd)/train.expected -p 1.99 | tee $(pwd)/train.diff | head
 
 # Exit with success code
 exit 0

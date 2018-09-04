@@ -9,7 +9,7 @@ $MRT_MARIAN/build/marian-scorer \
     --n-best -t $(pwd)/text.src.in $(pwd)/text.nbest.in \
     > nbest.out
 
-$MRT_TOOLS/diff-floats.py nbest.out nbest.expected -p 0.0003 > nbest.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/nbest.out $(pwd)/nbest.expected -p 0.0003 | tee $(pwd)/nbest.diff | head
 
 # Exit with success code
 exit 0

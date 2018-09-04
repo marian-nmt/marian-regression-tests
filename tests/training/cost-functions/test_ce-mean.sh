@@ -17,7 +17,7 @@ test -e ce-mean/model.npz
 test -e ce-mean.log
 
 cat ce-mean.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > ce-mean.out
-$MRT_TOOLS/diff-floats.py ce-mean.out ce-mean.expected -p 0.02 > ce-mean.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/ce-mean.out $(pwd)/ce-mean.expected -p 0.02 | tee $(pwd)/ce-mean.diff | head
 
 # Exit with success code
 exit 0

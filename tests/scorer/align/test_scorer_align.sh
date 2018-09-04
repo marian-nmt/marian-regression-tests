@@ -9,7 +9,7 @@ $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -m
   | sed 's/^.* ||| //' > align.out
 
 # Compare scores
-diff align.out align.expected > align.diff
+diff $(pwd)/align.out $(pwd)/align.expected | tee $(pwd)/align.diff | head
 
 # Exit with success code
 exit 0

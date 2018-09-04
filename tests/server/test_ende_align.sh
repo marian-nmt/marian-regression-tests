@@ -18,7 +18,7 @@ sleep 20
 python3 $MRT_MARIAN/scripts/server/client_example.py -p 8765 < text.in > text.align.out
 kill $SERVER_PID
 
-diff text.align.out text.align.expected > text.align.diff
+diff $(pwd)/text.align.out $(pwd)/text.align.expected | tee $(pwd)/text.align.diff | head
 
 # Exit with success code
 exit 0

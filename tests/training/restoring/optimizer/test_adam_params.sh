@@ -18,15 +18,15 @@ test -e adam/model.npz.optimizer.npz
 test -e adam.log
 
 $MRT_TOOLS/extract-costs.sh < adam.log > adam.costs.out
-$MRT_TOOLS/diff-floats.py adam.costs.out adam.costs.expected -p 0.2 > adam.costs.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/adam.costs.out $(pwd)/adam.costs.expected -p 0.2 | tee $(pwd)/adam.costs.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz > adam.keys.out
-diff adam.keys.out adam.keys.expected > adam.keys.diff
+diff $(pwd)/adam.keys.out $(pwd)/adam.keys.expected | tee $(pwd)/adam.keys.diff | head
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_mt" > adam.mt.out
-$MRT_TOOLS/diff-floats.py --numpy -p 0.0001  adam.mt.out adam.mt.expected > adam.mt.diff
+$MRT_TOOLS/diff-floats.py --numpy -p 0.0001  $(pwd)/adam.mt.out $(pwd)/adam.mt.expected | tee $(pwd)/adam.mt.diff | head
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_vt" > adam.vt.out
-$MRT_TOOLS/diff-floats.py --numpy -p 0.000005 adam.vt.out adam.vt.expected > adam.vt.diff
+$MRT_TOOLS/diff-floats.py --numpy -p 0.000005 $(pwd)/adam.vt.out $(pwd)/adam.vt.expected | tee $(pwd)/adam.vt.diff | head
 
 # Exit with success code
 exit 0

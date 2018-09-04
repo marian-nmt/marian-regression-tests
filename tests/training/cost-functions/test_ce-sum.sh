@@ -18,7 +18,7 @@ test -e ce-sum/model.npz
 test -e ce-sum.log
 
 cat ce-sum.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > ce-sum.out
-$MRT_TOOLS/diff-floats.py ce-sum.out ce-sum.expected -p 0.2 > ce-sum.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/ce-sum.out $(pwd)/ce-sum.expected -p 0.2 | tee $(pwd)/ce-sum.diff | head
 
 # Exit with success code
 exit 0

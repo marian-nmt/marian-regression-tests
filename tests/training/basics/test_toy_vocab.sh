@@ -19,7 +19,7 @@ test -e toy/model.npz.yml
 test -e toy/model.npz.amun.yml
 
 cat toy.log | $MRT_TOOLS/extract-costs.sh > toy.out
-$MRT_TOOLS/diff-floats.py toy.out toy.expected -p 0.99 -n 5 > toy.diff
+$MRT_TOOLS/diff-floats.py $(pwd)/toy.out $(pwd)/toy.expected -p 0.99 -n 5 | tee $(pwd)/toy.diff | head
 
 # Exit with success code
 exit 0
