@@ -27,6 +27,7 @@ tools:
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
 	pip3 install --user $(PIP_PACKAGES)
+	pip install --user $(PIP_PACKAGES)
 
 models:
 	mkdir -p $@
@@ -45,3 +46,8 @@ tools/marian:
 	rm -rf $@/build
 	mkdir -p $@/build && cd $@/build && cmake .. $(CMAKE_FLAGS) && make -j$(THREADS)
 
+clean:
+	git clean -x -d -f tests
+
+clean-all:
+	git clean -x -d -f
