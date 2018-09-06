@@ -13,11 +13,11 @@ rm -f domain.log
 
 
 # Run multi-domain
-$MRT_MARIAN/build/marian-multi-domain \
+$MRT_MARIAN/build/marian-self-adapt \
   -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
   -v $MRT_MODELS/wmt16_systems/en-de/vocab.en.json -v $MRT_MODELS/wmt16_systems/en-de/vocab.de.json \
   --dim-vocabs 85000 85000 --dim-emb 500 \
-  -t ubuntu.in ubuntu.ref --log domain.log < ubuntu.in > domain.out
+  -t ubuntu.train.src ubuntu.train.ref --log domain.log < ubuntu.src > domain.out
 
 # Check outputs
 diff domain.out domain.expected > domain.diff
