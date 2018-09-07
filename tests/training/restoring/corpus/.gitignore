@@ -1,0 +1,8 @@
+corpus
+corpus.expected
+corpus_*
+corpus_*.expected
+sqlite
+sqlite.expected
+sqlite_*
+sqlite_*.expected

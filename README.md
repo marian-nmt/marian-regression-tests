@@ -16,7 +16,7 @@ Directories:
 * `tests` - regression tests
 * `tools` - scripts and repositories
 * `models` - models used in regression tests
-* `data` - data used for training or translating
+* `data` - data used in training or decoding tests
 
 Each test consists of:
 
@@ -24,34 +24,34 @@ Each test consists of:
 * `setup.sh` (optional)
 * `teardown.sh` (optional)
 
+
 ## Usage
 
-Download data and compile tools:
+Downloading data and tools, compiling the most recent version of marian-dev, and running
+single-GPU tests:
 
     make install
+    make marian
+    make run
+    # or simply make
 
-Run regression tests:
+Testing a custom version of Marian:
 
-    ./run_mrt.sh
-
-or a specific group of tests, e.g.:
-
-    ./run_mrt tests/translation
-
-To specify which GPU device should be used to run tests, set the
-`CUDA_VISIBLE_DEVICES` variable, e.g.:
-
-    CUDA_VISIBLE_DEVICES=2 && ./run_mrt.sh
-
-You can also provide a path to marian-dev repository:
-
+    make install
     MARIAN=/path/to/marian-dev ./run_mrt.sh
 
-## TODO:
+Enabling multi-GPU tests:
 
-* add a test for restarting training
-* add descriptions of tests
-* add logging tests
+    CUDA_VISIBLE_DEVICES=0,1 ./run_mrt.sh
+
+More invocation examples:
+
+    ./run_mrt.sh tests/training/basics
+    ./run_mrt.sh tests/training/basics/test_valid_script.sh
+    ./run_mrt.sh previous.log
+
+where _previous.log_ contains a list of test files in separate lines.
+
 
 ## Acknowledgements
 

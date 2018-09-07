@@ -1,0 +1,5 @@
+adagrad
+adam
+adam_async
+adam_sync
+adam_load

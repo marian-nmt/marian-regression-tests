@@ -1,36 +1,51 @@
 #!/bin/bash
 
-# Marian test script. Invocation examples:
+# Marian regression test script. Invocation examples:
 #  ./run_mrt.sh
-#  ./run_mrt.sh tests/training/weights
-#  ./run_mrt.sh tests/training/restart/test_loading_adam_params.sh
+#  ./run_mrt.sh tests/training/basics
+#  ./run_mrt.sh tests/training/basics/test_valid_script.sh
+#  ./run_mrt.sh previous.log
+# where previous.log contains a list of test files in separate lines.
+
+# Environment variables:
+#  - MARIAN - path to Marian root directory
+#  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
+#  - NUM_DEVICES - maximum number of GPU devices to be used
 
 SHELL=/bin/bash
 
 export LC_ALL=C.UTF-8
 
-export EXIT_CODE_SUCCESS=0
-export EXIT_CODE_SKIP=100
-
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN=${MARIAN:-$MRT_TOOLS/marian}
+export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
-# Check if Marian is compiled with CUDNN
-export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+# Check Marian compilation settings
 export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND")
+export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
 
 # Number of available devices
-export MRT_NUM_DEVICES=${NUM_DEVICES:-1}
+cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
+export MRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
+
+# Exit codes
+export EXIT_CODE_SUCCESS=0
+export EXIT_CODE_SKIP=100
 
 
+# Default directory with all regression tests
 prefix=tests
 if [ $# -ge 1 ]; then
-    prefix="$@"
+    if [[ "$1" = *.log ]]; then
+        # Extract test names from .log file
+        prefix=$(cat $1 | grep '/test_.*\.sh' | grep -v '/_' | sed 's/^ *- *//' | tr '\n' ' ' | sed 's/ *$//')
+    else
+        prefix="$@"
+    fi
 fi
-
 
 function log {
     echo [$(date "+%m/%d/%Y %T")] $@
@@ -50,8 +65,9 @@ function format_time {
 }
 
 log "Using Marian: $MRT_MARIAN"
-log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
+log "Using version: $MRT_MARIAN_VERSION"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
+log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using number of devices: $MRT_NUM_DEVICES"
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
@@ -67,18 +83,16 @@ declare -a tests_failed
 test_dirs=$(find $prefix -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
-    test_one_file=$(basename $prefix)
-    test_dirs=$(dirname $prefix)
+    test_single_files=$(printf '%s\n' $prefix | sed 's!*/!!')
+    test_dirs=$(dirname $prefix | sort | uniq)
 fi
-
 
 time_start=$(date +%s.%N)
 
 # Traverse test directories
 cd $MRT_ROOT
-for test_dir_rel in $test_dirs
+for test_dir in $test_dirs
 do
-    test_dir=$MRT_ROOT/$test_dir_rel
     log "Checking directory: $test_dir"
     nosetup=false
 
@@ -101,7 +115,11 @@ do
     # Run tests
     for test_path in $(ls -A $test_dir/test_*.sh 2>/dev/null)
     do
-        if [[ -n "$test_one_file" && $test_path != *"$test_one_file"* ]]; then
+        test_file=$(basename $test_path)
+        test_name="${test_file%.*}"
+
+        # In non-traverse mode skip tests if not requested
+        if [[ -n "$test_single_files" && $test_single_files != *"$test_file"* ]]; then
             continue
         fi
         test_time_start=$(date +%s.%N)
@@ -109,8 +127,6 @@ do
 
         # Tests are executed from their directory
         cd $test_dir
-        test_file=$(basename $test_path)
-        test_name="${test_file%.*}"
 
         # Skip tests if setup failed
         logn "Running $test_path ... "
@@ -123,8 +139,9 @@ do
         fi
 
         # Run test
-        test_log=$test_dir/$test_name.log
-        $SHELL -x $test_file > $test_log 2>&1
+        test_stdout=$test_name.stdout
+        test_stderr=$test_name.stderr
+        $SHELL -x $test_file > $test_stdout 2> $test_stderr
         exit_code=$?
 
         # Check exit code
@@ -139,8 +156,6 @@ do
             ((++count_failed))
             tests_failed+=($test_path)
             echo " failed"
-            log "- LOG: $test_log"
-            log "- DIR: "`pwd`
             success=false
         fi
 
@@ -172,22 +187,29 @@ done
 time_end=$(date +%s.%N)
 time_total=$(format_time $time_start $time_end)
 
+prev_log=previous.log
+rm -f $prev_log
+
 # Print skipped and failed tests
 if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
     echo "---------------------"
 fi
-[[ -z "$tests_skipped" ]] || echo "Skipped:"
+[[ -z "$tests_skipped" ]] || echo "Skipped:" | tee -a $prev_log
 for test_name in "${tests_skipped[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
 done
-[[ -z "$tests_failed" ]] || echo "Failed:"
+[[ -z "$tests_failed" ]] || echo "Failed:" | tee -a $prev_log
 for test_name in "${tests_failed[@]}"; do
-    echo "  - $test_name"
+    echo "  - $test_name" | tee -a $prev_log
+done
+[[ -z "$tests_failed" ]] || echo "Logs:"
+for test_name in "${tests_failed[@]}"; do
+    echo "  - $(realpath $test_name | sed 's/.sh/.stderr/')"
 done
 
 # Print summary
-echo "---------------------"
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed"
+echo "---------------------" | tee -a $prev_log
+echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
 
 # Return exit code
 $success && [ $count_all -gt 0 ]
