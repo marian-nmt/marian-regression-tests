@@ -1,0 +1,5 @@
+mini-batch: 32
+dim-rnn: 32
+dim-emb: 16
+after-batches: 20
+no-shuffle: false
