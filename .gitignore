@@ -24,7 +24,10 @@ models/wmt17_systems/scripts
 models/wmt17_systems/vars
 models/char-s2s
 models/wnmt18
-models/wmt18
+models/transformer/model.*
+models/transformer/tc.*
+models/transformer/vocab.*
+models/transformer/*.bpe
 
 data/*/corpus.*
 data/*/*.bpe

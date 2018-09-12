@@ -11,7 +11,7 @@ $MRT_MARIAN/build/marian \
     --cost-type perplexity \
     --seed 9999 \
     -m perplexity/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
-    --disp-freq 2 --after-epoch 1 \
+    --disp-freq 2 --after-epochs 1 \
     --log perplexity.log
 
 test -e perplexity/model.npz

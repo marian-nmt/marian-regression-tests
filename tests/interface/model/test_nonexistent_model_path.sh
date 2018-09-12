@@ -6,7 +6,7 @@ set -e
 # Test code goes here
 $MRT_MARIAN/build/marian \
     -m /non/existent/path/model.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v $MRT_MODELS/wmt16_systems/en-de/vocab.{en,de}.json \
     --no-shuffle --after-batches 1 \
     > nonexistent.log 2>&1 || true
 

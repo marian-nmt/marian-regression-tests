@@ -9,6 +9,8 @@ clean_up() {
 }
 trap clean_up EXIT
 
+opts="--dim-rnn 32 --dim-emb 16 --no-shuffle --after-batches 1" 
+
 # Test code goes here
 rm -rf novocab novocab_create.log novocab_load.log
 rm -f $MRT_DATA/europarl.de-en/corpus.bpe.en.yml $MRT_DATA/europarl.de-en/corpus.bpe.de.yml
@@ -19,7 +21,7 @@ mkdir -p novocab
 $MRT_MARIAN/build/marian \
     -m novocab/model1.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
-    --no-shuffle --after-batches 1 \
+    $opts \
     --log novocab_create.log
 
 test -e $MRT_DATA/europarl.de-en/corpus.bpe.en.yml
@@ -32,11 +34,11 @@ grep -q "Creating vocabulary" novocab_create.log
 $MRT_MARIAN/build/marian \
     -m novocab/model2.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
-    --no-shuffle --after-batches 1 \
+    $opts \
     --log novocab_load.log
 
-test -e $MRT_DATA/europarl.de-en/corpus.bpe.en.yml
-test -e $MRT_DATA/europarl.de-en/corpus.bpe.de.yml
+test -s $MRT_DATA/europarl.de-en/corpus.bpe.en.yml
+test -s $MRT_DATA/europarl.de-en/corpus.bpe.de.yml
 
 test -e novocab_load.log
 grep -qv "Creating vocabulary" novocab_load.log

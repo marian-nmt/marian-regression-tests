@@ -14,7 +14,7 @@ chmod a-w nowrite
 
 $MRT_MARIAN/build/marian \
     -m nowrite/model.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --no-shuffle --after-batches 1 \
     > nopermission.log 2>&1 || true
 

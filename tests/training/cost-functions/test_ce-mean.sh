@@ -10,7 +10,7 @@ mkdir -p ce-mean
 $MRT_MARIAN/build/marian \
     --seed 9999 \
     -m ce-mean/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
-    --disp-freq 2 --after-epoch 1 \
+    --disp-freq 2 --after-epochs 1 \
     --log ce-mean.log
 
 test -e ce-mean/model.npz

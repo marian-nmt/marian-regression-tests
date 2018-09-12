@@ -16,24 +16,55 @@ SHELL=/bin/bash
 
 export LC_ALL=C.UTF-8
 
+function log {
+    echo [$(date "+%m/%d/%Y %T")] $@
+}
+
+function logn {
+    echo -n [$(date "+%m/%d/%Y %T")] $@
+}
+
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
+log "Using Marian: $MRT_MARIAN"
+
+# Get CMake settings
+cd $MRT_MARIAN/build
+cmake -L 2> /dev/null > $MRT_ROOT/cmake.log
+cd $MRT_ROOT
+
 # Check Marian compilation settings
-export MRT_MARIAN_USE_MKL=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND")
-export MRT_MARIAN_USE_CUDNN=$(cmake -L $MRT_MARIAN/build 2> /dev/null | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
+export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
+export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
+
+log "Using version: $MRT_MARIAN_VERSION"
+log "Using MKL: $MRT_MARIAN_USE_MKL"
+log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 
 # Number of available devices
 cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
 export MRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
 
+log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
+log "Using number of devices: $MRT_NUM_DEVICES"
+
 # Exit codes
 export EXIT_CODE_SUCCESS=0
 export EXIT_CODE_SKIP=100
+
+function format_time {
+    dt=$(echo "$2 - $1" | bc 2>/dev/null)
+    dh=$(echo "$dt/3600" | bc 2>/dev/null)
+    dt2=$(echo "$dt-3600*$dh" | bc 2>/dev/null)
+    dm=$(echo "$dt2/60" | bc 2>/dev/null)
+    ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
+    LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
+}
 
 
 # Default directory with all regression tests
@@ -46,30 +77,6 @@ if [ $# -ge 1 ]; then
         prefix="$@"
     fi
 fi
-
-function log {
-    echo [$(date "+%m/%d/%Y %T")] $@
-}
-
-function logn {
-    echo -n [$(date "+%m/%d/%Y %T")] $@
-}
-
-function format_time {
-    dt=$(echo "$2 - $1" | bc 2>/dev/null)
-    dh=$(echo "$dt/3600" | bc 2>/dev/null)
-    dt2=$(echo "$dt-3600*$dh" | bc 2>/dev/null)
-    dm=$(echo "$dt2/60" | bc 2>/dev/null)
-    ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
-    LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
-}
-
-log "Using Marian: $MRT_MARIAN"
-log "Using version: $MRT_MARIAN_VERSION"
-log "Using MKL: $MRT_MARIAN_USE_MKL"
-log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
-log "Using number of devices: $MRT_NUM_DEVICES"
-log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 
 success=true
 count_passed=0

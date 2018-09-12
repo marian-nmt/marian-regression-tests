@@ -52,6 +52,10 @@ More invocation examples:
 
 where _previous.log_ contains a list of test files in separate lines.
 
+Clean test artifacts:
+
+    make clean
+
 
 ## Acknowledgements
 

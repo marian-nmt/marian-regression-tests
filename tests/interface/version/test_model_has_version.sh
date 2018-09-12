@@ -10,7 +10,7 @@ mkdir -p version
 # Save a model
 $MRT_MARIAN/build/marian \
     -m version/model.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
+    -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
     -v version/vocab.en.yml version/vocab.de.yml \
     --after-batches 1
 
