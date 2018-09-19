@@ -3,6 +3,7 @@ valid_script*.temp
 valid_lowisbet
 valid_stalled
 valid_add
+valid_newbest
 train.*
 valid.*
 dev.bpe.de
