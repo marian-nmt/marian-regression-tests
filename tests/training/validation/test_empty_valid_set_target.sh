@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf empty_trg empty_trg.log
+rm -rf empty_trg empty_trg.log empty_valid.??
 
 mkdir -p empty_trg
 touch empty_valid.de

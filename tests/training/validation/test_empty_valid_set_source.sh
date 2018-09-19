@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf empty_src empty_src.log
+rm -rf empty_src empty_src.log empty_valid.??
 
 mkdir -p empty_src
 touch empty_valid.en

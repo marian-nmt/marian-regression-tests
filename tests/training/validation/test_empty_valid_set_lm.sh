@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf empty_valid_lm empty_valid_lm.log
+rm -rf empty_valid_lm empty_valid_lm.log empty_valid.??
 
 mkdir -p empty_valid_lm
 touch empty_valid.en

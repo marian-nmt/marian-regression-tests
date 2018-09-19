@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf empty_validsets empty_validsets.log
+rm -rf empty_validsets empty_validsets.log empty_valid.??
 
 mkdir -p empty_validsets
 touch empty_valid.en
