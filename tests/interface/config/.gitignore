@@ -1,6 +1,8 @@
 load_config
 dump_config.yml
 
+dump_relpaths.yml
+
 overwrite
 overwrite.yml
 
@@ -9,3 +11,4 @@ bestdeep_overwrite
 
 booloff
 booloff.yml
+

@@ -1,3 +1,4 @@
+relative-paths: true
 type: amun
 dim-emb: 500
 models:
