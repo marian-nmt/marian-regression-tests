@@ -13,7 +13,7 @@ rm -f oracle_1s2e.log
 
 
 # Run Marian
-$MRT_MARIAN/build/marian-self-adapt \
+$MRT_MARIAN/build/marian-adaptive \
   -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
   -v $MRT_MODELS/wmt16_systems/en-de/vocab.en.json -v $MRT_MODELS/wmt16_systems/en-de/vocab.de.json \
   --dim-vocabs 85000 85000 --dim-emb 500 \

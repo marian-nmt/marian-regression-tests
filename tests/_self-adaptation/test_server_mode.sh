@@ -9,12 +9,12 @@ clean_up() {
 trap clean_up EXIT
 
 # Test code goes here
-$MRT_MARIAN/build/marian-self-adapt -m $MRT_MODELS/wmt16_systems/en-de/model.npz -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -p 8766 > server.log 2>&1 &
+$MRT_MARIAN/build/marian-adaptive -m $MRT_MODELS/wmt16_systems/en-de/model.npz -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -p 8766 > server.log 2>&1 &
 SERVER_PID=$!
 
 sleep 20
 
-python3 $MRT_MARIAN/scripts/server/client_selfadapt.py -p 8766 > text.out
+python3 $MRT_MARIAN/scripts/self-adaptive/client_example.py -p 8766 > text.out
 kill $SERVER_PID
 
 test -e server.log
