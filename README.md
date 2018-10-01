@@ -1,12 +1,11 @@
 Marian regression tests
 =======================
 
-**Marian** is a C++ GPU-specific parallel automatic differentiation library
-with operator overloading. It is the training framework used in the Marian
-toolkit.
+<b>Marian</b> is an efficient Neural Machine Translation framework written in
+pure C++ with minimal dependencies.
 
-This repository contains the regression test framework for the repo of
-`https://github.com/marian-nmt/marian-dev`.
+This repository contains the regression test framework for the main development
+repository: `https://github.com/marian-nmt/marian-dev`.
 
 
 ## Structure
@@ -20,7 +19,7 @@ Directories:
 
 Each test consists of:
 
-* `test_*.sh` files
+* `test_*.sh` file
 * `setup.sh` (optional)
 * `teardown.sh` (optional)
 
@@ -55,6 +54,24 @@ where _previous.log_ contains a list of test files in separate lines.
 Clean test artifacts:
 
     make clean
+
+
+## Adding new tests
+
+Use templates provided in `tests/_template`.
+
+Please follow these recommendations:
+
+* For comparing outputs with numbers, please use float-friendly
+  `tools/diff-floats.py` instead of GNU `diff`
+* Make your tests deterministic using `--no-shuffle --seed 1111` or similar
+* Make training execution as short as possible, for instance, by reducing the
+  size of the network and the number of iterations
+* Do not run decoding or scoring on files longer than ca. 10-100 lines
+* If your tests require downloading and running a custom model, please keep it
+  as small as possible, and contact one of the main contributors to upload it
+  into our storage
+* Test one thing at a time
 
 
 ## Acknowledgements
