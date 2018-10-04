@@ -8,7 +8,7 @@ rm -rf trans trans.log trans_script.temp
 mkdir -p trans
 
 $MRT_MARIAN/build/marian \
-    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 \
+    --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 --maxi-batch 1 \
     -m trans/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     -v vocab.en.yml vocab.de.yml \
