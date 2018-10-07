@@ -1,0 +1,9 @@
+relative-paths: true
+type: amun
+dim-emb: 500
+vocabs:
+    - ../../../models/wmt16_systems/en-de/vocab.en.json
+    - ../../../models/wmt16_systems/en-de/vocab.de.json
+dim-vocabs:
+    - 85000
+    - 85000
