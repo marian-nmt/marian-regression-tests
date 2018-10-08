@@ -4,9 +4,8 @@
 set -e
 
 # Run scorer
-$MRT_MARIAN/build/marian-scorer \
-    -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -m en-de/model.npz \
-    --n-best --n-best-feature FeatureName -t $(pwd)/text.src.in $(pwd)/text.nbest.in \
+$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
+    --n-best --n-best-feature FeatureName -t text.src.in text.nbest.in \
     > custom.out
 
 grep -c 'FeatureName= ' custom.out
