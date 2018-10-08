@@ -1,0 +1,5 @@
+relative-paths: true
+type: amun
+dim-emb: 500
+models:
+    - ../../../models/wmt16_systems/en-de/model.npz
