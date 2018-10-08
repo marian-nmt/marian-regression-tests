@@ -3,13 +3,13 @@
 # Exit on error
 set -e
 
-rm -f relative_paths.log
+rm -f relpaths.log
 
 # Test code goes here
-echo "this is a test" | $MRT_MARIAN/build/marian-decoder -c relative_paths.yml --log relative_paths.log
+echo "this is a test" | $MRT_MARIAN/build/marian-decoder -c relpaths.yml --log relpaths.log
 
-test -e relative_paths.log
-if ! grep -q "\.\." relative_paths.log; then exit 0; else exit 1; fi
+test -e relpaths.log
+if ! grep -q "\.\." relpaths.log; then exit 0; else exit 1; fi
 
 # Exit with success code
 exit 0
