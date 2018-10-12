@@ -16,7 +16,7 @@ mkdir -p expsmooth_async
 opts="--no-shuffle --seed 777 --mini-batch 1 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 -o sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32 --devices 0 1"
 
 opt_disp=1
-opt_valid=6
+opt_valid=7
 opt_finish=16
 opt_save=8
 opt_exp=0.00001
