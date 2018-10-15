@@ -6,7 +6,7 @@ set -e
 rm -rf dump_relpaths.yml
 
 # Run with no config file
-$MRT_MARIAN/build/marian-decoder -c relative_paths.yml --mini-batch 8 --dump-config > dump_relpaths.yml
+$MRT_MARIAN/build/marian-decoder -c relpaths.yml --mini-batch 8 --dump-config > dump_relpaths.yml
 
 test -e dump_relpaths.yml
 
