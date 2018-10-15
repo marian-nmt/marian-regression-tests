@@ -10,7 +10,7 @@ mkdir -p corpus_noshuf
 test -e vocab.de.yml
 test -e vocab.en.yml
 
-extra_opts="--seed 1234 --no-shuffle --maxi-batch 8 --maxi-batch-sort src --mini-batch 32 --mini-batch-fit -w 100 -o sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
+extra_opts="--seed 1234 --no-shuffle --maxi-batch 8 --maxi-batch-sort src --mini-batch 32 --mini-batch-fit -w 100 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
 
 $MRT_MARIAN/build/marian \
     -m corpus_noshuf/model_full.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

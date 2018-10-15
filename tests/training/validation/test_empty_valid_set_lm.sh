@@ -10,7 +10,7 @@ mkdir -p empty_valid_lm
 touch empty_valid.en
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle --seed 1111 -o sgd --dim-emb 64 --dim-rnn 128 \
+    --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     --model empty_valid_lm/model.npz --type lm \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en -v vocab.en.yml \
     --disp-freq 2 --valid-freq 4 --after-batches 20 \

@@ -8,7 +8,7 @@ rm -rf sqlite *sqlite.log
 mkdir -p sqlite
 
 $MRT_MARIAN/build/marian \
-    --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 -o sgd \
+    --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 --optimizer sgd \
     -m sqlite/model.nosqlite.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
     -v sqlite/vocab.en.yml sqlite/vocab.de.yml \
@@ -21,7 +21,7 @@ test -e nosqlite.log
 $MRT_TOOLS/extract-costs.sh < nosqlite.log > nosqlite.out
 
 $MRT_MARIAN/build/marian \
-    --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 -o sgd \
+    --seed 1111 --no-shuffle --dim-emb 64 --dim-rnn 128 --optimizer sgd \
     -m sqlite/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} --sqlite \
     -v sqlite/vocab.en.yml sqlite/vocab.de.yml \

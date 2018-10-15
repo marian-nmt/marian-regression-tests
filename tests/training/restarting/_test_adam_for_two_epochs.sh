@@ -7,7 +7,7 @@ set -e
 rm -rf adam_2e adam_1st_epoch.log adam_2nd_epoch.log adam_two_epochs.log
 mkdir -p adam_2e
 
-extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 64 --dim-rnn 128 --disp-freq 4 --save-freq 32 -l 0.1 -o adam"
+extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 64 --dim-rnn 128 --disp-freq 4 --save-freq 32 -l 0.1 --optimizer adam"
 
 
 ## Uncomment to update the test

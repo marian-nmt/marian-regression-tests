@@ -8,7 +8,7 @@ rm -rf valid_add valid_add_?.log
 mkdir -p valid_add
 
 #$MRT_MARIAN/build/marian \
-    #--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none -o sgd \
+    #--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     #--dim-emb 128 --dim-rnn 256 --mini-batch 16 \
     #-m valid_add/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     #--disp-freq 10 --valid-freq 20 --after-batches 200 --early-stopping 5 \
@@ -21,7 +21,7 @@ mkdir -p valid_add
 
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none -o sgd \
+    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
     -m valid_add/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 100 --early-stopping 5 \
@@ -37,7 +37,7 @@ cp valid_add/model.npz.progress.yml valid_add/model.npz.progress.yml.bac
 cat valid_add_1.log | $MRT_TOOLS/strip-timestamps.sh > valid_add.out
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none -o sgd \
+    --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
     -m valid_add/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --valid-freq 20 --after-batches 200 --early-stopping 5 \

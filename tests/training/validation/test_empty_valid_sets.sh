@@ -11,7 +11,7 @@ touch empty_valid.en
 touch empty_valid.de
 
 $MRT_MARIAN/build/marian \
-    --no-shuffle --seed 1111 -o sgd --dim-emb 64 --dim-rnn 128 \
+    --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     --model empty_validsets/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --valid-freq 4 --after-batches 20 \
