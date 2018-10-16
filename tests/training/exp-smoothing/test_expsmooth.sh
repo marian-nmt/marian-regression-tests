@@ -40,7 +40,7 @@ $MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.out expsmooth.expected > expsmooth.d
 $MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.valid.out expsmooth.valid.expected > expsmooth.valid.diff
 
 # There should be no difference in costs between training w/ and w/o exponential smoothing
-$MRT_TOOLS/diff-floats.py -p 0.001 expsmooth.out noexpsmooth.out
+$MRT_TOOLS/diff-floats.py -p 0.001 expsmooth.out noexpsmooth.out > noexpsmooth.diff
 
 
 # Exit with success code

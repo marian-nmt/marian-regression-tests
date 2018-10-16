@@ -24,7 +24,7 @@ python $MRT_MARIAN/scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.
 diff adagrad.keys.out adagrad.keys.expected > adagrad.keys.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.npz -k "adagrad_gt" > adagrad.gt.out
-$MRT_TOOLS/diff-floats.py --numpy -p 0.0001  adagrad.gt.out adagrad.gt.expected > adagrad.gt.diff
+$MRT_TOOLS/diff-floats.py --numpy -p 0.0001 adagrad.gt.out adagrad.gt.expected > adagrad.gt.diff
 
 # Exit with success code
 exit 0
