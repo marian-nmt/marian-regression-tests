@@ -10,7 +10,8 @@ mkdir -p valid_newbest
 head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.en > valid.mini.bpe.en
 head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 
-# Uncomment to re-generate expected output
+
+# Uncomment to re-generate the expected output
 
 #$MRT_MARIAN/build/marian \
     #--type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
@@ -22,10 +23,9 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
     #--overwrite --keep-best \
     #--log valid_newbest_full.log
 
-#cat valid_newbest_full.log | $MRT_TOOLS/strip-timestamps.sh \
-    #| grep -P "\[valid\]" > valid_newbest.expected
-
+#cat valid_newbest_full.log | $MRT_TOOLS/strip-timestamps.sh | grep -P "\[valid\]" > valid_newbest.expected
 #exit 1
+
 
 $MRT_MARIAN/build/marian \
     --type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
@@ -42,8 +42,7 @@ test -e valid_newbest/model.npz.yml
 test -e valid_newbest_1.log
 
 cp valid_newbest/model.npz.progress.yml valid_newbest/model.npz.progress.yml.bac
-cat valid_newbest_1.log | $MRT_TOOLS/strip-timestamps.sh \
-    | grep -P "\[valid\]" > valid_newbest.out
+cat valid_newbest_1.log | $MRT_TOOLS/strip-timestamps.sh | grep -P "\[valid\]" > valid_newbest.out
 
 
 $MRT_MARIAN/build/marian \
@@ -53,8 +52,7 @@ $MRT_MARIAN/build/marian \
 test -e valid_newbest/model.npz
 test -e valid_newbest_2.log
 
-cat valid_newbest_2.log | $MRT_TOOLS/strip-timestamps.sh \
-    | grep -P "\[valid\]" >> valid_newbest.out
+cat valid_newbest_2.log | $MRT_TOOLS/strip-timestamps.sh | grep -P "\[valid\]" >> valid_newbest.out
 diff valid_newbest.out valid_newbest.expected > valid_newbest.diff
 
 # Exit with success code

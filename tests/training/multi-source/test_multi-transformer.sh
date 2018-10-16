@@ -19,7 +19,7 @@ test -e multi-transformer/model.npz.yml
 test -e multi-transformer.log
 
 cat multi-transformer.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > multi-transformer.out
-$MRT_TOOLS/diff-floats.py multi-transformer.out multi-transformer.expected -p 0.5 > multi-transformer.diff
+$MRT_TOOLS/diff-floats.py multi-transformer.out multi-transformer.expected -p 0.2 > multi-transformer.diff
 
 # Exit with success code
 exit 0

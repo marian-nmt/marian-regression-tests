@@ -7,6 +7,7 @@ set -e
 rm -rf valid_add valid_add_?.log
 mkdir -p valid_add
 
+
 #$MRT_MARIAN/build/marian \
     #--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     #--dim-emb 128 --dim-rnn 256 --mini-batch 16 \
