@@ -11,7 +11,7 @@ trap clean_up EXIT
 
 # Test code goes here
 $MRT_MARIAN/build/mnist_example \
-    --after-epochs 10 --mini-batch 200 --valid-freq 600 --maxi-batch 1 \
+    --after-epochs 20 --mini-batch 200 --valid-freq 600 --maxi-batch 1 \
     --train-sets train-images-idx3-ubyte train-labels-idx1-ubyte \
     --valid-sets t10k-images-idx3-ubyte t10k-labels-idx1-ubyte \
     --seed 12345 \

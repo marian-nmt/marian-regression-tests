@@ -1,5 +1,10 @@
-Ep. 2 : Up. 600 : accuracy : 0.9657 : new best
-Ep. 4 : Up. 1200 : accuracy : 0.9761 : new best
-Ep. 6 : Up. 1800 : accuracy : 0.9789 : new best
-Ep. 8 : Up. 2400 : accuracy : 0.9805 : new best
-Ep. 10 : Up. 3000 : accuracy : 0.979 : stalled 1 times
+Ep. 2 : Up. 600 : accuracy : 0.9471 : new best
+Ep. 4 : Up. 1200 : accuracy : 0.9643 : new best
+Ep. 6 : Up. 1800 : accuracy : 0.9698 : new best
+Ep. 8 : Up. 2400 : accuracy : 0.9703 : new best
+Ep. 10 : Up. 3000 : accuracy : 0.9705 : new best
+Ep. 12 : Up. 3600 : accuracy : 0.9765 : new best
+Ep. 14 : Up. 4200 : accuracy : 0.9771 : new best
+Ep. 16 : Up. 4800 : accuracy : 0.9766 : stalled 1 times
+Ep. 18 : Up. 5400 : accuracy : 0.978 : new best
+Ep. 20 : Up. 6000 : accuracy : 0.9769 : stalled 1 times
