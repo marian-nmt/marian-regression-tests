@@ -4,12 +4,12 @@
 [valid] Ep. 1 : Up. 80 : cross-entropy : 296.098 : new best
 [valid] Ep. 1 : Up. 100 : cross-entropy : 296.093 : new best
 [valid] Ep. 1 : Up. 120 : cross-entropy : 296.088 : new best
-[valid] Ep. 1 : Up. 120 : perplexity : 25780.6 : new best
+[valid] Ep. 1 : Up. 120 : ce-mean-words : 10.1574 : new best
 [valid] Ep. 1 : Up. 140 : cross-entropy : 296.082 : new best
-[valid] Ep. 1 : Up. 140 : perplexity : 25776.1 : new best
+[valid] Ep. 1 : Up. 140 : ce-mean-words : 10.1572 : new best
 [valid] Ep. 1 : Up. 160 : cross-entropy : 296.077 : new best
-[valid] Ep. 1 : Up. 160 : perplexity : 25771.6 : new best
+[valid] Ep. 1 : Up. 160 : ce-mean-words : 10.157 : new best
 [valid] Ep. 1 : Up. 180 : cross-entropy : 296.073 : new best
-[valid] Ep. 1 : Up. 180 : perplexity : 25767.3 : new best
+[valid] Ep. 1 : Up. 180 : ce-mean-words : 10.1569 : new best
 [valid] Ep. 1 : Up. 200 : cross-entropy : 296.067 : new best
-[valid] Ep. 1 : Up. 200 : perplexity : 25762.8 : new best
+[valid] Ep. 1 : Up. 200 : ce-mean-words : 10.1567 : new best
