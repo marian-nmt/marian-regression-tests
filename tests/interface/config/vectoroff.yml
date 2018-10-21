@@ -1,0 +1,5 @@
+layer-normalization: true
+transformer-tied-layers: [99, 99, 99, 99]
+valid-metrics:
+    - cross-entropy
+    - perplexity
