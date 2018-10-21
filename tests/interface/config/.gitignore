@@ -11,6 +11,8 @@ bestdeep_overwrite
 
 booloff
 booloff.yml
+vectoroff
+vectoroff.yml
 
 relpaths_input.in
 relpaths_nocmd.in
