@@ -5,9 +5,12 @@ word_noweights
 word_ones
 word_ones.weights.txt
 word_twos
-word_twos.weights.txt
 word_twos_cfg
+word_twos.weights.txt
 word_twos.config.yml
+word_eos
+word_eos.weights.txt
+word_eos.config.yml
 x3copied
 x3weights
 sqlite
@@ -17,3 +20,5 @@ valid
 valid_script.temp
 maxibatch
 word_maxibatch
+compare
+compare.*.weights.txt
