@@ -9,7 +9,7 @@
 
 # Environment variables:
 #  - MARIAN - path to Marian root directory
-#  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU devices
+#  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU device IDs
 #  - NUM_DEVICES - maximum number of GPU devices to be used
 
 SHELL=/bin/bash
@@ -146,9 +146,8 @@ do
         fi
 
         # Run test
-        test_stdout=$test_name.stdout
-        test_stderr=$test_name.stderr
-        $SHELL -x $test_file > $test_stdout 2> $test_stderr
+        # Note: all output gets written to stderr (very very few cases write to stdout)
+        $SHELL -x $test_file 2> $test_file.log 1>&2
         exit_code=$?
 
         # Check exit code
@@ -211,7 +210,7 @@ for test_name in "${tests_failed[@]}"; do
 done
 [[ -z "$tests_failed" ]] || echo "Logs:"
 for test_name in "${tests_failed[@]}"; do
-    echo "  - $(realpath $test_name | sed 's/.sh/.stderr/')"
+    echo "  - $(realpath $test_name | sed 's/\.sh/.sh.log/')"
 done
 
 # Print summary
