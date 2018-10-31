@@ -9,7 +9,7 @@ import re
 REGEX_NUMERIC  = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
 REGEX_STRIP_EP = re.compile(r"^\[valid\] Ep\. \d+ : Up\. ")
 
-REPLACE_NUMPY  = [
+NORMALIZE_NUMPY = [
     ("[[", "[[ "),
     ("]]", " ]]"),
     ("0. ", "0.0 "),
@@ -23,26 +23,22 @@ REPLACE_NUMPY  = [
 def main():
     args = parse_user_args()
     exit_code = 0
-    max_diff_nums = args.max_diff_nums
+    allowed_diffs = args.allow_n_diffs
 
     i = 0
     while True:
         if args.numpy:
-            line1 = ' '.join(args.file1.readlines()).replace('\n', '')
-            line2 = ' '.join(args.file2.readlines()).replace('\n', '')
-
-            for k, v in REPLACE_NUMPY:
-                line1 = line1.replace(k, v)
-                line2 = line2.replace(k, v)
+            line1 = read_numpy(args.file1)
+            line2 = read_numpy(args.file2)
         else:
-            line1 = next(args.file1, None)
+            line1 = read_line(args.file1, args.separate)
             if line1 is None:
                 break
-            line2 = next(args.file2, None)
-
-            if args.separate_nums:
-                line1 = line1.replace(args.separate_nums, ' ' + args.separate_nums + ' ')
-                line2 = line2.replace(args.separate_nums, ' ' + args.separate_nums + ' ')
+            line2 = read_line(args.file2, args.separate)
+            if line2 is None:
+                print "Extra line in the first file"
+                exit_code = 1
+                break
 
         line1_toks, nums1, text1 = process_line(line1)
         line2_toks, nums2, text2 = process_line(line2)
@@ -62,30 +58,44 @@ def main():
                 n1 = abs(n1)
                 n2 = abs(n2)
             if abs(n1 - n2) > args.precision:
-                if max_diff_nums < 1:
+                if allowed_diffs < 1:
                     print "Line {}: {} != {}".format(i, n1, n2)
                     exit_code = 1
                 else:
                     print "Line {}: {} != {}, allowed number of differences: {}" \
-                        .format(i, n1, n2, max_diff_nums)
-                    max_diff_nums -= 1
+                        .format(i, n1, n2, allowed_diffs)
+                    allowed_diffs -= 1
 
         if args.numpy:
             break
         i += 1
 
     for _ in args.file2:
-        print "Extra line in the second file!"
+        print "Extra line in the second file"
         exit_code = 1
 
     return exit_code
 
 
+def read_numpy(iofile):
+    line = ' '.join(iofile.readlines()).replace('\n', '')   # merge all lines
+    for k, v in NORMALIZE_NUMPY:                            # normalize numpy format across Python/Numpy versions
+        line = line.replace(k, v)
+    return line
+
+
+def read_line(iofile, separator=""):
+    line = next(iofile, None)
+    if separator and line:
+        line = line.replace(separator, ' ' + separator + ' ')   # add spaces around the separator character
+    return line
+
+
 def process_line(line):
-    line = REGEX_STRIP_EP.sub("[valid] ", line)              # normalize "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
-    line_toks = line.rstrip().replace("[[-", "[[ -").split() # tokenize
-    nums = [float(s) for s in line_toks if is_numeric(s)]    # find all numbers
-    text = ' '.join(["<NUM>" if is_numeric(s) else s         # text format with numbers normalized
+    line = REGEX_STRIP_EP.sub("[valid] ", line)                 # normalize "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
+    line_toks = line.rstrip().replace("[[-", "[[ -").split()    # tokenize
+    nums = [float(s) for s in line_toks if is_numeric(s)]       # find all numbers
+    text = ' '.join(["<NUM>" if is_numeric(s) else s            # text format with numbers normalized
                       for s in line_toks])
     return line_toks, nums, text
 
@@ -98,10 +108,10 @@ def parse_user_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("file1", type=argparse.FileType('r'))
     parser.add_argument("file2", type=argparse.FileType('r'))
-    parser.add_argument("-p", "--precision", type=float, default=0.001)
-    parser.add_argument("-n", "--max-diff-nums", type=int, default=0)
+    parser.add_argument("-p", "--precision", type=float, metavar="FLOAT", default=0.001)
+    parser.add_argument("-n", "--allow-n-diffs", type=int, metavar="INT", default=0)
     parser.add_argument("-a", "--abs", action="store_true")
-    parser.add_argument("-s", "--separate-nums", type=str)
+    parser.add_argument("-s", "--separate", type=str, metavar="STRING")
     parser.add_argument("--numpy", action="store_true")
 
     return parser.parse_args()
