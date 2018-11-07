@@ -21,4 +21,6 @@ valid_script.temp
 maxibatch
 word_maxibatch
 compare
-compare.*.weights.txt
+compare*.weights.txt
+warn
+warn*.weights.txt
