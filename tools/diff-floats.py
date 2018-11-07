@@ -24,6 +24,7 @@ def main():
     args = parse_user_args()
     exit_code = 0
     allowed_diffs = args.allow_n_diffs
+    args.message_count = 0
 
     i = 0
     while True:
@@ -36,20 +37,18 @@ def main():
                 break
             line2 = read_line(args.file2, args.separate)
             if line2 is None:
-                print "Extra line in the first file"
-                exit_code = 1
                 break
 
         line1_toks, nums1, text1 = process_line(line1)
         line2_toks, nums2, text2 = process_line(line2)
 
         if text1 != text2:
-            print "Line {}: different texts:\n< {}\n> {}".format( i, text1, text2)
+            message("Line {}: different texts:\n< {}\n> {}".format(i, text1, text2), args)
             exit_code = 1
             continue
 
         if len(nums1) != len(nums2):
-            print "Line {}: different number of numerics: {} / {}".format(i, nums1, nums2)
+            message("Line {}: different number of numerics: {} / {}".format(i, nums1, nums2), args)
             exit_code = 1
             continue
 
@@ -59,19 +58,24 @@ def main():
                 n2 = abs(n2)
             if abs(n1 - n2) > args.precision:
                 if allowed_diffs < 1:
-                    print "Line {}: {} != {}".format(i, n1, n2)
+                    message("Line {}: {} != {}".format(i, n1, n2), args)
                     exit_code = 1
                 else:
-                    print "Line {}: {} != {}, allowed number of differences: {}" \
-                        .format(i, n1, n2, allowed_diffs)
+                    message("Line {}: {} != {}, allowed number of differences: {}" \
+                                .format(i, n1, n2, allowed_diffs),
+                            args)
                     allowed_diffs -= 1
 
         if args.numpy:
             break
         i += 1
 
+    for _ in args.file1:
+        message("Extra line in the first file", args)
+        exit_code = 1
+
     for _ in args.file2:
-        print "Extra line in the second file"
+        message("Extra line in the second file", args)
         exit_code = 1
 
     return exit_code
@@ -104,16 +108,26 @@ def is_numeric(s):
     return REGEX_NUMERIC.match(s)
 
 
+def message(text, args):
+    if not text.endswith("\n"):
+        text += "\n"
+    args.output.write(text.endswith("\n"))
+    args.message_count += 1
+    if args.output is not sys.stdout and iargs.output is not sys.stderr and not args.quiet:
+        sys.stderr.write(text)
+
+
 def parse_user_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("file1", type=argparse.FileType('r'))
     parser.add_argument("file2", type=argparse.FileType('r'))
+    parser.add_argument("-o", "--output", type=argparse.FileType('w'), metavar="FILE", default=sys.stdout)
     parser.add_argument("-p", "--precision", type=float, metavar="FLOAT", default=0.001)
     parser.add_argument("-n", "--allow-n-diffs", type=int, metavar="INT", default=0)
-    parser.add_argument("-a", "--abs", action="store_true")
     parser.add_argument("-s", "--separate", type=str, metavar="STRING")
+    parser.add_argument("-a", "--abs", action="store_true")
     parser.add_argument("--numpy", action="store_true")
-
+    parser.add_argument("-q", "--quiet", action="store_true")
     return parser.parse_args()
 
 
