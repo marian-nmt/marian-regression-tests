@@ -10,8 +10,7 @@ mkdir -p trans
 $MRT_MARIAN/build/marian \
     --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 --maxi-batch 1 --mini-batch 16 \
     -m trans/model.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
-    -v vocab.en.yml vocab.de.yml \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --dim-vocabs 50000 50000 \
     --disp-freq 30 --valid-freq 60 --after-batches 150 \
     --valid-metrics cross-entropy translation --valid-script-path ./trans_script.sh \
