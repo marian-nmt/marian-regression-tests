@@ -32,3 +32,4 @@ models/transformer/*.bpe
 data/*/corpus.*
 data/*/*.bpe
 data/*/truecase*
+data/*/*.gz
