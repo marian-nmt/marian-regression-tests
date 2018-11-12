@@ -17,7 +17,7 @@ sleep 20
 python3 $MRT_MARIAN/scripts/server/client_example.py -p 8765 < text.in > text.out
 kill $SERVER_PID
 
-diff text.out text.expected > text.diff
+$MRT_TOOLS/diff.sh text.out text.expected > text.diff
 test -e server.log
 grep -q "listening on port 8765" server.log
 

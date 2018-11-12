@@ -31,7 +31,7 @@ test -e two_s2s_B.log
 $MRT_MARIAN/build/marian-decoder -m two_s2s/modelA.npz two_s2s/modelB.npz -v vocab.en.yml vocab.de.yml \
     -i text.in -o two_s2s.out --log two_s2s.log
 
-diff two_s2s.out two_s2s.expected > two_s2s.diff
+$MRT_TOOLS/diff.sh two_s2s.out two_s2s.expected > two_s2s.diff
 
 # Exit with success code
 exit 0

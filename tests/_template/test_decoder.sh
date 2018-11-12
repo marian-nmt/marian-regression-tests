@@ -15,7 +15,7 @@ rm -f decoder.{out,diff}
 $MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml < text.in > decoder.out
 
 # Compare the output with the expected output
-diff decoder.out text.expected > decoder.diff
+$MRT_TOOLS/diff.sh decoder.out text.expected > decoder.diff
 
 # Exit with success code
 exit 0

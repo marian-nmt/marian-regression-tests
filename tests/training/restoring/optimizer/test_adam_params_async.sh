@@ -26,7 +26,7 @@ $MRT_TOOLS/extract-costs.sh < adam_async.log > adam_async.costs.out
 $MRT_TOOLS/diff-nums.py adam_async.costs.out adam_async.costs.expected -p 10.00 -n 2 -o adam_async.costs.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz > adam_async.keys.out
-diff adam_async.keys.out adam.keys.expected > adam_async.keys.diff
+$MRT_TOOLS/diff.sh adam_async.keys.out adam.keys.expected > adam_async.keys.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_mt" > adam_async.mt.out
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_vt" > adam_async.vt.out

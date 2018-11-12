@@ -17,7 +17,7 @@ sleep 20
 
 python3 $MRT_MARIAN/scripts/server/client_example.py -p 8766 -b 32 < text.in > text.b32.out
 kill $SERVER_PID
-diff text.b32.out text.expected > text.diff
+$MRT_TOOLS/diff.sh text.b32.out text.expected > text.diff
 
 # Exit with success code
 exit 0

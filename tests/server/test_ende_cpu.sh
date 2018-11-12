@@ -25,7 +25,7 @@ sleep 20
 python3 $MRT_MARIAN/scripts/server/client_example.py -p 8768 < text4.in > text4.cpu.out
 kill $SERVER_PID
 
-diff text4.cpu.out text4.expected > text4.cpu.diff
+$MRT_TOOLS/diff.sh text4.cpu.out text4.expected > text4.cpu.diff
 test -e server_cpu.log
 grep -q "listening on port 8768" server_cpu.log
 

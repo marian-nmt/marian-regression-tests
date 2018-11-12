@@ -33,7 +33,7 @@ grep -q "dim-emb: 16" load_config.log
 cat no_config.log   | grep -vP "\[(memory|marian)\]" | $MRT_TOOLS/strip-timestamps.sh > no_config.out
 cat load_config.log | grep -vP "\[(memory|marian)\]" | $MRT_TOOLS/strip-timestamps.sh > load_config.out
 
-diff load_config.out no_config.out > load_config.diff
+$MRT_TOOLS/diff.sh load_config.out no_config.out > load_config.diff
 
 # Exit with success code
 exit 0

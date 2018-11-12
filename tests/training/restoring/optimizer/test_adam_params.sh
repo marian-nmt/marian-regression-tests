@@ -21,7 +21,7 @@ $MRT_TOOLS/extract-costs.sh < adam.log > adam.costs.out
 $MRT_TOOLS/diff-nums.py adam.costs.out adam.costs.expected -p 0.2 -o adam.costs.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz > adam.keys.out
-diff adam.keys.out adam.keys.expected > adam.keys.diff
+$MRT_TOOLS/diff.sh adam.keys.out adam.keys.expected > adam.keys.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_mt" > adam.mt.out
 $MRT_TOOLS/diff-nums.py --numpy -p 0.0001  adam.mt.out adam.mt.expected -o adam.mt.diff

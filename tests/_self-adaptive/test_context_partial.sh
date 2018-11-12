@@ -14,7 +14,7 @@ $MRT_MARIAN/build/marian-adaptive \
   -t ubuntu.contextpart.src ubuntu.contextpart.ref --log contextpart.log < ubuntu.src > contextpart.out
 
 # Check outputs
-diff contextpart.out contextpart.expected > contextpart.diff
+$MRT_TOOLS/diff.sh contextpart.out contextpart.expected > contextpart.diff
 
 # Check costs
 cat contextpart.log | $MRT_TOOLS/extract-costs.sh > contextpart.costs.out
