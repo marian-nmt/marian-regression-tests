@@ -19,13 +19,13 @@ test -e lm-transformer/model.npz.yml
 test -e lm-transformer.log
 
 cat lm-transformer.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > lm-transformer.out
-$MRT_TOOLS/diff-nums.py lm-transformer.out lm-transformer.expected -p 0.02 > lm-transformer.diff
+$MRT_TOOLS/diff-nums.py lm-transformer.out lm-transformer.expected -p 0.02 -o lm-transformer.diff
 
 # Scoring with LM
 test -s temp.bpe.en || tail $MRT_DATA/europarl.de-en/corpus.bpe.en > test.bpe.en
 
 $MRT_MARIAN/build/marian-scorer -m lm-transformer/model.npz -t test.bpe.en -v vocab.en.yml > lm-transformer.scores.out
-$MRT_TOOLS/diff-nums.py lm-transformer.scores.out lm-transformer.scores.expected -p 0.002 > lm-transformer.scores.diff
+$MRT_TOOLS/diff-nums.py lm-transformer.scores.out lm-transformer.scores.expected -p 0.002 -o lm-transformer.scores.diff
 
 # Exit with success code
 exit 0

@@ -32,7 +32,7 @@ test -e sqlite.log
 
 $MRT_TOOLS/extract-costs.sh < sqlite.log > sqlite.out
 
-$MRT_TOOLS/diff-nums.py nosqlite.out sqlite.out -p 0.2 > sqlite.diff
+$MRT_TOOLS/diff-nums.py nosqlite.out sqlite.out -p 0.2 -o sqlite.diff
 
 # Exit with success code
 exit 0

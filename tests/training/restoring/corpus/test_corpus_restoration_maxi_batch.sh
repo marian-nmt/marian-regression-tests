@@ -46,7 +46,7 @@ test -e corpus_maxi_2.log
 cat corpus_maxi_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_maxi_2.out
 cat corpus_maxi_1.out corpus_maxi_2.out > corpus_maxi.out
 
-$MRT_TOOLS/diff-nums.py corpus_maxi.out corpus_maxi.expected -p 0.1 > corpus_maxi.diff
+$MRT_TOOLS/diff-nums.py corpus_maxi.out corpus_maxi.expected -p 0.1 -o corpus_maxi.diff
 
 # Exit with success code
 exit 0

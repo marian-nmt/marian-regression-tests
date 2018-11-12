@@ -31,7 +31,7 @@ test -e sqlite_seed_2.log
 $MRT_TOOLS/extract-costs.sh < sqlite_seed_1.log > sqlite_seed_1.out
 $MRT_TOOLS/extract-costs.sh < sqlite_seed_2.log > sqlite_seed_2.out
 
-$MRT_TOOLS/diff-nums.py sqlite_seed_1.out sqlite_seed_2.out -p 0.1 > sqlite_seed.diff
+$MRT_TOOLS/diff-nums.py sqlite_seed_1.out sqlite_seed_2.out -p 0.1 -o sqlite_seed.diff
 
 # Exit with success code
 exit 0

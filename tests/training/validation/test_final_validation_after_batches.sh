@@ -19,7 +19,7 @@ test -e final_batch/model.npz
 test -e final_batch.log
 
 $MRT_TOOLS/strip-timestamps.sh < final_batch.log > final_batch.out
-$MRT_TOOLS/diff-nums.py final_batch.out final_batch.expected -p 0.9 > final_batch.diff
+$MRT_TOOLS/diff-nums.py final_batch.out final_batch.expected -p 0.9 -o final_batch.diff
 
 # Exit with success code
 exit 0

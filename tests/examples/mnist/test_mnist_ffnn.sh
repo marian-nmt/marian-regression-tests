@@ -18,7 +18,7 @@ $MRT_MARIAN/build/mnist_example \
     --log train.log
 
 cat train.log | grep '\[valid\]' | sed -re 's/.*\[valid\] //' -e 's/ : (new|stalled).*//' > ffnn.out
-$MRT_TOOLS/diff-nums.py ffnn.out ffnn.expected -p 0.005 > ffnn.diff
+$MRT_TOOLS/diff-nums.py ffnn.out ffnn.expected -p 0.005 -o ffnn.diff
 
 # Exit with success code
 exit 0

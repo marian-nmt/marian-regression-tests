@@ -19,7 +19,7 @@ test -e wmt17/model.npz
 test -e wmt17/model.npz.yml
 
 cat wmt17.log | $MRT_TOOLS/extract-costs.sh > wmt17.out
-$MRT_TOOLS/diff-nums.py wmt17.out wmt17.expected -p 0.3 > wmt17.diff
+$MRT_TOOLS/diff-nums.py wmt17.out wmt17.expected -p 0.3 -o wmt17.diff
 
 # Exit with success code
 exit 0

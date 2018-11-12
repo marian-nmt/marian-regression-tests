@@ -28,7 +28,7 @@ test -e word_ones/model.npz
 test -e word_ones.log
 
 cat word_ones.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ Time.*//' > word_ones.out
-$MRT_TOOLS/diff-nums.py word_noweights.out word_ones.out -p 0.1 > word_ones.diff
+$MRT_TOOLS/diff-nums.py word_noweights.out word_ones.out -p 0.1 -o word_ones.diff
 
 # Exit with success code
 exit 0

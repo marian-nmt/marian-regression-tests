@@ -31,7 +31,7 @@ test -e ones/model.npz
 test -e ones.log
 
 cat ones.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ Time.*//' > ones.out
-$MRT_TOOLS/diff-nums.py noweights.out ones.out -p 0.1 > ones.diff
+$MRT_TOOLS/diff-nums.py noweights.out ones.out -p 0.1 -o ones.diff
 
 # Exit with success code
 exit 0

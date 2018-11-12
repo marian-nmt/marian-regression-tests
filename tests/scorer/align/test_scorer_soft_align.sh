@@ -9,7 +9,7 @@ $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer
   | sed 's/^.* ||| //' > soft.out
 
 # Compare scores
-$MRT_TOOLS/diff-nums.py -s , soft.out soft.expected > soft.diff
+$MRT_TOOLS/diff-nums.py -s , soft.out soft.expected -o soft.diff
 
 # Exit with success code
 exit 0

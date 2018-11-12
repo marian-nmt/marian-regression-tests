@@ -50,7 +50,7 @@ test -e valid_add/model.npz
 test -e valid_add_2.log
 
 cat valid_add_2.log | $MRT_TOOLS/strip-timestamps.sh >> valid_add.out
-$MRT_TOOLS/diff-nums.py -p 0.003 valid_add.out valid_add.expected > valid_add.diff
+$MRT_TOOLS/diff-nums.py -p 0.003 valid_add.out valid_add.expected -o valid_add.diff
 
 # Exit with success code
 exit 0

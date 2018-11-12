@@ -20,7 +20,7 @@ test -e word_maxibatch/model.npz
 test -e word_maxibatch.log
 
 $MRT_TOOLS/extract-costs.sh < word_maxibatch.log > word_maxibatch.out
-$MRT_TOOLS/diff-nums.py word_maxibatch.out word_maxibatch.expected -p 0.1 > word_maxibatch.diff
+$MRT_TOOLS/diff-nums.py word_maxibatch.out word_maxibatch.expected -p 0.1 -o word_maxibatch.diff
 
 # Exit with success code
 exit 0

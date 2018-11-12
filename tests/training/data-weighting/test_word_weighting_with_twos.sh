@@ -19,7 +19,7 @@ test -e word_twos/model.npz
 test -e word_twos.log
 
 cat word_twos.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ Time.*//' > word_twos.out
-$MRT_TOOLS/diff-nums.py word_twos.out word_twos.expected -p 0.1 > word_twos.diff
+$MRT_TOOLS/diff-nums.py word_twos.out word_twos.expected -p 0.1 -o word_twos.diff
 
 rm -rf word_twos_cfg word_twos_cfg.{log,out,diff}
 mkdir -p word_twos_cfg
@@ -34,7 +34,7 @@ $MRT_MARIAN/build/marian \
     -c word_twos.config.yml
 
 cat word_twos_cfg.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed -r 's/ Time.*//' > word_twos_cfg.out
-$MRT_TOOLS/diff-nums.py word_twos_cfg.out word_twos.expected -p 0.1 > word_twos_cfg.diff
+$MRT_TOOLS/diff-nums.py word_twos_cfg.out word_twos.expected -p 0.1 -o word_twos_cfg.diff
 
 # Exit with success code
 exit 0
