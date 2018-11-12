@@ -44,7 +44,7 @@ test -e sqlite_maxi_2.log
 cat sqlite_maxi_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite_maxi_2.out
 cat sqlite_maxi_1.out sqlite_maxi_2.out > sqlite_maxi.out
 
-$MRT_TOOLS/diff-floats.py sqlite_maxi.out sqlite_maxi.expected -p 0.1 > sqlite_maxi.diff
+$MRT_TOOLS/diff-nums.py sqlite_maxi.out sqlite_maxi.expected -p 0.1 > sqlite_maxi.diff
 
 # Exit with success code
 exit 0

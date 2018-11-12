@@ -21,7 +21,7 @@ $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer
 
 # Compare scores
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f4 > compare.decoder.out
-$MRT_TOOLS/diff-floats.py compare.scorer.out compare.decoder.out -p 0.0003
+$MRT_TOOLS/diff-nums.py compare.scorer.out compare.decoder.out -p 0.0003
 
 # Exit with success code
 exit 0

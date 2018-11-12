@@ -23,7 +23,7 @@ test -e adam_sync/model.npz.optimizer.npz
 test -e adam_sync.log
 
 $MRT_TOOLS/extract-costs.sh < adam_sync.log > adam_sync.costs.out
-$MRT_TOOLS/diff-floats.py adam_sync.costs.out adam_sync.costs.expected -p 3.00 -n 2 > adam_sync.costs.diff
+$MRT_TOOLS/diff-nums.py adam_sync.costs.out adam_sync.costs.expected -p 3.00 -n 2 > adam_sync.costs.diff
 
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz > adam_sync.keys.out
 diff adam_sync.keys.out adam.keys.expected > adam_sync.keys.diff
@@ -31,8 +31,8 @@ diff adam_sync.keys.out adam.keys.expected > adam_sync.keys.diff
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_mt" > adam_sync.mt.out
 python $MRT_MARIAN/scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_vt" > adam_sync.vt.out
 
-$MRT_TOOLS/diff-floats.py --numpy -p 0.002  adam_sync.mt.out adam_sync.mt.expected > adam_sync.mt.diff
-$MRT_TOOLS/diff-floats.py --numpy -p 0.0002 adam_sync.vt.out adam_sync.vt.expected > adam_sync.vt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.002  adam_sync.mt.out adam_sync.mt.expected > adam_sync.mt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.0002 adam_sync.vt.out adam_sync.vt.expected > adam_sync.vt.diff
 
 # Exit with success code
 exit 0

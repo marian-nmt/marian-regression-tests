@@ -18,7 +18,7 @@ test -e transformer/model.npz
 test -e transformer.log
 
 cat transformer.log | $MRT_TOOLS/extract-costs.sh > transformer.out
-$MRT_TOOLS/diff-floats.py transformer.out transformer.expected -p 0.01 > transformer.diff
+$MRT_TOOLS/diff-nums.py transformer.out transformer.expected -p 0.01 > transformer.diff
 
 # Exit with success code
 exit 0

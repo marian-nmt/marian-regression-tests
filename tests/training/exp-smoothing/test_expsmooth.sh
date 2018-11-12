@@ -36,11 +36,11 @@ cat expsmooth.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'val
 cat expsmooth.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 'valid' | sed 's/ : Time.*//' > expsmooth.valid.out
 
 
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.out expsmooth.expected > expsmooth.diff
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth.valid.out expsmooth.valid.expected > expsmooth.valid.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 expsmooth.out expsmooth.expected > expsmooth.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 expsmooth.valid.out expsmooth.valid.expected > expsmooth.valid.diff
 
 # There should be no difference in costs between training w/ and w/o exponential smoothing
-$MRT_TOOLS/diff-floats.py -p 0.001 expsmooth.out noexpsmooth.out > noexpsmooth.diff
+$MRT_TOOLS/diff-nums.py -p 0.001 expsmooth.out noexpsmooth.out > noexpsmooth.diff
 
 
 # Exit with success code

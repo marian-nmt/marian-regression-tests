@@ -13,7 +13,7 @@ grep -c 'FeatureName= ' custom.out
 cat custom.out | sed 's/ ||| /\t/g' | cut -f3 | tr ' ' '\t' | cut -f4 > custom.scores.out
 cat nbest.expected | sed 's/ ||| /\t/g' | cut -f3 | tr ' ' '\t' | cut -f4 > nbest.scores.out
 
-$MRT_TOOLS/diff-floats.py custom.scores.out nbest.scores.out -p 0.0003 > custom.scores.diff
+$MRT_TOOLS/diff-nums.py custom.scores.out nbest.scores.out -p 0.0003 > custom.scores.diff
 
 # Exit with success code
 exit 0

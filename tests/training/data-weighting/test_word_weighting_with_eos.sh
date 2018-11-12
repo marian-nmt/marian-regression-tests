@@ -21,7 +21,7 @@ test -e word_eos/model.npz
 test -e word_eos.log
 
 cat word_eos.log | $MRT_TOOLS/extract-disp.sh > word_eos.out
-$MRT_TOOLS/diff-floats.py word_eos.out word_eos.expected -p 0.1 > word_eos.diff
+$MRT_TOOLS/diff-nums.py word_eos.out word_eos.expected -p 0.1 > word_eos.diff
 
 
 # Exit with success code

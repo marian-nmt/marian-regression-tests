@@ -18,7 +18,7 @@ test -e perplexity/model.npz
 test -e perplexity.log
 
 cat perplexity.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > perplexity.out
-$MRT_TOOLS/diff-floats.py perplexity.out perplexity.expected -p 0.5 > perplexity.diff
+$MRT_TOOLS/diff-nums.py perplexity.out perplexity.expected -p 0.5 > perplexity.diff
 
 # Exit with success code
 exit 0

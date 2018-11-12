@@ -18,7 +18,7 @@ test -e ce-mean-words/model.npz
 test -e ce-mean-words.log
 
 cat ce-mean-words.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > ce-mean-words.out
-$MRT_TOOLS/diff-floats.py ce-mean-words.out ce-mean-words.expected -p 0.02 > ce-mean-words.diff
+$MRT_TOOLS/diff-nums.py ce-mean-words.out ce-mean-words.expected -p 0.02 > ce-mean-words.diff
 
 # Exit with success code
 exit 0

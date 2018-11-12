@@ -28,7 +28,7 @@ diff oracle_1s2e.bleu oracle.bleu.expected > oracle_1s2e.bleu.diff
 
 # Check costs
 cat oracle_1s2e.log | grep 'Ep\. ' | $MRT_TOOLS/extract-costs.sh > costs_1s2e.out
-$MRT_TOOLS/diff-floats.py -p 0.01 costs_1s2e.out costs.expected > costs_1s2e.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 costs_1s2e.out costs.expected > costs_1s2e.diff
 
 # Exit with success code
 exit 0

@@ -17,7 +17,7 @@ $MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer
 
 cat parallel.nbest.out | sed 's/ ||| /\t/g' | cut -f3 | tr ' ' '\t' | cut -f4 > parallel.nbest.scores.out
 
-$MRT_TOOLS/diff-floats.py parallel.scores.out parallel.nbest.scores.out -p 0.0003 > parallel.scores.diff
+$MRT_TOOLS/diff-nums.py parallel.scores.out parallel.nbest.scores.out -p 0.0003 > parallel.scores.diff
 
 # Exit with success code
 exit 0

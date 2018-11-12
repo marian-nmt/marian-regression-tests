@@ -33,7 +33,7 @@ cat adam_load_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : 
 
 # The allowed tolerance needs to be radiculously high as restarting the
 # training is very instable on different GPU devices
-$MRT_TOOLS/diff-floats.py -p 15.0 -n 1 adam_load.out adam_load.expected > adam_load.diff
+$MRT_TOOLS/diff-nums.py -p 15.0 -n 1 adam_load.out adam_load.expected > adam_load.diff
 
 # Exit with success code
 exit 0

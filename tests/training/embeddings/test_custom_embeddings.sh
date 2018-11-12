@@ -26,8 +26,8 @@ $MRT_MARIAN/scripts/embeddings/export_embeddings.py -m custom_emb/model.npz -o c
 cat custom_emb.all.src | head -n 101 > custom_emb.src
 cat custom_emb.all.trg | head -n 101 > custom_emb.trg
 
-$MRT_TOOLS/diff-floats.py -n 1 -p 0.0005 word2vec.en custom_emb.src > custom_emb.src.diff
-$MRT_TOOLS/diff-floats.py -n 1 -p 0.0005 word2vec.de custom_emb.trg > custom_emb.trg.diff
+$MRT_TOOLS/diff-nums.py -n 1 -p 0.0005 word2vec.en custom_emb.src > custom_emb.src.diff
+$MRT_TOOLS/diff-nums.py -n 1 -p 0.0005 word2vec.de custom_emb.trg > custom_emb.trg.diff
 
 # Exit with success code
 exit 0

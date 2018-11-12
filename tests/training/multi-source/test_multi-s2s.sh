@@ -19,7 +19,7 @@ test -e multi-s2s/model.npz.yml
 test -e multi-s2s.log
 
 cat multi-s2s.log | grep 'Ep\. 1 :' | $MRT_TOOLS/extract-costs.sh > multi-s2s.out
-$MRT_TOOLS/diff-floats.py multi-s2s.out multi-s2s.expected -p 0.2 > multi-s2s.diff
+$MRT_TOOLS/diff-nums.py multi-s2s.out multi-s2s.expected -p 0.2 > multi-s2s.diff
 
 # Exit with success code
 exit 0
