@@ -16,8 +16,7 @@ cat text.in | perl -ne 'for$i(1..12){print}' > compare.src
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > compare.trg
 
 # Run rescorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
-  -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
+$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
   -t $(pwd)/compare.src $(pwd)/compare.trg > compare.scorer.out
 
 # Compare scores

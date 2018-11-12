@@ -16,12 +16,12 @@ $MRT_MARIAN/build/marian \
 
 # Check if the version is logged for newly started training
 test -e version.log
-grep -qP "created with Marian v[1-9]+\.[0-9]+\.[0-9]+\+.*" version.log
+grep -qP "creat.* Marian v[1-9]+\.[0-9]+\.[0-9]+.*" version.log
 rm -f version.log
 
 # Check if the model contains a version
 test -e version/model.npz
-python3 $MRT_MARIAN/scripts/contrib/model_info.py -s -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+\+.*"
+python3 $MRT_MARIAN/scripts/contrib/model_info.py -s -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+.*"
 
 # Check if the version is printed during decoding
 echo "test" | $MRT_MARIAN/build/marian-decoder \
@@ -29,7 +29,7 @@ echo "test" | $MRT_MARIAN/build/marian-decoder \
     --log version.log
 
 test -e version.log
-grep -qP "created with Marian v[1-9]+\.[0-9]+\.[0-9]+\+.*" version.log
+grep -qP "creat.* Marian v[1-9]+\.[0-9]+\.[0-9]+.*" version.log
 
 # Exit with success code
 exit 0

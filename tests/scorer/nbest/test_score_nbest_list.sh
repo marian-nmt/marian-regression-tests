@@ -4,7 +4,7 @@
 set -e
 
 # Run scorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
+$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
     --n-best -t text.src.in text.nbest.in \
     > nbest.out
 

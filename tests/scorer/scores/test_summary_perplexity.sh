@@ -4,8 +4,7 @@
 set -e
 
 # Run scorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
-  -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
+$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
   -t $(pwd)/scores.src.in $(pwd)/scores.trg.in --summary perplexity > summary_perplexity.out
 
 # Compare scores

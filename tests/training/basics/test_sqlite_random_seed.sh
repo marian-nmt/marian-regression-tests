@@ -10,8 +10,7 @@ mkdir -p sqlite_seed
 $MRT_MARIAN/build/marian \
     --seed 3333 --dim-emb 64 --dim-rnn 128 --optimizer sgd \
     -m sqlite_seed/model1.npz \
-    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} --sqlite \
-    -v sqlite_seed/vocab.en.yml sqlite_seed/vocab.de.yml \
+    -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} --sqlite -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-batches 50 \
     --log sqlite_seed_1.log
 

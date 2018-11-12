@@ -30,10 +30,10 @@ grep -q "mini-batch: 8" load_config.log
 grep -q "dim-rnn: 32" load_config.log
 grep -q "dim-emb: 16" load_config.log
 
-cat no_config.log | grep -v "\[memory\]" | $MRT_TOOLS/strip-timestamps.sh > no_config.out
-cat load_config.log | grep -v "\[memory\]" | $MRT_TOOLS/strip-timestamps.sh > load_config.out
+cat no_config.log   | grep -vP "\[(memory|marian)\]" | $MRT_TOOLS/strip-timestamps.sh > no_config.out
+cat load_config.log | grep -vP "\[(memory|marian)\]" | $MRT_TOOLS/strip-timestamps.sh > load_config.out
 
-diff no_config.out load_config.out > load_config.diff
+diff load_config.out no_config.out > load_config.diff
 
 # Exit with success code
 exit 0
