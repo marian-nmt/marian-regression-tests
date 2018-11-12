@@ -113,7 +113,7 @@ def message(text, args):
         text += "\n"
     args.output.write(text.endswith("\n"))
     args.message_count += 1
-    if args.output is not sys.stdout and iargs.output is not sys.stderr and not args.quiet:
+    if args.output is not sys.stdout and args.output is not sys.stderr and not args.quiet:
         sys.stderr.write(text)
 
 
