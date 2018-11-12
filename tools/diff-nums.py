@@ -22,6 +22,8 @@ NORMALIZE_NUMPY = [
 
 def main():
     args = parse_user_args()
+    display_command(args)
+
     exit_code = 0
     allowed_diffs = args.allow_n_diffs
     args.message_count = 0
@@ -115,6 +117,19 @@ def message(text, args):
     args.message_count += 1
     if args.output is not sys.stdout and args.output is not sys.stderr and not args.quiet:
         sys.stderr.write(text)
+
+
+def display_command(args):
+    if args.quiet:
+        return
+    opts = [sys.argv[0]]
+    for opt in sys.argv[1:]:
+        # expand relative paths
+        if opt == args.file1.name or opt == args.file2.name or opt == args.output.name:
+            opts.append(os.path.abspath(opt))
+        else:
+            opts.append(opt)
+    sys.stderr.write("Command: {}\n".format(" ".join(opts)))
 
 
 def parse_user_args():
