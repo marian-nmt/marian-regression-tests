@@ -113,7 +113,7 @@ def is_numeric(s):
 def message(text, args):
     if not text.endswith("\n"):
         text += "\n"
-    args.output.write(text.endswith("\n"))
+    args.output.write(text)
     args.message_count += 1
     if args.output is not sys.stdout and args.output is not sys.stderr and not args.quiet:
         sys.stderr.write(text)
