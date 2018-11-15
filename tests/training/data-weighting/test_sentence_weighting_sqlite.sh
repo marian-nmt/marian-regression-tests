@@ -19,7 +19,7 @@ test -e sqlite.log
 
 cat sqlite.log | $MRT_TOOLS/extract-costs.sh > sqlite.out
 
-$MRT_TOOLS/diff-floats.py sqlite.out sqlite.expected -p 0.1 > sqlite.diff
+$MRT_TOOLS/diff-nums.py sqlite.out sqlite.expected -p 0.1 -o sqlite.diff
 
 # Exit with success code
 exit 0

@@ -20,7 +20,7 @@ test -e sqlite_word/corpus.sqlite3
 test -e sqlite_word.log
 
 cat sqlite_word.log | $MRT_TOOLS/extract-costs.sh > sqlite_word.out
-$MRT_TOOLS/diff-floats.py sqlite_word.out sqlite_word.expected -p 0.1 > sqlite_word.diff
+$MRT_TOOLS/diff-nums.py sqlite_word.out sqlite_word.expected -p 0.1 -o sqlite_word.diff
 
 # Exit with success code
 exit 0

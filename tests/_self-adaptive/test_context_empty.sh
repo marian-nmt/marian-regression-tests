@@ -14,7 +14,7 @@ $MRT_MARIAN/build/marian-adaptive \
   -t ubuntu.nocontext.src ubuntu.nocontext.ref --log nocontext.log < ubuntu.src > nocontext.out
 
 # Check outputs
-diff nocontext.out nocontext.expected > nocontext.diff
+$MRT_TOOLS/diff.sh nocontext.out nocontext.expected > nocontext.diff
 
 # Check if the log file does not contain training logs
 grep -q "Ep\." nocontext.log && exit 1

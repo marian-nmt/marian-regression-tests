@@ -30,7 +30,7 @@ test -e x3weights.log
 
 cat x3weights.log | grep 'Cost ' | sed -r 's/.*Cost (.*) : Time.*/\1/' > x3weights.out
 
-$MRT_TOOLS/diff-floats.py x3copied.out x3weights.out -p 0.1 > x3weights.diff
+$MRT_TOOLS/diff-nums.py x3copied.out x3weights.out -p 0.1 -o x3weights.diff
 
 # Exit with success code
 exit 0

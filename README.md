@@ -49,11 +49,31 @@ More invocation examples:
     ./run_mrt.sh tests/training/basics/test_valid_script.sh
     ./run_mrt.sh previous.log
 
-where _previous.log_ contains a list of test files in separate lines.
+where `previous.log` contains a list of test files in separate lines.  This file
+is automatically generated each time `./run_mrt.sh` finishes running.
 
-Clean test artifacts:
+Cleaning test artifacts:
 
     make clean
+
+
+## Debugging failed tests
+
+Failed tests are displayed at the end of testing or in `previous.log`, e.g.:
+
+    Failed:
+    - tests/training/restoring/multi-gpu/test_async.sh
+    - tests/training/embeddings/test_custom_embeddings.sh
+    ---------------------
+    Ran 145 tests in 00:48:48.210s, 143 passed, 0 skipped, 2 failed
+
+Logging messages are in files ending with _.sh.log_ suffix:
+
+    less tests/training/restoring/multi-gpu/test_async.sh.log
+
+The last command in most tests is an execution of a custom `diff` tool, which
+prints the exact invocation commands with absolute paths. It can be used to
+display the differences that cause the test fails.
 
 
 ## Adding new tests
@@ -63,7 +83,7 @@ Use templates provided in `tests/_template`.
 Please follow these recommendations:
 
 * For comparing outputs with numbers, please use float-friendly
-  `tools/diff-floats.py` instead of GNU `diff`
+  `tools/diff-nums.py` instead of GNU `diff`
 * Make your tests deterministic using `--no-shuffle --seed 1111` or similar
 * Make training execution as short as possible, for instance, by reducing the
   size of the network and the number of iterations

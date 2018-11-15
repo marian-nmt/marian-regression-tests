@@ -30,7 +30,7 @@ python3 $MRT_MARIAN/scripts/server/client_example.py -p 8765 < text.in > server.
 kill $SERVER_PID
 
 # Compare the current output with the expected output
-diff server.out text.expected > server.diff
+$MRT_TOOLS/diff.sh server.out text.expected > server.diff
 
 # Exit with success code
 exit 0

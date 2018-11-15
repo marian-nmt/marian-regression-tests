@@ -20,15 +20,15 @@ $MRT_MARIAN/build/marian-adaptive \
   -t ubuntu.oracle_2s1e.src ubuntu.oracle_2s1e.ref --log oracle_2s1e.log < ubuntu.src > oracle_2s1e.out
 
 # Check outputs
-diff oracle_2s1e.out oracle.expected > oracle_2s1e.diff
+$MRT_TOOLS/diff.sh oracle_2s1e.out oracle.expected > oracle_2s1e.diff
 
 # Check BLEU
 $MRT_TOOLS/moses-scripts/scripts/generic/multi-bleu.perl -lc ubuntu.ref < oracle_2s1e.out > oracle_2s1e.bleu
-diff oracle_2s1e.bleu oracle.bleu.expected > oracle_2s1e.bleu.diff
+$MRT_TOOLS/diff.sh oracle_2s1e.bleu oracle.bleu.expected > oracle_2s1e.bleu.diff
 
 # Check costs
 cat oracle_2s1e.log | grep 'Ep\. ' | $MRT_TOOLS/extract-costs.sh > costs_2s1e.out
-$MRT_TOOLS/diff-floats.py -p 0.01 costs_2s1e.out costs.expected > costs_2s1e.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 costs_2s1e.out costs.expected -o costs_2s1e.diff
 
 # Exit with success code
 exit 0

@@ -43,14 +43,14 @@ test -e model/model.npz
 for key in encoder_Wemb encoder_bi_U encoder_bi_r_Wx; do
     python3 $MRT_MARIAN/scripts/contrib/model_info.py -m model/orig.npz -k $key > key-orig-$key.txt
     python3 $MRT_MARIAN/scripts/contrib/model_info.py -m model/model.npz -k $key > key-model-$key.txt
-    $MRT_TOOLS/diff-floats.py --numpy -p 0.000001 key-orig-$key.txt key-model-$key.txt > key-diff-$key.txt
+    $MRT_TOOLS/diff-nums.py --numpy -p 0.000001 key-orig-$key.txt key-model-$key.txt -o key-diff-$key.txt
 done
 
 # Test if selected weights are identical with LM
 for key in decoder_Wemb decoder_cell1_U decoder_cell2_bx decoder_ff_logit_l1_W0; do
     python3 $MRT_MARIAN/scripts/contrib/model_info.py -m model/lm.npz -k $key > key-lm-$key.txt
     python3 $MRT_MARIAN/scripts/contrib/model_info.py -m model/model.npz -k $key > key-model-$key.txt
-    $MRT_TOOLS/diff-floats.py --numpy -p 0.000001 key-lm-$key.txt key-model-$key.txt > key-diff-$key.txt
+    $MRT_TOOLS/diff-nums.py --numpy -p 0.000001 key-lm-$key.txt key-model-$key.txt -o key-diff-$key.txt
 done
 
 # Exit with success code

@@ -18,8 +18,8 @@ $MRT_MARIAN/build/marian-decoder  \
 cat nbest.out sed 's/ ||| /\t/g' | cut -f2 > text.out
 
 # Prepare source and target files for rescoring
-cat text.in | perl -ne 'for$i(1..12){print}' > compare.src
-cat nbest.out | sed 's/ ||| /\t/g' | cut -f2  > compare.trg
+cat text.in | perl -ne 'for$i(1..12){print}' > compare.char.src
+cat nbest.out | sed 's/ ||| /\t/g' | cut -f2  > compare.char.trg
 
 # Run rescorer
 $MRT_MARIAN/build/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
@@ -27,13 +27,12 @@ $MRT_MARIAN/build/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
   --max-length 7000 \
   --workspace 256 \
   --mini-batch 32 \
-  -t $(pwd)/compare.src $(pwd)/compare.trg > compare.scorer.out
+  -t $(pwd)/compare.char.src $(pwd)/compare.char.trg > compare.char.scorer.out
 
 
 # Compare scores
-cat nbest.out | sed 's/ ||| /\t/g' | cut -f3 | cut -d ' ' -f 2 > compare.decoder.out
-$MRT_TOOLS/diff-floats.py compare.scorer.out compare.decoder.out -p 0.0003
+cat nbest.out | sed 's/ ||| /\t/g' | cut -f3 | cut -d ' ' -f 2 > compare.char.decoder.out
+$MRT_TOOLS/diff-nums.py compare.char.scorer.out compare.char.decoder.out -p 0.0003 -d compare.char.diff
 
 # Exit with success code
 exit 0
-

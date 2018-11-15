@@ -68,7 +68,7 @@ test -e valid_stalled_2.log
 
 cat valid_stalled_2.log | $MRT_TOOLS/strip-timestamps.sh \
     | grep -P "\[valid\]|Saving model" | grep -v "cross-entropy" >> valid_stalled.out
-diff valid_stalled.out valid_stalled.expected > valid_stalled.diff
+$MRT_TOOLS/diff.sh valid_stalled.out valid_stalled.expected > valid_stalled.diff
 
 # Exit with success code
 exit 0

@@ -54,7 +54,7 @@ cat async.unsorted.expected | head -n -4 | sort -n > async.expected
 cat async.unsorted.out | head -n -4 | sort -n > async.out
 
 # async is undeterministic, so the conditions are weak
-$MRT_TOOLS/diff-floats.py -p 1.0 -n 2 async.out async.expected > async.diff
+$MRT_TOOLS/diff-nums.py -p 1.0 -n 2 async.out async.expected -o async.diff
 
 # Exit with success code
 exit 0

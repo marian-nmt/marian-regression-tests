@@ -44,7 +44,7 @@ test -e sqlite_2.log
 cat sqlite_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > sqlite_2.out
 cat sqlite_1.out sqlite_2.out > sqlite.out
 
-$MRT_TOOLS/diff-floats.py sqlite.out sqlite.expected -p 0.1 > sqlite.diff
+$MRT_TOOLS/diff-nums.py sqlite.out sqlite.expected -p 0.1 -o sqlite.diff
 
 # Exit with success code
 exit 0

@@ -53,7 +53,7 @@ test -e valid_newbest/model.npz
 test -e valid_newbest_2.log
 
 cat valid_newbest_2.log | $MRT_TOOLS/strip-timestamps.sh | grep -P "\[valid\]" >> valid_newbest.out
-diff valid_newbest.out valid_newbest.expected > valid_newbest.diff
+$MRT_TOOLS/diff.sh valid_newbest.out valid_newbest.expected > valid_newbest.diff
 
 # Exit with success code
 exit 0

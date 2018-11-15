@@ -23,8 +23,8 @@ test -e valid/train.log
 $MRT_TOOLS/strip-timestamps.sh < valid/valid.log > valid.out
 $MRT_TOOLS/extract-costs.sh < valid/train.log > train.out
 
-$MRT_TOOLS/diff-floats.py valid.out valid.expected -p 1.99 > valid.diff
-$MRT_TOOLS/diff-floats.py train.out train.expected -p 1.99 > train.diff
+$MRT_TOOLS/diff-nums.py valid.out valid.expected -p 1.99 -o valid.diff
+$MRT_TOOLS/diff-nums.py train.out train.expected -p 1.99 -o train.diff
 
 # Exit with success code
 exit 0

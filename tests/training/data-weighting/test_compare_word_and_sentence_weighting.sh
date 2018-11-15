@@ -33,7 +33,7 @@ test -e compare/model.words.npz
 test -e compare.words.log
 
 cat compare.words.log | $MRT_TOOLS/extract-disp.sh > compare.words.out
-$MRT_TOOLS/diff-floats.py compare.words.out compare.sents.out -p 0.1 > compare.words.diff
+$MRT_TOOLS/diff-nums.py compare.words.out compare.sents.out -p 0.1 -o compare.words.diff
 
 
 # Exit with success code

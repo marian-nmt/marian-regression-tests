@@ -25,7 +25,7 @@ test -e train.log
 
 # Compare the current output with the expected output
 cat train.log | $MRT_TOOLS/extract-costs.sh > train.out
-$MRT_TOOLS/diff-floats.py train.out train.expected > train.diff
+$MRT_TOOLS/diff-nums.py train.out train.expected -o train.diff
 
 # Exit with success code
 exit 0

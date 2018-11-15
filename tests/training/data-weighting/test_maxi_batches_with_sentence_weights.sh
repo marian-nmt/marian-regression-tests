@@ -20,7 +20,7 @@ test -e maxibatch/model.npz
 test -e maxibatch.log
 
 $MRT_TOOLS/extract-costs.sh < maxibatch.log > maxibatch.out
-$MRT_TOOLS/diff-floats.py maxibatch.out maxibatch.expected -p 0.1 > maxibatch.diff
+$MRT_TOOLS/diff-nums.py maxibatch.out maxibatch.expected -p 0.1 -o maxibatch.diff
 
 # Exit with success code
 exit 0

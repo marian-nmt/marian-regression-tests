@@ -77,8 +77,8 @@ cat expsmooth_sync_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 
 
 
 # Results
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth_sync.out expsmooth_sync.expected > expsmooth_sync.diff
-$MRT_TOOLS/diff-floats.py -p 0.01 expsmooth_sync.valid.out expsmooth_sync.valid.expected > expsmooth_sync.valid.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 expsmooth_sync.out expsmooth_sync.expected -o expsmooth_sync.diff
+$MRT_TOOLS/diff-nums.py -p 0.01 expsmooth_sync.valid.out expsmooth_sync.valid.expected -o expsmooth_sync.valid.diff
 
 
 # Exit with success code

@@ -28,7 +28,7 @@ test -e valid/model.npz.dev.npz.amun.yml
 test -e valid.log
 
 $MRT_TOOLS/strip-timestamps.sh < valid.log > valid.out
-$MRT_TOOLS/diff-floats.py valid.out valid.expected -p 0.2 > valid.diff
+$MRT_TOOLS/diff-nums.py valid.out valid.expected -p 0.2 -o valid.diff
 
 # Exit with success code
 exit 0
