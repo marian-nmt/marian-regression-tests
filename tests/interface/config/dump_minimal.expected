@@ -1,0 +1,10 @@
+# Model options
+type: s2s
+dim-emb: 16
+dim-rnn: 32
+# Training options
+train-sets:
+vocabs:
+after-batches: 2
+cpu-threads: 0
+mini-batch: 8
