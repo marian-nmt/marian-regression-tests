@@ -6,7 +6,7 @@ import sys
 import argparse
 import re
 
-REGEX_NUMERIC  = re.compile(r"^[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?$")
+REGEX_NUMERIC  = re.compile(r"^[+-]?\d+(?:(?:,\d\d\d)+|(?:\d+))*(?:\.\d+)?(?:[eE][+-]?\d+)?$")
 REGEX_STRIP_EP = re.compile(r"^\[valid\] Ep\. \d+ : Up\. ")
 
 NORMALIZE_NUMPY = [
@@ -100,7 +100,8 @@ def read_line(iofile, separator=""):
 def process_line(line):
     line = REGEX_STRIP_EP.sub("[valid] ", line)                 # normalize "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
     line_toks = line.rstrip().replace("[[-", "[[ -").split()    # tokenize
-    nums = [float(s) for s in line_toks if is_numeric(s)]       # find all numbers
+    nums = [float(s.replace(',', ''))                           # handle comma as thousands separator
+            for s in line_toks if is_numeric(s)]                # find all numbers
     text = ' '.join(["<NUM>" if is_numeric(s) else s            # text format with numbers normalized
                       for s in line_toks])
     return line_toks, nums, text
@@ -115,7 +116,9 @@ def message(text, args):
         text += "\n"
     args.output.write(text)
     args.message_count += 1
-    if args.output is not sys.stdout and args.output is not sys.stderr and not args.quiet:
+    if not args.quiet \
+            and args.output is not sys.stdout \
+            and args.output is not sys.stderr:
         sys.stderr.write(text)
 
 
