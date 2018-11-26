@@ -6,7 +6,7 @@ set -e
 rm -f relpaths_subdir.log
 
 # Test code goes here
-echo "this is a test" | $MRT_MARIAN/build/marian-decoder -c relpaths_subdir.yml subdir/relpaths_subdir.yml --log relpaths_subdir.log
+echo "this is a test" | $MRT_MARIAN/marian-decoder -c relpaths_subdir.yml subdir/relpaths_subdir.yml --log relpaths_subdir.log
 
 test -e relpaths_subdir.log
 

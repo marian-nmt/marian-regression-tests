@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-$MRT_MARIAN/build/iris_example > iris.out
+$MRT_MARIAN/iris_example > iris.out
 $MRT_TOOLS/diff-nums.py iris.out iris.expected -o iris.diff
 
 # Exit with success code

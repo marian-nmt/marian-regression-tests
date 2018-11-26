@@ -7,7 +7,7 @@ set -e
 rm -rf ce-mean-words ce-mean-words.log
 mkdir -p ce-mean-words
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --cost-type ce-mean-words \
     --seed 9999 \
     -m ce-mean-words/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

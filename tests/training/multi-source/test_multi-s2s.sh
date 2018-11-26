@@ -7,7 +7,7 @@ set -e
 rm -rf multi-s2s multi-s2s.log
 mkdir -p multi-s2s
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --no-shuffle \
     --type multi-s2s --dim-emb 128 --dim-rnn 256 \
     -m multi-s2s/model.npz -t train.bpe.{en,xx,de} -v vocab.en.yml vocab.xx.yml vocab.de.yml \

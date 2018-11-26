@@ -9,7 +9,7 @@ if [ ! $MRT_MARIAN_USE_CUDNN ]; then
 fi
 
 # Translate with s2s
-$MRT_MARIAN/build/marian-decoder  \
+$MRT_MARIAN/marian-decoder  \
   -c $MRT_MODELS/char-s2s/translate.yml \
   -b 12 \
   --n-best < text.in > nbest.out
@@ -22,7 +22,7 @@ cat text.in | perl -ne 'for$i(1..12){print}' > compare.char.src
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f2  > compare.char.trg
 
 # Run rescorer
-$MRT_MARIAN/build/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
+$MRT_MARIAN/marian-scorer  -c $MRT_MODELS/char-s2s/translate.yml \
   -m $MRT_MODELS/char-s2s/model.npz \
   --max-length 7000 \
   --workspace 256 \

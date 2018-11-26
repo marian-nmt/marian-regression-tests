@@ -11,7 +11,7 @@ mkdir -p expsmooth
 opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32"
 
 # No exponential smoothing
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth/model.noexp.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 20 --valid-freq 20 --after-batches 200 $opts \
     --log expsmooth_0.log
@@ -24,7 +24,7 @@ cat expsmooth_0.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'v
 
 
 # With exponential smoothing
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 20 --valid-freq 20 --after-batches 200 --exponential-smoothing 0.0001 $opts \
     --log expsmooth.log

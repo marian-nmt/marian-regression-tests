@@ -4,7 +4,7 @@
 set -e
 
 # Run scorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
     --n-best --n-best-feature FeatureName -t text.src.in text.nbest.in \
     > custom.out
 

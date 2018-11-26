@@ -8,7 +8,7 @@ rm -rf version version.log
 mkdir -p version
 
 # Train a model
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m version/model.npz \
     -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
     -v version/vocab.en.yml version/vocab.de.yml \
@@ -21,10 +21,10 @@ rm -f version.log
 
 # Check if the model contains a version
 test -e version/model.npz
-python3 $MRT_MARIAN/scripts/contrib/model_info.py -s -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+.*"
+python3 $MRT_MARIAN/../scripts/contrib/model_info.py -s -m version/model.npz | grep -qP "version: v[1-9]+\.[0-9]+\.[0-9]+.*"
 
 # Check if the version is printed during decoding
-echo "test" | $MRT_MARIAN/build/marian-decoder \
+echo "test" | $MRT_MARIAN/marian-decoder \
     -m version/model.npz -v version/vocab.en.yml version/vocab.de.yml \
     --log version.log
 

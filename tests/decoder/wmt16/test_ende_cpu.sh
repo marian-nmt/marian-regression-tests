@@ -10,7 +10,7 @@ if [ ! $MRT_MARIAN_USE_MKL ]; then
 fi
 
 # Test code goes here
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml --cpu-threads 4 < text.in > text_cpu.out
+$MRT_MARIAN/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml --cpu-threads 4 < text.in > text_cpu.out
 $MRT_TOOLS/diff.sh text_cpu.out text.expected > text_cpu.diff
 
 # Exit with success code

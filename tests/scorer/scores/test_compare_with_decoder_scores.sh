@@ -4,7 +4,7 @@
 set -e
 
 # Translate with s2s
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
+$MRT_MARIAN/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml \
   -b 12 --n-best < text.in > nbest.out
 
 # Compare translations
@@ -16,7 +16,7 @@ cat text.in | perl -ne 'for$i(1..12){print}' > compare.src
 cat nbest.out | sed 's/ ||| /\t/g' | cut -f2 > compare.trg
 
 # Run rescorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
   -t $(pwd)/compare.src $(pwd)/compare.trg > compare.scorer.out
 
 # Compare scores

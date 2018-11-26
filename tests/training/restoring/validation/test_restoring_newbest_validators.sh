@@ -13,7 +13,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 
 # Uncomment to re-generate the expected output
 
-#$MRT_MARIAN/build/marian \
+#$MRT_MARIAN/marian \
     #--type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     #--dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
     #-m valid_newbest/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -27,7 +27,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 #exit 1
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
     -m valid_newbest/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -45,7 +45,7 @@ cp valid_newbest/model.npz.progress.yml valid_newbest/model.npz.progress.yml.bac
 cat valid_newbest_1.log | $MRT_TOOLS/strip-timestamps.sh | grep -P "\[valid\]" > valid_newbest.out
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m valid_newbest/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 100 --log valid_newbest_2.log
 

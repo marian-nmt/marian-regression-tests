@@ -11,7 +11,7 @@ extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --min
 
 
 # Uncomment to prepare the expected output
-#$MRT_MARIAN/build/marian \
+#$MRT_MARIAN/marian \
     #-m sgd_2e/model_2e.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     #--disp-freq 4 --save-freq 32 --after-epochs 2 -l 0.1 $extra_opts \
     #--log sgd_two_epochs.log
@@ -22,7 +22,7 @@ extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --min
 #exit 1
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 4 --save-freq 32 --after-epochs 1 -l 0.1 $extra_opts \
     --log sgd_1st_epoch.log
@@ -33,7 +33,7 @@ test -e sgd_1st_epoch.log
 cat sgd_1st_epoch.log | $MRT_TOOLS/extract-disp.sh > sgd_1st_epoch.out
 cp sgd_2e/model.npz.yml sgd_2e/model.npz.1st_epoch.yml
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m sgd_2e/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 4 --save-freq 32 --after-epochs 2 -l 0.1 $extra_opts \
     --log sgd_2nd_epoch.log

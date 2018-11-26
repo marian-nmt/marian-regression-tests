@@ -7,7 +7,7 @@ rm -rf overwrite overwrite.log
 mkdir -p overwrite
 
 # Test
-$MRT_MARIAN/build/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m overwrite/model.npz -v vocab.de.yml vocab.en.yml \
+$MRT_MARIAN/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m overwrite/model.npz -v vocab.de.yml vocab.en.yml \
     --config overwrite.yml --type s2s --mini-batch 1 --after-batches 1 --no-shuffle \
     --log overwrite.log
 

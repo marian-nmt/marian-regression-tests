@@ -11,7 +11,7 @@ cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r -e 's/[^ ]+/3/g' -e 's/$/ 3/' >
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r -e 's/.*/3/' > compare.sents.weights.txt
 
 # Train on sentence-level, each sentence has weight 3
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 3333 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m compare/model.sents.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log compare.sents.log --disp-freq 5 -e 2 \
@@ -23,7 +23,7 @@ test -e compare.sents.log
 cat compare.sents.log | $MRT_TOOLS/extract-disp.sh > compare.sents.out
 
 # Train on word-level, each word has weight 3, including EOS
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 3333 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m compare/model.words.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log compare.words.log --disp-freq 5 -e 2 \

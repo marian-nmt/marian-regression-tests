@@ -7,7 +7,7 @@ rm -rf booloff booloff.log
 mkdir -p booloff
 
 # Test
-$MRT_MARIAN/build/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m booloff/model.npz -v vocab.de.yml vocab.en.yml \
+$MRT_MARIAN/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m booloff/model.npz -v vocab.de.yml vocab.en.yml \
     --dim-emb 32 --dim-rnn 16 --mini-batch 1 --after-batches 1 --no-shuffle \
     --config booloff.yml --layer-normalization false --log booloff.log
 

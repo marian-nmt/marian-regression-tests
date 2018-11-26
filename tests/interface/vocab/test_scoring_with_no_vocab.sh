@@ -9,7 +9,7 @@ echo "this is a test ." > file.in
 echo "das ist ein test ." > file.out
 
 # Test code goes here
-$MRT_MARIAN/build/marian-scorer -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
+$MRT_MARIAN/marian-scorer -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
     --type amun --dim-emb 500 --dim-vocabs 85000 85000 \
     -t file.in file.out > novocab_scorer.log 2>&1 || true
 

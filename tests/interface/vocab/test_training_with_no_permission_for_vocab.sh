@@ -8,7 +8,7 @@ rm -rf nowrite nowrite.log
 mkdir -p nowrite
 chmod a-w nowrite
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -v nowrite/vocab.en.yml nowrite/vocab.de.yml \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     --no-shuffle --after-batches 1 \

@@ -7,7 +7,7 @@ set -e
 rm -rf multi-transformer multi-transformer.log
 mkdir -p multi-transformer
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --no-shuffle \
     --type multi-transformer --dim-emb 128 --dim-rnn 256 \
     -m multi-transformer/model.npz -t train.bpe.{en,xx,de} -v vocab.en.yml vocab.xx.yml vocab.de.yml \

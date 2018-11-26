@@ -7,7 +7,7 @@ set -e
 rm -rf perplexity perplexity.log
 mkdir -p perplexity
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --cost-type perplexity \
     --seed 9999 \
     -m perplexity/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

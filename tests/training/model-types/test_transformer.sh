@@ -9,7 +9,7 @@ mkdir -p transformer
 
 opts="--no-shuffle --seed 1111 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --dim-emb 64 --dim-rnn 128"
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --type transformer -m transformer/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     $opts --disp-freq 10 --after-batches 100 \
     --log transformer.log

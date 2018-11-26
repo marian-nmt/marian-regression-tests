@@ -7,7 +7,7 @@ rm -rf npzsuffix
 mkdir -p npzsuffix
 
 # Test code goes here
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m ./npzsuffix/model \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v $MRT_MODELS/wmt16_systems/en-de/vocab.{en,de}.json \
     --no-shuffle --dim-emb 32 --dim-rnn 32 \

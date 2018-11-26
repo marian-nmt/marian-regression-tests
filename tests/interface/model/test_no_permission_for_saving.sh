@@ -12,7 +12,7 @@ trap clean_up EXIT
 mkdir -p nowrite
 chmod a-w nowrite
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m nowrite/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --no-shuffle --after-batches 1 \

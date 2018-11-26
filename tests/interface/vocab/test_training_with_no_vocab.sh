@@ -18,7 +18,7 @@ rm -f $MRT_DATA/europarl.de-en/corpus.bpe.en.yml $MRT_DATA/europarl.de-en/corpus
 mkdir -p novocab
 
 # Run Marian with no vocabs provided, expect to create new vocabs
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m novocab/model1.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     $opts \
@@ -31,7 +31,7 @@ test -e novocab_create.log
 grep -q "Creating vocabulary" novocab_create.log
 
 # Run Marian with no vocabs provided, expect to load existing vocabs
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m novocab/model2.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.en $MRT_DATA/europarl.de-en/corpus.bpe.de \
     $opts \

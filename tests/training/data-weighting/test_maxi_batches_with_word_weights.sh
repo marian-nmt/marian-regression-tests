@@ -7,10 +7,10 @@ set -e
 mkdir -p word_maxibatch
 rm -rf word_maxibatch/* word_maxibatch.log
 
-test -e vocab.de.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
-test -e vocab.en.yml || $MRT_MARIAN/build/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
+test -e vocab.de.yml || $MRT_MARIAN/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+test -e vocab.en.yml || $MRT_MARIAN/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 6666 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m word_maxibatch/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
     --log word_maxibatch.log --disp-freq 10 --after-batches 100 --mini-batch 16 \

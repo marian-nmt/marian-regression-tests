@@ -8,7 +8,7 @@ mkdir -p bestdeep_overwrite
 
 
 # Test
-$MRT_MARIAN/build/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m bestdeep_overwrite/model.npz -v vocab.de.yml vocab.en.yml \
+$MRT_MARIAN/marian -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -m bestdeep_overwrite/model.npz -v vocab.de.yml vocab.en.yml \
     --type s2s --dim-emb 32 --dim-rnn 16 --mini-batch 1 --after-batches 1 --no-shuffle \
    --best-deep --enc-depth 6 --dec-depth 6 --log bestdeep_overwrite.log
 

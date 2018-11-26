@@ -7,7 +7,7 @@ set -e
 rm -rf valid valid_script.temp
 mkdir -p valid
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 4444 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 \
     -m valid/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
     --disp-freq 5 --valid-freq 15 --after-batches 50 \

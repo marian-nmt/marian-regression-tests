@@ -7,7 +7,7 @@ set -e
 rm -f marian.batch32.out
 
 # Run Marian
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt17_systems/marian.en-de.yml -b 6 -n 1.0 \
+$MRT_MARIAN/marian-decoder -c $MRT_MODELS/wmt17_systems/marian.en-de.yml -b 6 -n 1.0 \
     --mini-batch 32 --maxi-batch 10 --maxi-batch-sort src -w 2500 \
     < text.b6n.in > marian.batch32.out
 

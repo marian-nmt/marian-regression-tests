@@ -9,7 +9,7 @@ if [ ! $MRT_MARIAN_USE_CUDNN ]; then
 fi
 
 # Test code goes here
-$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/char-s2s/translate.yml < text.in > text.out
+$MRT_MARIAN/marian-decoder -c $MRT_MODELS/char-s2s/translate.yml < text.in > text.out
 $MRT_TOOLS/diff.sh text.out text.expected > text.diff
 
 # Exit with success code
