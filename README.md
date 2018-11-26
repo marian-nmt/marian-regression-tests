@@ -37,7 +37,7 @@ single-GPU tests:
 Testing a custom version of Marian:
 
     make install
-    MARIAN=/path/to/marian-dev ./run_mrt.sh
+    MARIAN=/path/to/marian-dev/build ./run_mrt.sh
 
 Enabling multi-GPU tests:
 
