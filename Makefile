@@ -1,24 +1,17 @@
 THREADS=16
 
-GIT_MARIAN_DEV=http://github.com/marian-nmt/marian-dev.git
-GIT_MARIAN=http://github.com/marian-nmt/marian.git
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
-BRANCH=master
-
-EXTRA_FLAGS=
-CMAKE_FLAGS=-DUSE_CUDNN=off -DCOMPILE_EXAMPLES=on -DCMAKE_BUILD_TYPE=Release $(EXTRA_FLAGS)
-
 PIP_PACKAGES=websocket-client pyyaml
 
-.PHONY: marian install tools models data run tools/marian
+.PHONY: install tools models data run
 .SECONDARY:
 
 
 #####################################################################
 
-run: install marian
+run: install
 	bash ./run_mrt.sh
 
 install: tools models data
@@ -40,12 +33,6 @@ models:
 data:
 	mkdir -p $@
 	cd $@ && bash ./download-data.sh
-
-marian: tools/marian
-tools/marian:
-	git -C $@ pull || git clone $(GIT_MARIAN_DEV) -b $(BRANCH) $@
-	rm -rf $@/build
-	mkdir -p $@/build && cd $@/build && cmake .. $(CMAKE_FLAGS) && make -j$(THREADS)
 
 clean:
 	git clean -x -d -f tests

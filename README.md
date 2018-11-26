@@ -26,11 +26,9 @@ Each test consists of:
 
 ## Usage
 
-Downloading data and tools, compiling the most recent version of marian-dev, and running
-single-GPU tests:
+Downloading data and tools, and running single-GPU tests:
 
     make install
-    make marian
     make run
     # or simply make
 
