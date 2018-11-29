@@ -26,15 +26,12 @@ Each test consists of:
 
 ## Usage
 
-Downloading data and tools, and running single-GPU tests:
+Downloading required data and tools:
 
     make install
-    make run
-    # or simply make
 
-Testing a custom version of Marian:
+Running regression tests:
 
-    make install
     MARIAN=/path/to/marian-dev/build ./run_mrt.sh
 
 Enabling multi-GPU tests:
@@ -47,8 +44,8 @@ More invocation examples:
     ./run_mrt.sh tests/training/basics/test_valid_script.sh
     ./run_mrt.sh previous.log
 
-where `previous.log` contains a list of test files in separate lines.  This file
-is automatically generated each time `./run_mrt.sh` finishes running.
+where `previous.log` contains a list of test files, one test per line.  This
+file is automatically generated each time `./run_mrt.sh` finishes running.
 
 Cleaning test artifacts:
 
@@ -80,16 +77,15 @@ Use templates provided in `tests/_template`.
 
 Please follow these recommendations:
 
+* Test one thing at a time
 * For comparing outputs with numbers, please use float-friendly
   `tools/diff-nums.py` instead of GNU `diff`
 * Make your tests deterministic using `--no-shuffle --seed 1111` or similar
-* Make training execution as short as possible, for instance, by reducing the
-  size of the network and the number of iterations
+* Make training execution time as short as possible, for instance, by reducing
+  the size of the network and the number of iterations
 * Do not run decoding or scoring on files longer than ca. 10-100 lines
 * If your tests require downloading and running a custom model, please keep it
-  as small as possible, and contact one of the main contributors to upload it
-  into our storage
-* Test one thing at a time
+  as small as possible, and contact me (Roman) to upload it into our storage
 
 
 ## Acknowledgements
