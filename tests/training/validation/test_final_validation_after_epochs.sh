@@ -10,7 +10,7 @@ mkdir -p final_epoch
 test -e train.bpe.en || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.en > train.bpe.en
 test -e train.bpe.de || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.de > train.bpe.de
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     -m final_epoch/model.npz -t train.bpe.{en,de} \
     -v vocab.small.en.yml vocab.small.de.yml --dim-vocabs 50000 50000 \

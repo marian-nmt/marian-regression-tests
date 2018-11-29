@@ -7,7 +7,7 @@ set -e
 rm -f contextpart.log
 
 # Run Marian
-$MRT_MARIAN/build/marian-adaptive \
+$MRT_MARIAN/marian-adaptive \
   -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
   -v $MRT_MODELS/wmt16_systems/en-de/vocab.en.json -v $MRT_MODELS/wmt16_systems/en-de/vocab.de.json \
   --dim-vocabs 85000 85000 --dim-emb 500 --after-epochs 1 \

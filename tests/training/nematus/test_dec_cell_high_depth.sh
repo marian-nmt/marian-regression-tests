@@ -7,7 +7,7 @@ set -e
 mkdir -p dec_high
 rm -f dec_high/* dec_high.log
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --type nematus --enc-cell gru-nematus --dec-cell gru-nematus \
     --enc-depth 2 --enc-cell-depth 2 --enc-type bidirectional --dec-depth 4 --dec-cell-base-depth 4 --dec-cell-high-depth 4 \
     --layer-normalization \

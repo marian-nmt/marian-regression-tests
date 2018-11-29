@@ -12,7 +12,7 @@ fi
 rm -rf async_sgd async_sgd.log
 mkdir -p async_sgd
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --dim-emb 128 --dim-rnn 256 \
     --devices 0 1 \
     -m async_sgd/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \

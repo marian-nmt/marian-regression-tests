@@ -12,7 +12,7 @@ fi
 rm -rf sync_sgd sync_sgd.log
 mkdir -p sync_sgd
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none \
     --dim-rnn 64 --dim-emb 32 --learn-rate 0.1 \
     --devices 0 1 --sync-sgd --optimizer sgd \

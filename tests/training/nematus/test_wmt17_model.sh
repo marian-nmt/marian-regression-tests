@@ -7,7 +7,7 @@ set -e
 mkdir -p wmt17
 rm -f wmt17/* wmt17.log
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --type nematus --enc-cell gru-nematus --dec-cell gru-nematus \
     --enc-depth 1 --enc-cell-depth 4 --enc-type bidirectional --dec-depth 1 --dec-cell-base-depth 8 --dec-cell-high-depth 1 \
     --layer-normalization \

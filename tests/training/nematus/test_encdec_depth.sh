@@ -7,7 +7,7 @@ set -e
 mkdir -p encdec_depth
 rm -f encdec_depth/* encdec_depth.log
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --type nematus --enc-cell gru-nematus --dec-cell gru-nematus \
     --enc-depth 4 --enc-cell-depth 4 --enc-type bidirectional --dec-depth 4 --dec-cell-base-depth 4 --dec-cell-high-depth 1 \
     --layer-normalization \

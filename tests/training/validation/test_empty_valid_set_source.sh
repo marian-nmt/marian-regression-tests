@@ -9,7 +9,7 @@ rm -rf empty_src empty_src.log empty_valid.??
 mkdir -p empty_src
 touch empty_valid.en
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     --model empty_src/model.npz \
     -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \

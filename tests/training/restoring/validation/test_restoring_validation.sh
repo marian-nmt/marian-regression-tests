@@ -7,7 +7,7 @@ set -e
 rm -rf valid valid_?.log valid_script.temp
 mkdir -p valid
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
     -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -23,7 +23,7 @@ test -e valid_1.log
 cp valid/model.npz.progress.yml valid/model.npz.progress.yml.bac
 cat valid_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "valid-script" > valid.out
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 128 --dim-rnn 256 --mini-batch 16 \
     -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \

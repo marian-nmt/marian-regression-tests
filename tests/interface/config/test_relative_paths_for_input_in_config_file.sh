@@ -9,7 +9,7 @@ mkdir -p subdir
 # Test code goes here
 echo "this is a test" > relpaths_input.in
 
-$MRT_MARIAN/build/marian-decoder -c ./subdir/relpaths_input.yml -o relpaths_input.out --log relpaths_input.log
+$MRT_MARIAN/marian-decoder -c ./subdir/relpaths_input.yml -o relpaths_input.out --log relpaths_input.log
 
 test -e relpaths_input.log
 test -e relpaths_input.out

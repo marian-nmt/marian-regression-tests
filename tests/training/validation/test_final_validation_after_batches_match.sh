@@ -7,7 +7,7 @@ set -e
 rm -rf final_match final_match.log vocab.*.yml
 mkdir -p final_match
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     -m final_match/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
     -v vocab.en.yml vocab.de.yml --dim-vocabs 50000 50000 \

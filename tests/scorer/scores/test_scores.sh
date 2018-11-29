@@ -4,7 +4,7 @@
 set -e
 
 # Run scorer
-$MRT_MARIAN/build/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/wmt16_systems/marian.en-de.scorer.yml \
   -t $(pwd)/scores.src.in $(pwd)/scores.trg.in > scores.out
 
 # Compare scores

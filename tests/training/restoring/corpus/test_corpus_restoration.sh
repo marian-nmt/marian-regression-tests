@@ -12,7 +12,7 @@ test -e vocab.en.yml
 
 extra_opts="--seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m corpus/model_full.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 70 $extra_opts \
     --log corpus.log
@@ -22,7 +22,7 @@ test -e corpus.log
 
 cat corpus.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus.expected
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m corpus/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 40 $extra_opts \
     --log corpus_1.log
@@ -33,7 +33,7 @@ test -e corpus_1.log
 cat corpus_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > corpus_1.out
 cp corpus/model.npz.yml corpus/model.npz.1.yml
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m corpus/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 70 $extra_opts \
     --log corpus_2.log

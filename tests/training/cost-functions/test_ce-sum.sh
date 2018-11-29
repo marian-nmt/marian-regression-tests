@@ -7,7 +7,7 @@ set -e
 rm -rf ce-sum ce-sum.log
 mkdir -p ce-sum
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --cost-type ce-sum \
     --seed 9999 \
     -m ce-sum/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

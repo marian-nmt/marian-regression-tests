@@ -8,7 +8,7 @@
 # where previous.log contains a list of test files in separate lines.
 
 # Environment variables:
-#  - MARIAN - path to Marian root directory
+#  - MARIAN - path to Marian build directory
 #  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU device IDs
 #  - NUM_DEVICES - maximum number of GPU devices to be used
 
@@ -26,19 +26,27 @@ function logn {
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_TOOLS/marian} )"
+export MRT_MARIAN="$( realpath ${MARIAN:-../build} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
 log "Using Marian: $MRT_MARIAN"
 
+# Check if required tools are present in marian directory
+for cmd in marian marian-decoder marian-scorer marian-server marian-vocab; do
+    if [ ! -e $MRT_MARIAN/$cmd ]; then
+        echo "Error: '$cmd' is not installed in '$MRT_MARIAN', you need to compile the toolkit first"
+        exit 1
+    fi
+done
+
 # Get CMake settings
-cd $MRT_MARIAN/build
+cd $MRT_MARIAN
 cmake -L 2> /dev/null > $MRT_ROOT/cmake.log
 cd $MRT_ROOT
 
 # Check Marian compilation settings
-export MRT_MARIAN_VERSION=$($MRT_MARIAN/build/marian --version 2>&1)
+export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
 export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
 export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 

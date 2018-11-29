@@ -7,7 +7,7 @@ set -e
 rm -rf valid valid.log valid_script.temp
 mkdir -p valid
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 2222 --no-shuffle --dim-emb 128 --dim-rnn 256 --maxi-batch 1 --mini-batch 16 \
     -m valid/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} \
     -v vocab.en.yml vocab.de.yml --dim-vocabs 50000 50000 \

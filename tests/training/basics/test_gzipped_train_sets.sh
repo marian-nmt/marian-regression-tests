@@ -10,7 +10,7 @@ mkdir -p gzip
 test -e $MRT_DATA/europarl.de-en/corpus.bpe.de.gz || cat $MRT_DATA/europarl.de-en/corpus.bpe.de | gzip > $MRT_DATA/europarl.de-en/corpus.bpe.de.gz
 test -e $MRT_DATA/europarl.de-en/corpus.bpe.en.gz || cat $MRT_DATA/europarl.de-en/corpus.bpe.en | gzip > $MRT_DATA/europarl.de-en/corpus.bpe.en.gz
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 64 --dim-rnn 64 \
     -m gzip/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de}.gz -v vocab.en.yml vocab.de.yml \
     --log gzip.log --disp-freq 10 --after-batches 50

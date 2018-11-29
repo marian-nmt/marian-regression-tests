@@ -6,7 +6,7 @@ set -e
 rm -f relpaths_to_cfgfile.log
 
 # Test code goes here
-echo "this is a test" | $MRT_MARIAN/build/marian-decoder -c relpaths_to_cfgfile.yml -m ../../../models/wmt16_systems/en-de/model.npz --log relpaths_to_cfgfile.log
+echo "this is a test" | $MRT_MARIAN/marian-decoder -c relpaths_to_cfgfile.yml -m ../../../models/wmt16_systems/en-de/model.npz --log relpaths_to_cfgfile.log
 
 test -e relpaths_to_cfgfile.log
 

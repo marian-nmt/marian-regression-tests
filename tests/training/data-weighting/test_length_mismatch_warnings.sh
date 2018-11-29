@@ -12,7 +12,7 @@ cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/1/g' > warn.weights.tx
 sed -i '2s/1 1 /1 /g' warn.weights.txt
 sed -i '3s/1 /1 1 /g' warn.weights.txt
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --dim-emb 64 --dim-rnn 128 --optimizer sgd \
     -m warn/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log warn.log -e 1 \

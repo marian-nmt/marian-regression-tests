@@ -6,14 +6,14 @@ set -e
 # Test code goes here
 rm -f oracle_2s1e.log
 
-#$MRT_MARIAN/build/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml < ubuntu.in > trans.out
+#$MRT_MARIAN/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml < ubuntu.in > trans.out
 #diff trans.out trans.expected > trans.diff
 #$MRT_TOOLS/moses-scripts/scripts/generic/multi-bleu.perl -lc ubuntu.ref < trans.out > trans.bleu
 #diff trans.bleu trans.bleu.expected > trans.bleu.diff
 
 
 # Run Marian
-$MRT_MARIAN/build/marian-adaptive \
+$MRT_MARIAN/marian-adaptive \
   -m $MRT_MODELS/wmt16_systems/en-de/model.npz \
   -v $MRT_MODELS/wmt16_systems/en-de/vocab.en.json -v $MRT_MODELS/wmt16_systems/en-de/vocab.de.json \
   --dim-vocabs 85000 85000 --dim-emb 500 --after-epochs 1 \

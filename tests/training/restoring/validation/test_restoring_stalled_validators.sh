@@ -14,7 +14,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 # Uncomment to re-generate the expected output
 #mkdir -p valid_stalled_full
 
-#$MRT_MARIAN/build/marian \
+#$MRT_MARIAN/marian \
     #--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     #--dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
     #-m valid_stalled_full/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -33,7 +33,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 #exit 1
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
     -m valid_stalled/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -53,7 +53,7 @@ cat valid_stalled_1.log | $MRT_TOOLS/strip-timestamps.sh \
     | head -n -1 > valid_stalled.out
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
     --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
     -m valid_stalled/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \

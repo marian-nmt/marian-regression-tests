@@ -23,7 +23,7 @@ opt_exp=0.00001
 
 
 # Full pass, no exponential-smoothing
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth_sync/model.noexp.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --valid-freq $opt_valid --after-batches $opt_finish $opts \
     --log expsmooth_sync_0.log
@@ -36,7 +36,7 @@ cat expsmooth_sync_0.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 
 
 
 # Full pass
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth_sync/model.full.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --valid-freq $opt_valid --after-batches $opt_finish --exponential-smoothing $opt_exp $opts \
     --log expsmooth_sync_f.log
@@ -49,7 +49,7 @@ cat expsmooth_sync_f.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 
 
 
 # A first part of batches
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth_sync/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --valid-freq $opt_valid --after-batches $opt_save --exponential-smoothing $opt_exp $opts \
     --log expsmooth_sync_1.log
@@ -63,7 +63,7 @@ cat expsmooth_sync_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep 
 
 
 # Continue training until full pass
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m expsmooth_sync/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --valid-freq $opt_valid --after-batches $opt_finish --exponential-smoothing $opt_exp $opts \
     --log expsmooth_sync_2.log

@@ -1,1 +1,1 @@
-test -e $MRT_MARIAN/build/iris_example || exit 1
+test -e $MRT_MARIAN/iris_example || exit 1

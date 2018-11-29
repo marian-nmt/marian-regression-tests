@@ -8,7 +8,7 @@ rm -rf valid_lowisbet valid_lowisbet_?.log
 mkdir -p valid_lowisbet
 
 # Files for the validation sets are swapped intentionally
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 64 --dim-rnn 128 --mini-batch 32 \
     -m valid_lowisbet/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
@@ -24,7 +24,7 @@ cp valid_lowisbet/model.npz.progress.yml valid_lowisbet/model.npz.progress.yml.b
 cat valid_lowisbet_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "cross-entropy" > valid_lowisbet.out
 
 # Files for the validation sets are swapped intentionally
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none \
     --dim-emb 64 --dim-rnn 128 --mini-batch 32 \
     -m valid_lowisbet/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

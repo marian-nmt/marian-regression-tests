@@ -18,7 +18,7 @@ opt_disp=1
 opt_save=8
 opt_finish=16
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m async/model.full.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --after-batches $opt_finish $opts \
     --log async_f.log
@@ -28,7 +28,7 @@ test -e async_f.log
 
 cat async_f.log | $MRT_TOOLS/extract-costs.sh > async.unsorted.expected
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m async/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --after-batches $opt_save $opts \
     --log async_1.log
@@ -39,7 +39,7 @@ test -e async_1.log
 cat async_1.log | $MRT_TOOLS/extract-costs.sh > async.unsorted.out
 
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     -m async/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq $opt_disp --after-batches $opt_finish $opts \
     --log async_2.log

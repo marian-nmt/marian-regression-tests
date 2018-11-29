@@ -9,7 +9,7 @@ mkdir -p word_twos
 
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/2/g' > word_twos.weights.txt
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m word_twos/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log word_twos.log --disp-freq 5 -e 2 \
@@ -27,7 +27,7 @@ mkdir -p word_twos_cfg
 echo "data-weighting: word_twos.weights.txt" > word_twos.config.yml
 echo "data-weighting-type: word" >> word_twos.config.yml
 
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m word_twos_cfg/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log word_twos_cfg.log --disp-freq 5 -e 2 \

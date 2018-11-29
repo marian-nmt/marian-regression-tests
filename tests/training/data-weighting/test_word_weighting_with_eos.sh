@@ -11,7 +11,7 @@ mkdir -p word_eos
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r -e 's/[^ ]+/2/g' -e 's/$/ 2/' > word_eos.weights.txt
 
 # Train
-$MRT_MARIAN/build/marian \
+$MRT_MARIAN/marian \
     --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m word_eos/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log word_eos.log --disp-freq 5 -e 2 \
