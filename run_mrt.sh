@@ -24,6 +24,12 @@ function logn {
     echo -n [$(date "+%m/%d/%Y %T")] $@
 }
 
+
+# Try adding build/ to MARIAN for backward compatibility
+if [[ ( $(basename "$MARIAN") = "marian" || $( basename "$MARIAN" ) = "marian-dev") && ! -e $MARIAN/marian ]]; then
+    MARIAN="$MARIAN/build"
+fi
+
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN="$( realpath ${MARIAN:-../build} )"
