@@ -26,7 +26,7 @@ function logn {
 
 
 # Try adding build/ to MARIAN for backward compatibility
-if [[ ( $(basename "$MARIAN") = "marian" || $( basename "$MARIAN" ) = "marian-dev") && ! -e $MARIAN/marian ]]; then
+if [[ ! -e $MARIAN/marian ]]; then
     MARIAN="$MARIAN/build"
 fi
 
