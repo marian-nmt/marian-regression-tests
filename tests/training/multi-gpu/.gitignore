@@ -3,3 +3,5 @@ sync_sgd
 
 sync_expsmooth
 
+sync_sgd_1gpu
+sync_sgd_1gpu_expsmooth
