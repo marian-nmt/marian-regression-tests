@@ -25,16 +25,16 @@ function logn {
 }
 
 
-# Try adding build/ to MARIAN for backward compatibility
-if [[ ! -e $MARIAN/marian ]]; then
-    MARIAN="$MARIAN/build"
-fi
-
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN="$( realpath ${MARIAN:-../build} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
+
+# Try adding build/ to MARIAN for backward compatibility
+if [[ ! -e $MRT_MARIAN/marian-decoder ]]; then
+    MRT_MARIAN="$MRT_MARIAN/build"
+fi
 
 log "Using Marian: $MRT_MARIAN"
 
