@@ -19,6 +19,7 @@ tools/subword-nmt
 tools/nematus
 
 models/wmt16_systems/en-de
+models/wmt16_systems/de-en
 models/wmt17_systems/en-de
 models/wmt17_systems/scripts
 models/wmt17_systems/vars
