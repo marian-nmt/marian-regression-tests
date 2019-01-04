@@ -1,0 +1,15 @@
+0 ||| the house is big . ||| F0= -1.42143 ||| 9.06422
+0 ||| the house big . ||| F0= -9.45543 ||| 8.0014
+0 ||| the house is large . ||| F0= -2.19537 ||| -0.365895
+1 ||| the house is too big . ||| F0= -1.51132 ||| 9.12714
+1 ||| the house is too big a book . ||| F0= -7.44603 ||| 8.66169
+1 ||| the house is too large . ||| F0= -3.24491 ||| -0.463558
+2 ||| the house is small . ||| F0= -6.87356 ||| 8.82468
+2 ||| the house is small and not big . ||| F0= -11.8984 ||| 8.65814
+2 ||| the house is not big . ||| F0= -1.7791 ||| -0.254157
+3 ||| the house is big . not small . ||| F0= -22.4062 ||| 6.72605
+3 ||| the house is big . ||| F0= -1.42143 ||| -0.236905
+3 ||| the house is big . not so . ||| F0= -18.5419 ||| -2.06021
+4 ||| the house is big . very nice and clean . very very big hotel . ||| F0= -40.9166 ||| 6.78803
+4 ||| the house is big . ||| F0= -1.42143 ||| -0.236905
+4 ||| the house is big . very nice and clean . ||| F0= -17.4485 ||| -1.58622
