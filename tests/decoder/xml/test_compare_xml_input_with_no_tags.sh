@@ -9,7 +9,7 @@
 set -e
 
 # Remove old artifacts
-rm -f nbest.{out,diff}
+rm -f notags*.{out,diff}
 
 # Run marian decoder
 $MRT_MARIAN/marian-decoder -c $MRT_MODELS/wmt16_systems/marian.en-de.yml --mini-batch 10 -b 4 -n --n-best --xml-input < notags.in > notags.xml.out
