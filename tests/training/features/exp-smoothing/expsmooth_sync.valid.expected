@@ -6,5 +6,5 @@
 [valid] Ep. 1 : Up. 120 : cross-entropy : 190.768 : new best
 [valid] Ep. 1 : Up. 140 : cross-entropy : 190.158 : new best
 [valid] Ep. 1 : Up. 160 : cross-entropy : 188.364 : new best
-[valid] Ep. 1 : Up. 180 : cross-entropy : 188.391 : stalled 1 times
+[valid] Ep. 1 : Up. 180 : cross-entropy : 188.391 : stalled 1 times (last best: 188.364)
 [valid] Ep. 1 : Up. 200 : cross-entropy : 187.76 : new best
