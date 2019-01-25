@@ -13,7 +13,7 @@ rm -rf expsmooth_sync expsmooth_sync_*.log
 mkdir -p expsmooth_sync
 
 
-opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32 --devices 0 1 --sync-sgd"
+opts="--no-shuffle --seed 777 --cost-type ce-sum --disp-label-counts --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.001 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics ce-mean-words --valid-mini-batch 32 --devices 0 1 --sync-sgd"
 
 opt_disp=20
 opt_valid=20
