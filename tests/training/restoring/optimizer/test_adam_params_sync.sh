@@ -16,7 +16,7 @@ $MRT_MARIAN/marian \
     --no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 128 --dim-rnn 256 \
     -m adam_sync/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --after-batches 100 --save-freq 60 \
-    --log adam_sync.log --devices 0 1 --sync-sgd
+    --log adam_sync.log --devices 0 1 --sync-sgd --cost-type ce-sum
 
 test -e adam_sync/model.npz
 test -e adam_sync/model.npz.optimizer.npz
