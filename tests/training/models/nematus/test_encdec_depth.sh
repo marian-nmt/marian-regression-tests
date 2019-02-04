@@ -20,7 +20,7 @@ test -e encdec_depth/model.npz
 test -e encdec_depth/model.npz.yml
 
 cat encdec_depth.log | $MRT_TOOLS/extract-costs.sh > encdec_depth.out
-$MRT_TOOLS/diff-nums.py encdec_depth.out encdec_depth.expected -p 0.3 -o encdec_depth.diff
+$MRT_TOOLS/diff-nums.py encdec_depth.out encdec_depth.expected -p 3 -o encdec_depth.diff
 
 # Exit with success code
 exit 0
