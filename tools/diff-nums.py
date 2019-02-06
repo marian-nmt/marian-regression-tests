@@ -16,7 +16,7 @@ NORMALIZE_NUMPY = [
     ("...) ", "... "),
     ("..., ", "... "),
     ("]", " ]"),
-    ("[", "[ ")
+    ("[", "[ "),
 ]
 
 
@@ -99,6 +99,7 @@ def read_line(iofile, separator=""):
 
 def process_line(line):
     line = REGEX_STRIP_EP.sub("[valid] ", line)                 # normalize "[valid] Ep. 1 : Up. 30" -> "[valid] 30"
+    line = line.replace("(", "( ").replace(")", " )")           # insert space before and after parentheses
     line_toks = line.rstrip().replace("[[-", "[[ -").split()    # tokenize
     nums = [float(s.replace(',', ''))                           # handle comma as thousands separator
             for s in line_toks if is_numeric(s)]                # find all numbers
