@@ -1,6 +1,6 @@
 Epoch: 10 Cost: 1.04716
 Epoch: 20 Cost: 0.950825
-Epoch: 30 Cost: 0.820505
+Epoch: 30 Cost: 0.820504
 Epoch: 40 Cost: 0.695501
 Epoch: 50 Cost: 0.604447
 Epoch: 60 Cost: 0.547136
@@ -15,7 +15,7 @@ Epoch: 140 Cost: 0.287701
 Epoch: 150 Cost: 0.25602
 Epoch: 160 Cost: 0.227252
 Epoch: 170 Cost: 0.201837
-Epoch: 180 Cost: 0.17986
+Epoch: 180 Cost: 0.179863
 Epoch: 190 Cost: 0.161122
-Epoch: 200 Cost: 0.145256
+Epoch: 200 Cost: 0.145255
 Accuracy: 0.966667

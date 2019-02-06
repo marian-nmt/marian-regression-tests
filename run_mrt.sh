@@ -39,7 +39,7 @@ fi
 log "Using Marian: $MRT_MARIAN"
 
 # Check if required tools are present in marian directory
-for cmd in marian marian-decoder marian-scorer marian-server marian-vocab; do
+for cmd in marian marian-decoder marian-scorer marian-vocab; do
     if [ ! -e $MRT_MARIAN/$cmd ]; then
         echo "Error: '$cmd' is not installed in '$MRT_MARIAN', you need to compile the toolkit first"
         exit 1
