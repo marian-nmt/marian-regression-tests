@@ -47,7 +47,7 @@ test -e sync_2.log
 
 cat sync_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' >> sync.out
 
-$MRT_TOOLS/diff-nums.py -p 0.08 sync.out sync.expected -o sync.diff
+$MRT_TOOLS/diff-nums.py -p 0.3 sync.out sync.expected -o sync.diff
 
 # Exit with success code
 exit 0
