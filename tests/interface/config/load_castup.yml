@@ -1,0 +1,7 @@
+type: s2s
+mini-batch: 8
+dim-rnn: 32
+dim-emb: 16
+after-batches: 2
+# lr-decay-inv-sqrt is now defined as a vector, so a single number should be casted up to a vector
+lr-decay-inv-sqrt: 142536475869
