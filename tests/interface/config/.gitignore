@@ -1,5 +1,6 @@
 load_config
 load_castup
+load_alias
 
 dump_*.yml
 

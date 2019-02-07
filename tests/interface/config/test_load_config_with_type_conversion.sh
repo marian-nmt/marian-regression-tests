@@ -6,7 +6,7 @@
 # Exit on error
 set -e
 
-rm -rf load_castup load_castup.log no_castup.log
+rm -rf load_castup load_castup.log
 mkdir -p load_castup
 
 # Run marian
