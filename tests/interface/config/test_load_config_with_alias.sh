@@ -20,7 +20,5 @@ grep -q "type: transformer" load_alias.log
 grep -q "learn-rate: 0.5" load_alias.log
 grep -q "dim-emb: 16" load_alias.log
 
-$MRT_TOOLS/diff.sh load_alias.out no_alias.out > load_alias.diff
-
 # Exit with success code
 exit 0
