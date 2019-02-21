@@ -12,7 +12,7 @@ cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/2/g' > sqlite_word.wei
 $MRT_MARIAN/marian \
     --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m sqlite_word/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
-    --log sqlite_word.log --disp-freq 5 -e 2 --mini-batch-fit -w 500 \
+    --log sqlite_word.log --disp-freq 5 -e 2 -w 500 \
     --data-weighting sqlite_word.weights.txt --data-weighting-type word --sqlite sqlite_word/corpus.sqlite3
 
 test -e sqlite_word/model.npz
