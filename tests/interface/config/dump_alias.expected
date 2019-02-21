@@ -1,0 +1,8 @@
+# Model options
+type: s2s
+dim-emb: 16
+dim-rnn: 32
+best-deep: true
+# Training options
+after-batches: 2
+mini-batch: 8

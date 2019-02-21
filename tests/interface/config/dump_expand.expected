@@ -1,0 +1,16 @@
+# Model options
+type: s2s
+dim-emb: 16
+dim-rnn: 32
+enc-type: alternating
+enc-cell-depth: 2
+enc-depth: 4
+dec-cell-base-depth: 4
+dec-cell-high-depth: 2
+dec-depth: 4
+skip: true
+layer-normalization: true
+tied-embeddings: true
+# Training options
+after-batches: 2
+mini-batch: 8
