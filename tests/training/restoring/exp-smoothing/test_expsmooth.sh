@@ -55,7 +55,7 @@ $MRT_MARIAN/marian \
     --log expsmooth_1.log
 
 test -e expsmooth/model.npz
-test -e expsmooth/model.npz.orig.npz
+test -e expsmooth/model.npz.optimizer.npz
 test -e expsmooth_1.log
 
 cat expsmooth_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'valid' | sed 's/ : Time.*//' > expsmooth.out
@@ -69,7 +69,7 @@ $MRT_MARIAN/marian \
     --log expsmooth_2.log
 
 test -e expsmooth/model.npz
-test -e expsmooth/model.npz.orig.npz
+test -e expsmooth/model.npz.optimizer.npz
 test -e expsmooth_2.log
 
 cat expsmooth_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'valid'  | sed 's/ : Time.*//' >> expsmooth.out
