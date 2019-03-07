@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Test dumping minimum needed options to a config file when using an alias
+# AUTHOR: snukky
+# TAGS: future
+#####################################################################
+
 # Exit on error
 set -e
 

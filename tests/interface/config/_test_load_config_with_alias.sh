@@ -1,7 +1,10 @@
 #!/bin/bash
-#
+
+#####################################################################
 # SUMMARY: Test if an alias in a config file does not override other options
 # AUTHOR: romang
+# TAGS: future
+#####################################################################
 
 # Exit on error
 set -e

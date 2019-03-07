@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Test expanding alias options when dumping to a config file
+# AUTHOR: snukky
+# TAGS: future
+#####################################################################
+
 # Exit on error
 set -e
 
