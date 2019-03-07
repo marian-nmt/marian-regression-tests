@@ -1,0 +1,6 @@
+relative-paths: true
+model: lm.npz
+vocabs:
+  - vocab.yml
+mini-batch: 1
+maxi-batch: 1
