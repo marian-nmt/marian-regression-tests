@@ -1,0 +1,5 @@
+task: transformer
+learn-rate: 0.5
+dim-emb: 16
+after-batches: 2
+mini-batch: 8
