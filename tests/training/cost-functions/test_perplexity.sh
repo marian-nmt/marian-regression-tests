@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train a model using perplexity as cost function
+# AUTHOR: snukky
+# TAGS: unstable
+#####################################################################
+
 # Exit on error
 set -e
 

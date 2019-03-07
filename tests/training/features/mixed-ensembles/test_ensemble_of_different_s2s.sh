@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train and decode with RNN models of different architectures
+# AUTHOR: snukky
+# TAGS: unstable
+#####################################################################
+
 # Exit on error
 set -e
 
