@@ -5,7 +5,9 @@ Marian regression tests
 pure C++ with minimal dependencies.
 
 This repository contains the regression test framework for the main development
-repository: `https://github.com/marian-nmt/marian-dev`.
+repository: https://github.com/marian-nmt/marian-dev.
+The tests are run automatically on Jenkins after each push to the master branch
+and a successful compilation: http://vali.inf.ed.ac.uk/jenkins/view/marian/
 
 
 ## Structure
