@@ -36,15 +36,15 @@ if [[ ! -e $MRT_MARIAN/marian-decoder ]]; then
     MRT_MARIAN="$MRT_MARIAN/build"
 fi
 
-log "Using Marian: $MRT_MARIAN"
-
 # Check if required tools are present in marian directory
 for cmd in marian marian-decoder marian-scorer marian-server marian-vocab; do
     if [ ! -e $MRT_MARIAN/$cmd ]; then
-        echo "Error: '$cmd' is not installed in '$MRT_MARIAN', you need to compile the toolkit first"
+        echo "Error: '$MRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
         exit 1
     fi
 done
+
+log "Using Marian binary: $MRT_MARIAN/marian"
 
 # Get CMake settings
 cd $MRT_MARIAN
