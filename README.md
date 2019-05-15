@@ -5,7 +5,9 @@ Marian regression tests
 pure C++ with minimal dependencies.
 
 This repository contains the regression test framework for the main development
-repository: `https://github.com/marian-nmt/marian-dev`.
+repository: https://github.com/marian-nmt/marian-dev.
+The tests are run automatically on Jenkins after each push to the master branch
+and a successful compilation: http://vali.inf.ed.ac.uk/jenkins/view/marian/
 
 
 ## Structure
@@ -96,6 +98,7 @@ _Horizon 2020 Research and Innovation Programme_ under grant agreements
 645487 ([Modern MT](http://www.modernmt.eu); 2015-2017),
 644333 ([TraMOOC](http://tramooc.eu/); 2015-2017),
 644402 ([HiML](http://www.himl.eu/); 2015-2017),
+825303 ([Bergamot](https://browser.mt/); 2019-2021),
 the Amazon Academic Research Awards program,
 the World Intellectual Property Organization,
 and is based upon work supported in part by the Office of the Director of

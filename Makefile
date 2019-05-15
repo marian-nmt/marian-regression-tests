@@ -29,6 +29,7 @@ models:
 	cd $@ && bash ./download-char-s2s.sh
 	cd $@ && bash ./download-wnmt18.sh
 	cd $@ && bash ./download-transformer.sh
+	cd $@ && bash ./download-lm.sh
 
 data:
 	mkdir -p $@

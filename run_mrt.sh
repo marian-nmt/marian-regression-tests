@@ -37,7 +37,7 @@ if [[ ! -e $MRT_MARIAN/marian-decoder ]]; then
 fi
 
 # Check if required tools are present in marian directory
-for cmd in marian marian-decoder marian-scorer marian-server marian-vocab; do
+for cmd in marian marian-decoder marian-scorer marian-vocab; do
     if [ ! -e $MRT_MARIAN/$cmd ]; then
         echo "Error: '$MRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
         exit 1
