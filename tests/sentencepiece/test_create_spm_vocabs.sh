@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Create SentencePiece vocabularies
 # AUTHOR: snukky
+# TAGS: sentencepiece
 #####################################################################
 
 # Exit on error
@@ -15,7 +16,7 @@ mkdir -p vocabs
 # Run marian command
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none \
-    -m vocabs/model.npz -t $MRT_DATA/europarl.de-en/corpus.{en,de} \
+    -m vocabs/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{en,de}.gz \
     --dim-vocabs 4000 4000 -v vocabs/vocab.en.spm vocabs/vocab.de.spm \
     --after-batches 1 \
     --log vocabs.log
@@ -27,14 +28,17 @@ test -e vocabs/vocab.de.spm
 test -e vocabs.log
 
 # Check logging messages
-grep -q "Creating SentencePiece vocabulary.* vocabs.en.spm" vocabs.log
-grep -q "Creating SentencePiece vocabulary.* vocabs.de.spm" vocabs.log
+grep -q "Training SentencePiece vocabulary .*vocab.en.spm" vocabs.log
+grep -q "Training SentencePiece vocabulary .*vocab.de.spm" vocabs.log
+grep -q "Setting vocabulary size .* to 4000" vocabs.log
+grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocabs.log
+grep -q "Loading SentencePiece vocabulary .*vocab.de.spm" vocabs.log
 
 # Extract a textual vocabulary and compare with the expected output
-$MRT_MRT/spm_export_vocab --model vocabs/vocab.en.spm > vocabs.en.out
+$MRT_MARIAN/spm_export_vocab --model vocabs/vocab.en.spm > vocabs.en.out
 $MRT_TOOLS/diff-nums.py vocabs.en.out vocabs.en.expected -o vocabs.en.diff
 
-$MRT_MRT/spm_export_vocab --model vocabs/vocab.de.spm > vocabs.de.out
+$MRT_MARIAN/spm_export_vocab --model vocabs/vocab.de.spm > vocabs.de.out
 $MRT_TOOLS/diff-nums.py vocabs.de.out vocabs.de.expected -o vocabs.de.diff
 
 # Exit with success code

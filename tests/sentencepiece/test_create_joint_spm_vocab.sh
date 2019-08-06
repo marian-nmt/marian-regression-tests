@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Create a joint SentencePiece vocabulary
 # AUTHOR: snukky
+# TAGS: sentencepiece
 #####################################################################
 
 # Exit on error
@@ -15,7 +16,7 @@ mkdir -p vocab.joint
 # Run marian command
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --after-batches 1 \
-    -m vocab.joint/model.npz -t $MRT_DATA/europarl.de-en/corpus.{en,de} \
+    -m vocab.joint/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{en,de}.gz \
     --dim-vocabs 8000 -v vocab.joint/vocab.ende.spm vocab.joint/vocab.ende.spm \
     --log vocab.joint.log
 
@@ -25,11 +26,13 @@ test -e vocab.joint/vocab.ende.spm
 test -e vocab.joint.log
 
 # Check logging messages
-grep -q "Creating SentencePiece vocabulary.* vocab.ende.spm" vocabs.joint.log
-grep -q "Sampling from.* corpus.en.* corpus.de" vocabs.joint.log
+grep -q "Training SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
+grep -q "Setting vocabulary size .* to 8000" vocab.joint.log
+grep -q "Sampling .* from .*corpus.small.de.gz, .*corpus.small.en.gz" vocab.joint.log
+grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
 
 # Extract a textual vocabulary and compare with the expected output
-$MRT_MRT/spm_export_vocab --model vocab.joint/vocab.ende.spm > vocab.joint.out
+$MRT_MARIAN/spm_export_vocab --model vocab.joint/vocab.ende.spm > vocab.joint.out
 $MRT_TOOLS/diff-nums.py vocab.joint.out vocab.joint.expected -o vocab.joint.diff
 
 # Exit with success code
