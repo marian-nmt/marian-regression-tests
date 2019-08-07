@@ -124,7 +124,7 @@ do
         log "Running setup script"
 
         cd $test_dir
-        $SHELL setup.sh &> setup.log
+        $SHELL -v setup.sh &> setup.log
         if [ $? -ne 0 ]; then
             log "Warning: setup script returns a non-success exit code"
             success=false
