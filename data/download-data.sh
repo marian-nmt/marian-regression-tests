@@ -20,6 +20,6 @@ for file in ${MODEL_FILES[@]}; do
     fi
 done
 
-# Get de-BPEed training data
-test -s europarl.de-en/corpus.de.gz || pigz -dc europarl.de-en/corpus.bpe.de.gz | sed 's/@@ //g' | pigz > europarl.de-en/corpus.de.gz
-test -s europarl.de-en/corpus.en.gz || pigz -dc europarl.de-en/corpus.bpe.en.gz | sed 's/@@ //g' | pigz > europarl.de-en/corpus.en.gz
+# Get de-BPEed small training data
+test -s europarl.de-en/corpus.small.de.gz || pigz -dc europarl.de-en/corpus.bpe.de.gz | head -n 100000 | sed 's/@@ //g' | pigz > europarl.de-en/corpus.small.de.gz
+test -s europarl.de-en/corpus.small.en.gz || pigz -dc europarl.de-en/corpus.bpe.en.gz | head -n 100000 | sed 's/@@ //g' | pigz > europarl.de-en/corpus.small.en.gz
