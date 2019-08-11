@@ -30,6 +30,8 @@ def main():
 
     i = 0
     while True:
+        i += 1
+
         if args.numpy:
             line1 = read_numpy(args.file1)
             line2 = read_numpy(args.file2)
@@ -70,7 +72,6 @@ def main():
 
         if args.numpy:
             break
-        i += 1
 
     for _ in args.file1:
         message("Extra line in the first file", args)
