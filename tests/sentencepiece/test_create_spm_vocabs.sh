@@ -17,7 +17,7 @@ mkdir -p vocabs
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none \
     -m vocabs/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{en,de}.gz \
-    --dim-vocabs 4000 4000 -v vocabs/vocab.en.spm vocabs/vocab.de.spm \
+    --dim-vocabs 4000 4000 -v vocabs/vocab.en.spm vocabs/vocab.de.spm --sentencepiece-options "--num_threads=1" \
     --after-batches 1 \
     --log vocabs.log
 
@@ -35,10 +35,10 @@ grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocabs.log
 grep -q "Loading SentencePiece vocabulary .*vocab.de.spm" vocabs.log
 
 # Extract a textual vocabulary and compare with the expected output
-$MRT_MARIAN/spm_export_vocab --model vocabs/vocab.en.spm > vocabs.en.out
-$MRT_TOOLS/diff-nums.py vocabs.en.out vocabs.en.expected -o vocabs.en.diff
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocabs/vocab.en.spm | head -n 3980 | sort > vocabs.en.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocabs/vocab.de.spm | sort > vocabs.de.out
 
-$MRT_MARIAN/spm_export_vocab --model vocabs/vocab.de.spm > vocabs.de.out
+$MRT_TOOLS/diff-nums.py vocabs.en.out vocabs.en.expected -o vocabs.en.diff
 $MRT_TOOLS/diff-nums.py vocabs.de.out vocabs.de.expected -o vocabs.de.diff
 
 # Exit with success code

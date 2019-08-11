@@ -17,7 +17,7 @@ mkdir -p vocab.joint
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --after-batches 1 \
     -m vocab.joint/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{en,de}.gz \
-    --dim-vocabs 8000 -v vocab.joint/vocab.ende.spm vocab.joint/vocab.ende.spm \
+    --dim-vocabs 8000 -v vocab.joint/vocab.ende.spm vocab.joint/vocab.ende.spm --sentencepiece-options "--num_threads=1" \
     --log vocab.joint.log
 
 # Check if files exist
@@ -32,7 +32,7 @@ grep -q "Sampling .* from .*corpus.small.de.gz, .*corpus.small.en.gz" vocab.join
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
 
 # Extract a textual vocabulary and compare with the expected output
-$MRT_MARIAN/spm_export_vocab --model vocab.joint/vocab.ende.spm > vocab.joint.out
+LC=UTF-8 $MRT_MARIAN/spm_export_vocab --model vocab.joint/vocab.ende.spm | head -n 7800 | sort > vocab.joint.out
 $MRT_TOOLS/diff-nums.py vocab.joint.out vocab.joint.expected -o vocab.joint.diff
 
 # Exit with success code

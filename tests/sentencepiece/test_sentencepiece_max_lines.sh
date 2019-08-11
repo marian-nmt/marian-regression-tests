@@ -18,6 +18,7 @@ $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --after-batches 1 \
     -m vocab.maxlines/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{en,de}.gz \
     --dim-vocabs 4000 -v vocab.maxlines/vocab.ende.spm vocab.maxlines/vocab.ende.spm --sentencepiece-max-lines 2345 \
+    --sentencepiece-options "--num_threads=1" \
     --log vocab.maxlines.log
 
 # Check if files exist
@@ -32,7 +33,7 @@ grep -q "Sampling at most 2345 lines from" vocab.maxlines.log
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.maxlines.log
 
 # Extract a textual vocabulary and compare with the expected output
-$MRT_MARIAN/spm_export_vocab --model vocab.maxlines/vocab.ende.spm > vocab.maxlines.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.maxlines/vocab.ende.spm | head -n 3700 | sort > vocab.maxlines.out
 $MRT_TOOLS/diff-nums.py vocab.maxlines.out vocab.maxlines.expected -o vocab.maxlines.diff
 
 # Exit with success code
