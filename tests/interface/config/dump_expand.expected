@@ -12,5 +12,14 @@ skip: true
 layer-normalization: true
 tied-embeddings: true
 # Training options
+cost-type: ce-mean-words
 after-batches: 2
 mini-batch: 8
+mini-batch-fit: true
+maxi-batch: 1000
+sync-sgd: true
+learn-rate: 0.0003
+lr-decay-inv-sqrt:
+label-smoothing: 0.1
+clip-norm: 5
+exponential-smoothing: 0.0001
