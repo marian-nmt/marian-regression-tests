@@ -1,0 +1,21 @@
+Command: ['/mnt/zisa0/romang/marian/marian-dev/build/marian-decoder', '-c', '/fs/zisa0/romang/marian/mrt/models/wmt16_systems/marian.en-de.yml', '--log', 'subprocess.log']
+Sending:   India and Japan prime ministers meet in Tokyo
+Receiving: Indien und Japan Ministerpräsidenten treffen sich in Tokio
+Sending:   high on the agenda are plans for greater nuclear co-operation .
+Receiving: auf der Tagesordnung stehen die Pläne für eine verstärkte nukleare Zusammenarbeit .
+Sending:   India is also reportedly hoping for a deal on defence collaboration between the two nations .
+Receiving: auch Indien hofft angeblich auf eine Einigung zur Verteidigungs@@ kooperation beider Nationen .
+Sending:   he is due to appear in Kar@@ ra@@ tha Magistr@@ ates Court on September 23 .
+Receiving: er soll am 23. September in Kar@@ ra@@ tha Magistr@@ ats erscheinen .
+Sending:   the motorcycle was seized and im@@ po@@ unded for three months .
+Receiving: das Motorrad wurde für drei Monate beschlagnahmt und im@@ matri@@ k@@ uliert .
+Sending:   George Web@@ ster accused of N@@ air@@ n and Pit@@ loch@@ ry hotel rap@@ es
+Receiving: George Web@@ ster warf N@@ air@@ n und Pit@@ loch@@ ry Hotel@@ vergewal@@ tigung vor
+Sending:   a man is to stand trial accused of rap@@ ing women at two hotels .
+Receiving: ein Mann soll vor Gericht stehen , der Frauen in zwei Hotels vergewaltigt hat .
+Sending:   George Web@@ ster , 28 , faced the charges during a hearing at the High Court in Glasgow .
+Receiving: George Web@@ ster , 28 , stellte sich bei einer Anhörung vor dem Ober@@ landes@@ gericht in Glasgow die Vorwürfe .
+Sending:   judge Lady Ra@@ e set a trial date for November 17 at the High Court in Edinburgh .
+Receiving: Rich@@ terin Lady Ra@@ e hat einen Prozes@@ stag für den 17. November beim Ober@@ landes@@ gericht Edinburgh festgelegt .
+Sending:   re@@ connecting With the Very American Ideal That Labor Rights Are Human Rights
+Receiving: Wieder@@ ansch@@ aff@@ ung mit der Very American Ideal , die Arbeits@@ rechte sind Menschenrechte
