@@ -32,7 +32,7 @@ $MRT_MARIAN/marian-decoder -m rightleft/model.lr.npz rightleft/model.rl.npz -v v
     -i text.in -o rightleft.out > rightleft.log 2>&1 || true
 
 test -e rightleft.log
-grep -q "left-to-right and right-to-left model* cannot be decoded together" rightleft.log
+grep -qi "left-to-right and right-to-left models cannot be used together" rightleft.log
 
 # Check if an ensemble of three right-left models works
 $MRT_MARIAN/marian-decoder -m rightleft/model.{rl,rl,rl}.npz --weights 1 2 .5 -v vocab.en.yml vocab.de.yml \
