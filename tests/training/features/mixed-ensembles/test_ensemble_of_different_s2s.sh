@@ -35,7 +35,7 @@ test -e two_s2s_B.log
 
 # Check if the ensemble of two different s2s models works
 $MRT_MARIAN/marian-decoder -m two_s2s/modelA.npz two_s2s/modelB.npz -v vocab.en.yml vocab.de.yml \
-    -i text.in -o two_s2s.out --log two_s2s.log
+    -b 4 -i text.in -o two_s2s.out --log two_s2s.log
 
 $MRT_TOOLS/diff.sh two_s2s.out two_s2s.expected > two_s2s.diff
 
