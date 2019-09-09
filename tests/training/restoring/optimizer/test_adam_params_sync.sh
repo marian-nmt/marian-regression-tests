@@ -16,7 +16,7 @@ $MRT_MARIAN/marian \
     --no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 128 --dim-rnn 256 \
     -m adam_sync/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --after-batches 100 --save-freq 60 \
-    --log adam_sync.log --devices 0 1 --sync-sgd --cost-type ce-sum
+    --log adam_sync.log --devices 0 1 --sync-sgd --cost-type ce-sum --clip-norm 0
 
 test -e adam_sync/model.npz
 test -e adam_sync/model.npz.optimizer.npz
@@ -31,8 +31,8 @@ $MRT_TOOLS/diff.sh adam_sync.keys.out adam.keys.expected > adam_sync.keys.diff
 python $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_mt" > adam_sync.mt.out
 python $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_sync/model.npz.optimizer.npz -k "adam_vt" > adam_sync.vt.out
 
-$MRT_TOOLS/diff-nums.py --numpy -p 0.002  adam_sync.mt.out adam_sync.mt.expected -o adam_sync.mt.diff
-$MRT_TOOLS/diff-nums.py --numpy -p 0.0002 adam_sync.vt.out adam_sync.vt.expected -o adam_sync.vt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.1  adam_sync.mt.out adam_sync.mt.expected -o adam_sync.mt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.01 adam_sync.vt.out adam_sync.vt.expected -o adam_sync.vt.diff
 
 # Exit with success code
 exit 0
