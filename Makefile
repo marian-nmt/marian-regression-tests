@@ -17,6 +17,7 @@ run: install
 install: tools models data
 
 tools:
+	mkdir -p $@
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
 	pip3 install --user $(PIP_PACKAGES)
