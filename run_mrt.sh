@@ -27,7 +27,7 @@ function logn {
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
-export MRT_MARIAN="$( realpath ${MARIAN:-../build} )"
+export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_ROOT/../build} )"
 export MRT_MODELS=$MRT_ROOT/models
 export MRT_DATA=$MRT_ROOT/data
 
