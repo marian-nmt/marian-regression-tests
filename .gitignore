@@ -29,6 +29,7 @@ models/*/*.npz
 models/*/*.bpe
 models/*/tc.*
 models/*/vocab.*
+models/rnn-spm
 
 data/*/corpus.*
 data/*/*.bpe
