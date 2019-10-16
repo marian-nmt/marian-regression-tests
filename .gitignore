@@ -17,6 +17,7 @@ tools/marian-dev
 tools/moses-scripts
 tools/subword-nmt
 tools/nematus
+tools/sacrebleu
 
 models/wmt16_systems/en-de
 models/wmt17_systems/en-de
