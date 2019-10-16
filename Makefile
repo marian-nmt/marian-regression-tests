@@ -3,7 +3,7 @@ THREADS=16
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
 
-PIP_PACKAGES=websocket-client pyyaml
+PIP_PACKAGES=websocket-client pyyaml sacrebleu
 
 .PHONY: install tools models data run
 .SECONDARY:
