@@ -25,6 +25,7 @@ models/wmt17_systems/scripts
 models/wmt17_systems/vars
 models/char-s2s
 models/wnmt18
+models/wmt18
 models/*/model.npz*yml
 models/*/*.npz
 models/*/*.bpe
