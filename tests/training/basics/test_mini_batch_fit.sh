@@ -15,7 +15,7 @@ $MRT_MARIAN/marian \
     -m batch_fit/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 20 --after-batches 100 \
     --log batch_fit.log \
-    --mini-batch-fit -w 4000
+    --mini-batch-fit -w 3500
 
 test -e batch_fit/model.npz
 test -e batch_fit/model.npz.yml
