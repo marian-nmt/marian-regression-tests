@@ -28,7 +28,7 @@ test -e vocab.maxlines.log
 
 # Check logging messages
 grep -q "Training SentencePiece vocabulary .*vocab.ende.spm" vocab.maxlines.log
-grep -q "Setting vocabulary size .* to 4000" vocab.maxlines.log
+grep -q "Setting vocabulary size .* to 4,\?000" vocab.maxlines.log
 grep -q "Sampling at most 2345 lines from" vocab.maxlines.log
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.maxlines.log
 

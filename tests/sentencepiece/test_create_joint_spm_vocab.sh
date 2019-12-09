@@ -27,7 +27,7 @@ test -e vocab.joint.log
 
 # Check logging messages
 grep -q "Training SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
-grep -q "Setting vocabulary size .* to 8000" vocab.joint.log
+grep -q "Setting vocabulary size .* to 8,\?000" vocab.joint.log
 grep -q "Sampling .* from .*corpus.small.de.gz, .*corpus.small.en.gz" vocab.joint.log
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
 

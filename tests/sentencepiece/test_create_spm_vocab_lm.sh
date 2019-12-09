@@ -27,7 +27,7 @@ test -e vocab.lm.log
 
 # Check logging messages
 grep -q "Training SentencePiece vocabulary .*vocab.en.spm" vocab.lm.log
-grep -q "Setting vocabulary size .* to 4000" vocab.lm.log
+grep -q "Setting vocabulary size .* to 4,\?000" vocab.lm.log
 grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocab.lm.log
 
 # Extract a textual vocabulary and compare with the expected output
