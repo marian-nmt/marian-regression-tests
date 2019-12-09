@@ -1,6 +1,8 @@
 final_batch
 final_match
 final_epoch
+template_translation
+template_bleu
 train.bpe.*
 vocab.*.yml
 empty_*
