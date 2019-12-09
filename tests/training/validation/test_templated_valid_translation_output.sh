@@ -18,7 +18,7 @@ test -e train.bpe.en || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.en > tr
 test -e train.bpe.de || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.de > train.bpe.de
 
 
-# Run Marian urin --valid-translation-output with templates
+# Run Marian using --valid-translation-output with templates
 $MRT_MARIAN/marian \
     --no-shuffle --seed 2222 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     -m template_translation/model.npz -t train.bpe.{en,de} \
