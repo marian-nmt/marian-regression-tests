@@ -17,6 +17,7 @@ tools/marian-dev
 tools/moses-scripts
 tools/subword-nmt
 tools/nematus
+tools/sacrebleu
 
 models/wmt16_systems/en-de
 models/wmt17_systems/en-de
@@ -24,11 +25,13 @@ models/wmt17_systems/scripts
 models/wmt17_systems/vars
 models/char-s2s
 models/wnmt18
+models/wmt18
 models/*/model.npz*yml
 models/*/*.npz
 models/*/*.bpe
 models/*/tc.*
 models/*/vocab.*
+models/rnn-spm
 
 data/*/corpus.*
 data/*/*.bpe

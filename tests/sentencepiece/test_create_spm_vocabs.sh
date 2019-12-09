@@ -30,7 +30,7 @@ test -e vocabs.log
 # Check logging messages
 grep -q "Training SentencePiece vocabulary .*vocab.en.spm" vocabs.log
 grep -q "Training SentencePiece vocabulary .*vocab.de.spm" vocabs.log
-grep -q "Setting vocabulary size .* to 4000" vocabs.log
+grep -q "Setting vocabulary size .* to 4,\?000" vocabs.log
 grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocabs.log
 grep -q "Loading SentencePiece vocabulary .*vocab.de.spm" vocabs.log
 

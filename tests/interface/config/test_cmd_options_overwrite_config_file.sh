@@ -18,7 +18,7 @@ grep -q "mini-batch: 1" overwrite.log
 grep -q "dim-rnn: 32" overwrite.log
 grep -q "dim-emb: 16" overwrite.log
 grep -q "after-batches: 1" overwrite.log
-grep -q "no-shuffle: true" overwrite.log
+grep -q "shuffle: none" overwrite.log
 
 
 # Exit with success code

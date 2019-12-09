@@ -6,8 +6,6 @@ pure C++ with minimal dependencies.
 
 This repository contains the regression test framework for the main development
 repository: https://github.com/marian-nmt/marian-dev.
-The tests are run automatically on Jenkins after each push to the master branch
-and a successful compilation: http://vali.inf.ed.ac.uk/jenkins/view/marian/
 
 
 ## Structure
@@ -88,6 +86,22 @@ Please follow these recommendations:
 * Do not run decoding or scoring on files longer than ca. 10-100 lines
 * If your tests require downloading and running a custom model, please keep it
   as small as possible, and contact me (Roman) to upload it into our storage
+
+
+## Jenkins
+
+The regression tests are run automatically on Jenkins after each push to the
+master branch and a successful compilation with g++ 5.4.0 20160609 and CUDA
+10.1.243: http://vali.inf.ed.ac.uk/jenkins/view/marian/
+
+On Jenkins, Marian is compiled using the following commands:
+
+    cmake -DUSE_SENTENCEPIECE=ON -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON \
+        -DCUDA_TOOLKIT_ROOT_DIR=/var/lib/jenkins/cuda-10.1 ..
+    make -j
+    make test
+
+If this succeeds, created executables are used to run regression tests.
 
 
 ## Acknowledgements
