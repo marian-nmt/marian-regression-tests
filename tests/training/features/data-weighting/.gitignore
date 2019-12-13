@@ -5,9 +5,10 @@ word_noweights
 word_ones
 word_ones.weights.txt
 word_twos
+word_twos_sync
 word_twos_cfg
-word_twos.weights.txt
-word_twos.config.yml
+word_twos*.weights.txt
+word_twos*.config.yml
 word_eos
 word_eos.weights.txt
 word_eos.config.yml
@@ -21,6 +22,7 @@ valid_script.temp
 maxibatch
 word_maxibatch
 compare
+compare_sync
 compare*.weights.txt
 warn
 warn*.weights.txt

@@ -44,7 +44,7 @@ test -e sgd_2nd_epoch.log
 cat sgd_2nd_epoch.log | $MRT_TOOLS/extract-disp.sh > sgd_2nd_epoch.out
 cat sgd_1st_epoch.out sgd_2nd_epoch.out > sgd_2e.out
 
-$MRT_TOOLS/diff-nums.py sgd_2e.out sgd_2e.expected -p 0.3 -o sgd_2e.diff
+$MRT_TOOLS/diff-nums.py sgd_2e.out sgd_2e.expected -p 0.1 -o sgd_2e.diff
 
 # Exit with success code
 exit 0

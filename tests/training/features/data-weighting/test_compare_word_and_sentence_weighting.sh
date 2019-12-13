@@ -4,7 +4,7 @@
 set -e
 
 # Test code goes here
-rm -rf compare compare.{log,out,diff}
+rm -rf compare compare.{words.log,sents.log,out,diff}
 mkdir -p compare
 
 cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r -e 's/[^ ]+/3/g' -e 's/$/ 3/' > compare.words.weights.txt
@@ -33,7 +33,7 @@ test -e compare/model.words.npz
 test -e compare.words.log
 
 cat compare.words.log | $MRT_TOOLS/extract-disp.sh > compare.words.out
-$MRT_TOOLS/diff-nums.py compare.words.out compare.sents.out -p 0.1 -o compare.words.diff
+$MRT_TOOLS/diff-nums.py compare.words.out compare.sents.out -p 0.05 -o compare.words.diff
 
 
 # Exit with success code
