@@ -3,6 +3,11 @@
 # Exit on error
 set -e
 
+#####################################################################
+# SUMMARY: Load custom embeddings into an RNN model
+# AUTHOR: snukky
+#####################################################################
+
 # Test code goes here
 rm -rf custom_emb custom_emb.log
 mkdir -p custom_emb
