@@ -10,7 +10,8 @@ mkdir -p corpus_s2s_sync
 test -e vocab.de.yml
 test -e vocab.en.yml
 
-extra_opts="--seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --type s2s --sync-sgd"
+# TODO: Weight decaying in Adam is disabled, because it gives unstable results on GPU
+extra_opts="--seed 2222 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 128 --dim-rnn 256 --disp-freq 4 --type s2s --sync-sgd --optimizer adam --optimizer-params 0.9 0.98 0"
 
 
 # Step 1: Train a model in one go, up to the update no. 70, and save training logs
