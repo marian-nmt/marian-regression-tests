@@ -14,7 +14,7 @@ mkdir -p adam_sync
 
 # TODO: The weight decaying in the Adam optimizer is disabled, because it gives
 # unstable results even for a single GPU trainig, without training restoration.
-opts="--no-shuffle --seed 777 --mini-batch 1 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --learn-rate 0.1 --optimizer adam --optimizer-params 0.9 0.98 0 --sync-sgd --devices 0 1"
+opts="--no-shuffle --seed 777 --mini-batch 2 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --learn-rate 0.1 --optimizer adam --optimizer-params 0.9 0.98 0 --sync-sgd --devices 0 1"
 
 
 # Step 1: Training in one go
