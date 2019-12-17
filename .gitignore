@@ -32,6 +32,7 @@ models/*/*.bpe
 models/*/tc.*
 models/*/vocab.*
 models/rnn-spm
+models/wngt19
 
 data/*/corpus.*
 data/*/*.bpe
