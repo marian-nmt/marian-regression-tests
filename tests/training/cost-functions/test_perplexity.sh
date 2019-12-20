@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Train a model using perplexity as cost function
+# SUMMARY: Train using perplexity as a cost function
 # AUTHOR: snukky
 # TAGS: unstable
 #####################################################################

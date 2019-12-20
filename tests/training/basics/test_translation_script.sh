@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Test validation with a translation script
+# AUTHOR: snukky
+# TAGS: valid
+#####################################################################
+
 # Exit on error
 set -e
 

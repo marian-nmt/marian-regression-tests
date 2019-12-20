@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train a Transformer language model
+# AUTHOR: snukky
+# TAGS: lm transformer
+#####################################################################
+
 # Exit on error
 set -e
 
