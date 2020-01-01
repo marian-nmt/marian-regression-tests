@@ -6,3 +6,6 @@ template_bleu
 train.bpe.*
 vocab.*.yml
 empty_*
+valid
+trans
+*.temp
