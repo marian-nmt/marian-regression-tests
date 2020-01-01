@@ -1,9 +1,9 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY:
+# SUMMARY: Check if the in-validation translation and standard decoding give the same output
 # AUTHOR: snukky
-# TAGS: valid
+# TAGS: valid valid-script transformer
 #####################################################################
 
 # Exit on error
