@@ -54,13 +54,15 @@ cd $MRT_ROOT
 
 # Check Marian compilation settings
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
+export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log | grep -P "CMAKE_BUILD_TYPE" | cut -f2 -d=)
 export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
 export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | grep -P "USE_SENTENCEPIECE:BOOL=(ON|on|1)")
 export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log | grep -P "USE_FBGEMM:BOOL=(ON|on|1)")
 export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log | grep -P "COMPILE_TESTS:BOOL=(ON|on|1)")
 
-log "Using version: $MRT_MARIAN_VERSION"
+log "Version: $MRT_MARIAN_VERSION"
+log "Build type: $MRT_MARIAN_BUILD_TYPE"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
 log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using SentencePiece: $MRT_MARIAN_USE_SENTENCEPIECE"
