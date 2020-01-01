@@ -8,4 +8,6 @@ vocab.*.yml
 empty_*
 valid
 trans
+compare-trans
+compare-trans.bleu
 *.temp
