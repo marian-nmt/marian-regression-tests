@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train a multi-source Transformer model
+# AUTHOR: snukky
+# TAGS: multisource transformer
+#####################################################################
+
 # Exit on error
 set -e
 

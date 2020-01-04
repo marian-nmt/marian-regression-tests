@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Training using SQLite is exactly the same as training using textual files
+# AUTHOR: snukky
+# TAGS: sqlite
+#####################################################################
+
 # Exit on error
 set -e
 

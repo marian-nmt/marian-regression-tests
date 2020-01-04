@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Check if a dummy 'decoder_c_tt' matrix is created for the 'amun' model type
+# AUTHOR: snukky
+# TAGS: amun
+#####################################################################
+
 # Exit on error
 set -e
 

@@ -1,5 +1,10 @@
-
 #!/bin/bash
+
+#####################################################################
+# SUMMARY: Train a deep RNN model with Nematus-compatible GRU units
+# AUTHOR: snukky
+# TAGS: nematus
+#####################################################################
 
 # Exit on error
 set -e
