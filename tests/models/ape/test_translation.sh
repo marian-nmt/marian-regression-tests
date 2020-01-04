@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #####################################################################
-# SUMMARY: Decode a dual-source APE model
+# SUMMARY: Translate with a dual-source APE model
 # TAGS: multi-source transformer sentencepiece
 #####################################################################
 
