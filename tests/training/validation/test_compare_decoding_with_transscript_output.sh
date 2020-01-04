@@ -22,6 +22,7 @@ $MRT_MARIAN/marian \
     --no-shuffle --after-batches 1 --maxi-batch 1 --learn-rate 0 --overwrite \
     -m compare-trans/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{de,en}.gz -v $MRT_MODELS/transformer/vocab.{ende,ende}.yml \
     --valid-freq 1 --valid-metrics translation --valid-sets dev.bpe.en dev.bpe.de --valid-script-path "bash compare-trans.sh" --valid-translation-output compare-trans.out \
+    --valid-script-args "$MRT_TOOLS" \
     --beam-size 4 --normalize 1 \
     --log compare-trans.log
 

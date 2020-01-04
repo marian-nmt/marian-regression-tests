@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cat $1 | sacrebleu --tokenize none -b dev.bpe.de
+cat $2 | $1/sacrebleu/sacrebleu.py --tokenize none -b dev.bpe.de
