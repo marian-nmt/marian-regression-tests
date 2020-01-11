@@ -43,9 +43,13 @@ More invocation examples:
     ./run_mrt.sh tests/training/basics
     ./run_mrt.sh tests/training/basics/test_valid_script.sh
     ./run_mrt.sh previous.log
+    ./run_mrt.sh '#tag'
 
 where `previous.log` contains a list of test files, one test per line.  This
 file is automatically generated each time `./run_mrt.sh` finishes running.
+The last example starts all regression tests labeled with '#tag'.  The list of
+tests annotated with each available tag can be displayed by running
+`./show_tags.sh`.
 
 Cleaning test artifacts:
 

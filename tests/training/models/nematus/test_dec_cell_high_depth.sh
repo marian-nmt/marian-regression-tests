@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Check error message displayed if training the unsupported Nematus architecture
+# AUTHOR: snukky
+# TAGS: nematus
+#####################################################################
+
 # Exit on error
 set -e
 

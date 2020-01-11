@@ -5,6 +5,7 @@
 #  ./run_mrt.sh tests/training/basics
 #  ./run_mrt.sh tests/training/basics/test_valid_script.sh
 #  ./run_mrt.sh previous.log
+#  ./run_mrt.sh '#tag'
 # where previous.log contains a list of test files in separate lines.
 
 # Environment variables:
@@ -53,15 +54,19 @@ cd $MRT_ROOT
 
 # Check Marian compilation settings
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
+export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log | grep -P "CMAKE_BUILD_TYPE" | cut -f2 -d=)
 export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
 export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
 export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | grep -P "USE_SENTENCEPIECE:BOOL=(ON|on|1)")
+export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log | grep -P "USE_FBGEMM:BOOL=(ON|on|1)")
 export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log | grep -P "COMPILE_TESTS:BOOL=(ON|on|1)")
 
-log "Using version: $MRT_MARIAN_VERSION"
+log "Version: $MRT_MARIAN_VERSION"
+log "Build type: $MRT_MARIAN_BUILD_TYPE"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
 log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using SentencePiece: $MRT_MARIAN_USE_SENTENCEPIECE"
+log "Using FBGEMM: $MRT_MARIAN_USE_FBGEMM"
 log "Unit tests: $MRT_MARIAN_USE_UNITTESTS"
 
 # Number of available devices
@@ -84,18 +89,41 @@ function format_time {
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
 
-
+###############################################################################
 # Default directory with all regression tests
-prefix=tests
+test_prefixes=tests
+
 if [ $# -ge 1 ]; then
-    if [[ "$1" = *.log ]]; then
-        # Extract test names from .log file
-        prefix=$(cat $1 | grep '/test_.*\.sh' | grep -v '/_' | sed 's/^ *- *//' | tr '\n' ' ' | sed 's/ *$//')
-    else
-        prefix="$@"
-    fi
+    test_prefixes=
+    for arg in "$@"; do
+        # A log file with paths to test files
+        if [[ "$arg" = *.log ]]; then
+            # Extract tests from .log file
+            args=$(cat $arg | grep '/test_.*\.sh' | grep -v '/_' | sed 's/^ *- *//' | tr '\n' ' ' | sed 's/ *$//')
+            test_prefixes="$test_prefixes $args"
+        # A hash tag
+        elif [[ "$arg" = '#'* ]]; then
+            # Find all tests with the given hash tag
+            tag=${arg:1}
+            args=$(find tests -name '*test_*.sh' | xargs -i grep -H "^ *# *TAGS:.* $tag" {} | cut -f1 -d:)
+            test_prefixes="$test_prefixes $args"
+        # A test file or directory name
+        else
+            test_prefixes="$test_prefixes $arg"
+        fi
+    done
 fi
 
+# Extract all subdirectories, which will be traversed to look for regression tests
+test_dirs=$(find $test_prefixes -type d | grep -v "/_")
+
+if grep -q "/test_.*\.sh" <<< "$test_prefixes"; then
+    test_files=$(printf '%s\n' $test_prefixes | sed 's!*/!!')
+    test_dirs=$(printf '%s\n' $test_prefixes | xargs -i dirname {} | grep -v "/_" | sort | uniq)
+fi
+
+
+###############################################################################
 success=true
 count_passed=0
 count_skipped=0
@@ -104,13 +132,6 @@ count_all=0
 
 declare -a tests_skipped
 declare -a tests_failed
-
-test_dirs=$(find $prefix -type d | grep -v "/_")
-
-if grep -q "/test_.*\.sh\$" <<< "$prefix"; then
-    test_single_files=$(printf '%s\n' $prefix | sed 's!*/!!')
-    test_dirs=$(dirname $prefix | sort | uniq)
-fi
 
 time_start=$(date +%s.%N)
 
@@ -144,7 +165,7 @@ do
         test_name="${test_file%.*}"
 
         # In non-traverse mode skip tests if not requested
-        if [[ -n "$test_single_files" && $test_single_files != *"$test_file"* ]]; then
+        if [[ -n "$test_files" && $test_files != *"$test_file"* ]]; then
             continue
         fi
         test_time_start=$(date +%s.%N)
@@ -214,6 +235,8 @@ time_total=$(format_time $time_start $time_end)
 prev_log=previous.log
 rm -f $prev_log
 
+
+###############################################################################
 # Print skipped and failed tests
 if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
     echo "---------------------"
@@ -231,6 +254,8 @@ for test_name in "${tests_failed[@]}"; do
     echo "  - $(realpath $test_name | sed 's/\.sh/.sh.log/')"
 done
 
+
+###############################################################################
 # Print summary
 echo "---------------------" | tee -a $prev_log
 echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log

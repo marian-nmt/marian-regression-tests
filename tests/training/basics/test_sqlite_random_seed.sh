@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Check shuffling of training data with SQLite
+# AUTHOR: snukky
+# TAGS: sqlite
+#####################################################################
+
 # Exit on error
 set -e
 

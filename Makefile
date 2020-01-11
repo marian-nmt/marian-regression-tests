@@ -33,6 +33,8 @@ models:
 	cd $@ && bash ./download-transformer.sh
 	cd $@ && bash ./download-lm.sh
 	cd $@ && bash ./download-rnn-spm.sh
+	cd $@ && bash ./download-wngt19.sh
+	cd $@ && bash ./download-ape.sh
 
 data:
 	mkdir -p $@

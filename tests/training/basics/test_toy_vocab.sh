@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Run a basic training command with toy vocabs
+# AUTHOR: snukky
+#####################################################################
+
 # Exit on error
 set -e
 

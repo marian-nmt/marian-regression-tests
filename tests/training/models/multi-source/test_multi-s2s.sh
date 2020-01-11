@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train a multi-source RNN model
+# AUTHOR: snukky
+# TAGS: multisource rnn
+#####################################################################
+
 # Exit on error
 set -e
 

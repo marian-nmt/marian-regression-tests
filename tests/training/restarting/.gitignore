@@ -1,6 +1,7 @@
 valid
 valid_script*.temp
 sgd_2e
+sgd_sync_2e
 train.*
 valid.*
 finish*
