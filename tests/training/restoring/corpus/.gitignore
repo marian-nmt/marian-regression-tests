@@ -1,8 +1,6 @@
-corpus
-corpus.expected
-corpus_*
-corpus_*.expected
-sqlite
-sqlite.expected
-sqlite_*
-sqlite_*.expected
+corpus*
+corpus*.expected
+sqlite*
+sqlite*.expected
+finetune*
+finetune*.expected
