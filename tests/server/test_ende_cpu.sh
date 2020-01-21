@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Translate on CPU using marian-server
+# TAGS: cpu rnn server
+#####################################################################
+
 # Exit on error
 set -e
 

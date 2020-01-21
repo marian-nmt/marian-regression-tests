@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Decode the 16-bit WNGT19 model on CPU with AVX2 or AVX512 support
+# TAGS: cpu wngt packed student shortlist
+#####################################################################
+
 # Exit on error
 set -e
 

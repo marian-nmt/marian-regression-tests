@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Decode with a lexical shortlist on CPU
-# AUTHOR: snukky
+# TAGS: cpu shortlist sentencepiece rnn
 #####################################################################
 
 # Exit on error

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: CPU-based optimized decoding with the WNGT18 small student model with AAN
+# TAGS: cpu wngt student shortlist obsolete
+#####################################################################
+
 # Exit on error
 set -e
 

@@ -1,5 +1,10 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Train with Adam optimized on CPU
+# TAGS: cpu adam syncsgd
+#####################################################################
+
 # Exit on error
 set -e
 

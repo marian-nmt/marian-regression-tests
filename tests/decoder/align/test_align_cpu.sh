@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Check word alignment generated from CPU-based decoding
+# TAGS: cpu align amun
+#####################################################################
+
 # Exit on error
 set -e
 

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: CPU-based decoding with the WNGT18 small student model
+# TAGS: cpu wngt student shortlist
+#####################################################################
+
 # Exit on error
 set -e
 
