@@ -25,6 +25,7 @@ function logn {
     echo -n [$(date "+%m/%d/%Y %T")] $@
 }
 
+log "Running on $(hostname) as process $$"
 
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
