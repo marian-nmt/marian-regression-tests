@@ -30,7 +30,7 @@ prefix=model_base_fbgemm_packed8
 rm -f $prefix.out $prefix.$suffix.bin
 
 # Pack the model
-$MRT_MARIAN/marian-conv -f $MRT_MODELS/wngt19/model.base.npz -t $prefix.$suffix.bin --gemm-type packed8avx2
+$MRT_MARIAN/marian-conv -f $MRT_MODELS/wngt19/model.base.npz -t $prefix.$suffix.bin --gemm-type packed8$suffix
 test -s $prefix.$suffix.bin
 
 # Run test
