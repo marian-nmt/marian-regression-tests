@@ -1,3 +1,8 @@
+# Skip if compiled without SentencePiece
+if [ ! $MRT_MARIAN_USE_SENTENCEPIECE ]; then
+    exit 100
+fi
+
 test -f $MRT_MODELS/wngt19/model.base.npz || exit 1
 test -f $MRT_MODELS/wngt19/model.small.npz || exit 1
 test -f $MRT_MODELS/wngt19/model.tiny1.npz || exit 1
