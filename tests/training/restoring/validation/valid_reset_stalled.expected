@@ -1,0 +1,30 @@
+[valid] Ep. 1 : Up. 20 : translation : 333.5 : new best
+[valid] Ep. 1 : Up. 20 : valid-script : 222.3 : new best
+[valid] Ep. 1 : Up. 20 : cross-entropy : 250.501 : new best
+[valid] Ep. 1 : Up. 40 : translation : 333.4 : stalled 1 times (last best: 333.5)
+[valid] Ep. 1 : Up. 40 : valid-script : 222.2 : stalled 1 times (last best: 222.3)
+[valid] Ep. 1 : Up. 40 : cross-entropy : 250.491 : new best
+[valid] Ep. 1 : Up. 60 : translation : 333.3 : stalled 2 times (last best: 333.5)
+[valid] Ep. 1 : Up. 60 : valid-script : 222.1 : stalled 2 times (last best: 222.3)
+[valid] Ep. 1 : Up. 60 : cross-entropy : 250.481 : new best
+[valid] Ep. 1 : Up. 80 : translation : 333.2 : stalled 3 times (last best: 333.5)
+[valid] Ep. 1 : Up. 80 : valid-script : 222.6 : new best
+[valid] Ep. 1 : Up. 80 : cross-entropy : 250.471 : new best
+[valid] Ep. 1 : Up. 100 : translation : 333.1 : stalled 4 times (last best: 333.5)
+[valid] Ep. 1 : Up. 100 : valid-script : 222.5 : stalled 1 times (last best: 222.6)
+[valid] Ep. 1 : Up. 100 : cross-entropy : 250.461 : new best
+[valid] Ep. 1 : Up. 120 : translation : 333.9 : new best
+[valid] Ep. 1 : Up. 120 : valid-script : 222.4 : stalled 2 times (last best: 222.6)
+[valid] Ep. 1 : Up. 120 : cross-entropy : 250.45 : new best
+[valid] Ep. 1 : Up. 140 : translation : 333.8 : stalled 1 times (last best: 333.9)
+[valid] Ep. 1 : Up. 140 : valid-script : 222.3 : stalled 3 times (last best: 222.6)
+[valid] Ep. 1 : Up. 140 : cross-entropy : 250.441 : new best
+[valid] Ep. 1 : Up. 160 : translation : 333.7 : stalled 1 times (last best: 333.9)
+[valid] Ep. 1 : Up. 160 : valid-script : 222.2 : stalled 1 times (last best: 222.6)
+[valid] Ep. 1 : Up. 160 : cross-entropy : 250.43 : new best
+[valid] Ep. 2 : Up. 180 : translation : 333.6 : stalled 2 times (last best: 333.9)
+[valid] Ep. 2 : Up. 180 : valid-script : 222.1 : stalled 2 times (last best: 222.6)
+[valid] Ep. 2 : Up. 180 : cross-entropy : 250.42 : new best
+[valid] Ep. 2 : Up. 200 : translation : 333.5 : stalled 3 times (last best: 333.9)
+[valid] Ep. 2 : Up. 200 : valid-script : 222.6 : stalled 3 times (last best: 222.6)
+[valid] Ep. 2 : Up. 200 : cross-entropy : 250.41 : new best
