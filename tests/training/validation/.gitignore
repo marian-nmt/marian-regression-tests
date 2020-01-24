@@ -9,6 +9,7 @@ empty_*
 valid
 trans
 trans_empty_lines
+trans_maxlen
 compare-trans
 compare-trans.bleu
 *.temp
