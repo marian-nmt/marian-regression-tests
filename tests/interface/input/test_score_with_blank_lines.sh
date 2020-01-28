@@ -16,7 +16,7 @@ rm -f blank_score.{out,diff}
 $MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml -t text_blank_lines.{in,ref} > blank_score.out
 
 # Compare the output with the expected output
-$MRT_TOOLS/diff.sh blank_score.out blank_score.expected > blank_score.diff
+$MRT_TOOLS/diff-nums.py blank_score.out blank_score.expected > blank_score.diff
 
 # Exit with success code
 exit 0

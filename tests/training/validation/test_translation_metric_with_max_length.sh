@@ -15,7 +15,7 @@ if [ ! $MRT_MARIAN_USE_SENTENCEPIECE ]; then
 fi
 
 # Clean artifacts
-rm -rf trans_maxlen/model.npz.* trans_maxlen.{log,out}
+rm -rf trans_maxlen/model.npz* trans_maxlen.{log,out}
 mkdir -p trans_maxlen
 
 # Copy model and vocab

@@ -15,7 +15,7 @@ if [ ! $MRT_MARIAN_USE_SENTENCEPIECE ]; then
 fi
 
 # Clean artifacts
-rm -rf trans_empty_lines/model.npz.* trans_empty_lines.{log,out}
+rm -rf trans_empty_lines/model.npz* trans_empty_lines.{log,out}
 mkdir -p trans_empty_lines
 
 # Copy model and vocab
