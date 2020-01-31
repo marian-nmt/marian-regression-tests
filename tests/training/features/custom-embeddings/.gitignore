@@ -1,3 +1,9 @@
 custom_emb
+custom_emb_transformer
+custom_emb_transformer_tied
+custom_emb_tied
+custom_emb_srctrg
 *.src
 *.trg
+*.all
+vocab*.yml
