@@ -1,6 +1,7 @@
 valid
 valid_script*.temp
 valid_lowisbet
+valid_reset_stalled
 valid_stalled
 valid_add
 valid_newbest
