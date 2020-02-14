@@ -106,7 +106,7 @@ if [ $# -ge 1 ]; then
         elif [[ "$arg" = '#'* ]]; then
             # Find all tests with the given hash tag
             tag=${arg:1}
-            args=$(find tests -name '*test_*.sh' | xargs -i grep -H "^ *# *TAGS:.* $tag" {} | cut -f1 -d:)
+            args=$(find tests -name '*test_*.sh' | xargs -I{} grep -H "^ *# *TAGS:.* $tag" {} | cut -f1 -d:)
             test_prefixes="$test_prefixes $args"
         # A test file or directory name
         else
@@ -120,7 +120,7 @@ test_dirs=$(find $test_prefixes -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh" <<< "$test_prefixes"; then
     test_files=$(printf '%s\n' $test_prefixes | sed 's!*/!!')
-    test_dirs=$(printf '%s\n' $test_prefixes | xargs -i dirname {} | grep -v "/_" | sort | uniq)
+    test_dirs=$(printf '%s\n' $test_prefixes | xargs -I{} dirname {} | grep -v "/_" | sort | uniq)
 fi
 
 
