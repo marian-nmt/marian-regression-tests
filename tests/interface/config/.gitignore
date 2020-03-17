@@ -3,6 +3,7 @@ load_castup
 load_alias
 
 dump_*.yml
+relpaths_sqlite.yml
 
 overwrite
 
