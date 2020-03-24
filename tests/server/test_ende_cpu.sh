@@ -25,7 +25,7 @@ head -n 4 text.expected > text4.expected
 $MRT_MARIAN/marian-server -c $MRT_MODELS/wmt16_systems/marian.en-de.yml -p 8768 --cpu-threads 4 > server_cpu.log 2>&1 &
 SERVER_PID=$!
 
-sleep 20
+sleep 30
 
 python3 $MRT_MARIAN/../scripts/server/client_example.py -p 8768 < text4.in > text4.cpu.out
 kill $SERVER_PID

@@ -55,12 +55,12 @@ cd $MRT_ROOT
 
 # Check Marian compilation settings
 export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
-export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log | grep -P "CMAKE_BUILD_TYPE" | cut -f2 -d=)
-export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep -P "MKL_ROOT" | grep -vP "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
-export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | grep -P "USE_CUDNN:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | grep -P "USE_SENTENCEPIECE:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log | grep -P "USE_FBGEMM:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log | grep -P "COMPILE_TESTS:BOOL=(ON|on|1)")
+export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log | grep "CMAKE_BUILD_TYPE" | cut -f2 -d=)
+export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep "MKL_ROOT" | egrep -v "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
+export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | egrep "USE_CUDNN:BOOL=(ON|on|1)")
+export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE:BOOL=(ON|on|1)")
+export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log | egrep "USE_FBGEMM:BOOL=(ON|on|1)")
+export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log | egrep "COMPILE_TESTS:BOOL=(ON|on|1)")
 
 log "Version: $MRT_MARIAN_VERSION"
 log "Build type: $MRT_MARIAN_BUILD_TYPE"
@@ -106,7 +106,7 @@ if [ $# -ge 1 ]; then
         elif [[ "$arg" = '#'* ]]; then
             # Find all tests with the given hash tag
             tag=${arg:1}
-            args=$(find tests -name '*test_*.sh' | xargs -i grep -H "^ *# *TAGS:.* $tag" {} | cut -f1 -d:)
+            args=$(find tests -name '*test_*.sh' | xargs -I{} grep -H "^ *# *TAGS:.* $tag" {} | cut -f1 -d:)
             test_prefixes="$test_prefixes $args"
         # A test file or directory name
         else
@@ -120,7 +120,7 @@ test_dirs=$(find $test_prefixes -type d | grep -v "/_")
 
 if grep -q "/test_.*\.sh" <<< "$test_prefixes"; then
     test_files=$(printf '%s\n' $test_prefixes | sed 's!*/!!')
-    test_dirs=$(printf '%s\n' $test_prefixes | xargs -i dirname {} | grep -v "/_" | sort | uniq)
+    test_dirs=$(printf '%s\n' $test_prefixes | xargs -I{} dirname {} | grep -v "/_" | sort | uniq)
 fi
 
 

@@ -18,8 +18,8 @@ install: tools models data
 tools: pip
 	mkdir -p $@
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
-	git -C $@/subword-nmt pull 	 || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
-	git -C $@/sacrebleu pull 	 || git clone $(GIT_SACREBLEU) $@/sacrebleu
+	git -C $@/subword-nmt pull   || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
+	git -C $@/sacrebleu pull     || git clone $(GIT_SACREBLEU) $@/sacrebleu
 
 pip: requirements.txt
 	pip3 install --user -r $<
