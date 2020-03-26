@@ -1,4 +1,5 @@
 train
+train_stdin
 train.de
 train.en
 train.tsv

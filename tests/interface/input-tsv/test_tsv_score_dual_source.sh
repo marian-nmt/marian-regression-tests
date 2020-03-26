@@ -12,9 +12,9 @@ set -e
 rm -f score_ape.out
 
 # Run Marian
-$MRT_MARIAN/marian-scorer -c $MRT_MODELS/ape/score.yml --tsv -t score_ape.tsv -o score_ape.out
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/ape/score.yml --tsv --tsv-size 3 -t score_ape.tsv -o score_ape.out
 # Compare outputs
-$MRT_TOOLS/diff.sh score_ape.out score_ape.expected > score_ape.diff
+$MRT_TOOLS/diff-nums.py score_ape.out score_ape.expected -p 0.0001 -o score_ape.diff
 
 # Exit with success code
 exit 0

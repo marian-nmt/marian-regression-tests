@@ -12,9 +12,9 @@ set -e
 rm -f score.out
 
 # Run Marian
-$MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml --tsv -t score.tsv -o score.out
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml --tsv --tsv-size 2 -t score.tsv -o score.out
 # Compare outputs
-$MRT_TOOLS/diff.sh score.out score.expected > score.diff
+$MRT_TOOLS/diff-nums.py score.out score.expected -p 0.0001 -o score.diff
 
 # Exit with success code
 exit 0
