@@ -1,5 +1,10 @@
 train
 train_stdin
+train_shuffle
+train_shuffle_ram
+train_fit
+train_vocab
+
 train.de
 train.en
 train.tsv
