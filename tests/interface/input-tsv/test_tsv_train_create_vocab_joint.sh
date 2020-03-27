@@ -25,11 +25,12 @@ $MRT_MARIAN/marian \
 
 # Check if files exist
 test -e train_vocab/model.npz
+test -e train_vocab/vocab.spm
 test -e train_vocab.log
 
 # Compare the current output with the expected output
 cat train_vocab.log | $MRT_TOOLS/extract-costs.sh > train_vocab.out
-$MRT_TOOLS/diff-nums.py train_vocab.out train_vocab.expected -p 0.1 -o train_vocab.diff
+$MRT_TOOLS/diff-nums.py train_vocab.out train_vocab.expected -p 0.01 -o train_vocab.diff
 
 # Exit with success code
 exit 0

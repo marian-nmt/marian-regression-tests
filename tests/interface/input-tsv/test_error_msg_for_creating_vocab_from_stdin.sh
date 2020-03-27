@@ -24,7 +24,7 @@ cat train.tsv | $MRT_MARIAN/marian \
     > msg_train_vocab.log 2>&1 || true
 
 test -e msg_train_vocab.log
-grep -qi "creating vocab.* TSV.* not supported" msg_train_vocab.log
+grep -qi "creating vocab.* stdin.* not supported" msg_train_vocab.log
 
 # Exit with success code
 exit 0
