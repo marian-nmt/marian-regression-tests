@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Train a model providing training sentences in a TSV file
+# SUMMARY: Train a model on data from a TSV file
 # TAGS: sentencepiece tsv train
 #####################################################################
 
@@ -29,7 +29,7 @@ test -e train.log
 
 # Compare the current output with the expected output
 cat train.log | $MRT_TOOLS/extract-costs.sh > train.out
-$MRT_TOOLS/diff-nums.py train.out train.expected -p 0.1 -o train.diff
+$MRT_TOOLS/diff-nums.py train.out train.expected -p 0.01 -o train.diff
 
 # Exit with success code
 exit 0

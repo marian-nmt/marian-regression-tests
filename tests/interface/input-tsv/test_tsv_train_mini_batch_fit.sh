@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Train a model with mini-batch-fit providing training sentences from a TSV file
+# SUMMARY: Train a model on data in the TSV format with mini-batch-fit
 # TAGS: sentencepiece tsv train mini-batch-fit
 #####################################################################
 

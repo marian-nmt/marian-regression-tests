@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Train a model providing training sentences in a TSV file
+# SUMMARY: Train a model on data in the TSV format from STDIN without shuffling
 # TAGS: sentencepiece tsv train
 #####################################################################
 
@@ -29,7 +29,7 @@ test -e train_stdin.log
 
 # Compare the current output with the expected output
 cat train_stdin.log | $MRT_TOOLS/extract-costs.sh > train_stdin.out
-$MRT_TOOLS/diff-nums.py train_stdin.out train.expected -p 0.1 -o train_stdin.diff
+$MRT_TOOLS/diff-nums.py train_stdin.out train.expected -p 0.01 -o train_stdin.diff
 
 # Exit with success code
 exit 0

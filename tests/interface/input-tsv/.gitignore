@@ -3,6 +3,7 @@ train_stdin
 train_shuffle
 train_shuffle_ram
 train_fit
+train_fit_stdin
 train_vocab
 
 train.de
