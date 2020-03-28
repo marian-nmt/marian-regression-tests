@@ -19,7 +19,7 @@ paste train.{de,en} > train.tsv
 # Run marian command
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
-    -m train_vocabs/model.npz --tsv --tsv-size 2 -t train.tsv -v train_vocabs/vocab.de.spm train_vocabs/vocab.en.spm --dim-vocabs 2000 2000 -T train_vocabs \
+    -m train_vocabs/model.npz --tsv -t train.tsv -v train_vocabs/vocab.de.spm train_vocabs/vocab.en.spm --dim-vocabs 2000 2000 -T train_vocabs \
     --after-batches 20 --disp-freq 2 \
     --log train_vocabs.log
 

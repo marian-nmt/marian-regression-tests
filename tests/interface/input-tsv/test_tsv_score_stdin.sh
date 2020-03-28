@@ -12,7 +12,7 @@ set -e
 rm -f score_stdin.out
 
 # Run Marian
-$MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml --tsv --tsv-size 2 -t stdin < score.tsv > score_stdin.out
+$MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml --tsv -t stdin < score.tsv > score_stdin.out
 # Compare outputs
 $MRT_TOOLS/diff-nums.py score_stdin.out score.expected -p 0.0001 -o score_stdin.diff
 

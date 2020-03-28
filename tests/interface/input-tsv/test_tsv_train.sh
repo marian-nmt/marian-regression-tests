@@ -19,7 +19,7 @@ paste train.{de,en} > train.tsv
 # Run marian command
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
-    -m train/model.npz --tsv --tsv-size 2 -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
+    -m train/model.npz --tsv -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 10 --disp-freq 2 \
     --log train.log
 

@@ -12,7 +12,7 @@ set -e
 rm -f decode_ape_stdin.out
 
 # Run Marian
-$MRT_MARIAN/marian-decoder -c $MRT_MODELS/ape/config.yml -b 6 --tsv --tsv-size 2 < decode_ape.tsv > decode_ape_stdin.out
+$MRT_MARIAN/marian-decoder -c $MRT_MODELS/ape/config.yml -b 6 --tsv < decode_ape.tsv > decode_ape_stdin.out
 # Compare outputs
 $MRT_TOOLS/diff.sh decode_ape_stdin.out decode_ape.expected > decode_ape_stdin.diff
 
