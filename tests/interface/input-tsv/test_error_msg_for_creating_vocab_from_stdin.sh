@@ -19,7 +19,7 @@ paste train.{de,en} > train.tsv
 # Run marian command
 cat train.tsv | $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 -m msg_train_vocab/model.npz \
-    --tsv --tsv-size 2 -t stdin -v msg_train_vocab/vocab.spm msg_train_vocab/vocab.spm --dim-vocabs 2000 2000 \
+    --tsv --tsv-fields 2 -t stdin -v msg_train_vocab/vocab.spm msg_train_vocab/vocab.spm --dim-vocabs 2000 2000 \
     --after-batches 1 \
     > msg_train_vocab.log 2>&1 || true
 
