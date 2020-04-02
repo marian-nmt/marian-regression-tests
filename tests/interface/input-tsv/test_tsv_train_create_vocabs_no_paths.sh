@@ -28,7 +28,9 @@ test -e train_vocabs_nopaths/model.npz
 test -e train_vocabs_nopaths/train.tsv.yml      # TODO: will need to be replaced by e.g. train.tsv.0.yml train.tsv.1.yml, etc.
 test -e train_vocabs_nopaths.log
 
-# TODO: support in Marian
+# TODO: --tsv means that each of de.yml and en.yml is generated from the entire train.tsv.
+#   The separate vocabs below have been generated with -t train.de train.en -v de.yml en.yml.
+#   Consider building separate vocabs even if --tsv
 
 # Compare the current output with the expected output
 #cat train_vocabs_nopaths.log | $MRT_TOOLS/extract-costs.sh > train_vocabs_nopaths.out
