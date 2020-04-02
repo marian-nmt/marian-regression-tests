@@ -22,3 +22,5 @@ train_empty_lines.tsv
 
 valid
 valid.tsv
+
+restore_stdin
