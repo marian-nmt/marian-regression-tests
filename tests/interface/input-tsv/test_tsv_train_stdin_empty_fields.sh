@@ -12,8 +12,6 @@ set -e
 rm -rf train_empty_lines train_empty_lines.{log,out,diff}
 mkdir -p train_empty_lines
 
-test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
-test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
 paste train.{de,en} \
     | sed '100,120s/.*//' \
     | sed '200,220s/.*\t/\t/' \

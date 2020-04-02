@@ -12,10 +12,6 @@ set -e
 rm -rf train_fit train_fit.{log,out,diff}
 mkdir -p train_fit
 
-test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
-test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
-paste train.{de,en} > train.tsv
-
 # Run marian command
 $MRT_MARIAN/marian \
     --mini-batch-fit -w 500 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \

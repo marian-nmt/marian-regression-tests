@@ -1,6 +1,7 @@
 train
 train_stdin
 train_stdin2
+train_stdin_2e
 train_shuffle
 train_shuffle_ram
 train_fit

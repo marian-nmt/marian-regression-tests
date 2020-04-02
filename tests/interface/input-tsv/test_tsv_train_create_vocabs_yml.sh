@@ -12,10 +12,6 @@ set -e
 rm -rf train_vocabs_yml train_vocabs_yml.*{log,out,diff}
 mkdir -p train_vocabs_yml
 
-test -s train.bpe.de  || cat $MRT_DATA/train.max50.de > train.bpe.de
-test -s train.bpe.en  || cat $MRT_DATA/train.max50.en > train.bpe.en
-paste train.bpe.{de,en} > train.bpe.tsv
-
 # Run marian command
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \

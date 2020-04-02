@@ -12,10 +12,6 @@ set -e
 rm -rf msg_train_vocab msg_train_vocab.log
 mkdir -p msg_train_vocab
 
-test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
-test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
-paste train.{de,en} > train.tsv
-
 # Run marian command
 cat train.tsv | $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 -m msg_train_vocab/model.npz \

@@ -12,10 +12,6 @@ set -e
 rm -rf train_shuffle_ram train_shuffle_ram.{log,out,diff}
 mkdir -p train_shuffle_ram
 
-test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
-test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
-paste train.{de,en} > train.tsv
-
 # Run marian command
 $MRT_MARIAN/marian \
     --shuffle-in-ram --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \

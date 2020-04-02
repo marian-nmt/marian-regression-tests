@@ -16,11 +16,6 @@ mkdir -p valid
 test -e valid/model.npz || cp $MRT_MODELS/rnn-spm/model.npz valid/model.npz
 test -e valid/vocab.spm || cp $MRT_MODELS/rnn-spm/vocab.deen.spm valid/vocab.spm
 
-# Prepare training data
-test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
-test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
-test -s train.tsv || paste train.{de,en} > train.tsv
-
 # Train
 $MRT_MARIAN/marian \
     --seed 2222 --no-shuffle --mini-batch 32 --maxi-batch 1 --optimizer sgd \
