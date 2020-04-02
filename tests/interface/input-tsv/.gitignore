@@ -18,3 +18,6 @@ train.bpe.de
 train.bpe.en
 train.bpe.tsv
 train_empty_lines.tsv
+
+valid
+valid.tsv

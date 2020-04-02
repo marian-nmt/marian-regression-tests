@@ -14,7 +14,7 @@ mkdir -p train
 
 test -s train.de  || cat $MRT_DATA/train.max50.de | sed 's/@@ //g' > train.de
 test -s train.en  || cat $MRT_DATA/train.max50.en | sed 's/@@ //g' > train.en
-paste train.{de,en} > train.tsv
+test -s train.tsv || paste train.{de,en} > train.tsv
 
 # Run marian command
 $MRT_MARIAN/marian \
