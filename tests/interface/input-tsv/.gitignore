@@ -7,10 +7,14 @@ train_fit
 train_fit_stdin
 train_vocab
 train_vocabs
+train_vocabs_yml
 train_vocabs_nopaths
 train_empty_lines
 
 train.de
 train.en
 train.tsv
+train.bpe.de
+train.bpe.en
+train.bpe.tsv
 train_empty_lines.tsv
