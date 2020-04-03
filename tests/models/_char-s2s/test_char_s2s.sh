@@ -5,7 +5,7 @@ set -e
 
 # Skip if no CUDNN found
 if [ ! $MRT_MARIAN_USE_CUDNN ]; then
-    exit 100
+    exit 0
 fi
 
 # Test code goes here
