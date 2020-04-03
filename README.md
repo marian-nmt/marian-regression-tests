@@ -55,6 +55,8 @@ Cleaning test artifacts:
 
     make clean
 
+Directories and test files with names starting with an underscore are turned 
+off and are not traversed or run by `./run_mrt.sh`.
 
 ## Debugging failed tests
 
