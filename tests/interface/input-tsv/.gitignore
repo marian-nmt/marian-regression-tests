@@ -11,6 +11,7 @@ train_vocabs
 train_vocabs_yml
 train_vocabs_nopaths
 train_empty_lines
+train_lm
 
 train.de
 train.en
