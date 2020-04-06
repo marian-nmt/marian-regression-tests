@@ -25,8 +25,9 @@ test -e train_vocab/vocab.spm
 test -e train_vocab.log
 
 # Compare the current output with the expected output
+# Note: A large precision is set because creation of SentencePiece vocabs seems not fully deterministic
 cat train_vocab.log | $MRT_TOOLS/extract-costs.sh > train_vocab.out
-$MRT_TOOLS/diff-nums.py train_vocab.out train_vocab.expected -p 0.01 -o train_vocab.diff
+$MRT_TOOLS/diff-nums.py train_vocab.out train_vocab.expected -p 2.0 -o train_vocab.diff
 
 # Exit with success code
 exit 0
