@@ -12,7 +12,7 @@ set -e
 $MRT_MARIAN/marian-scorer -c $MRT_MODELS/rnn-spm/score.yml --tsv --tsv-fields 2 -t score.tsv score.tsv > msg_multiple_tsv.log 2>&1 || true
 
 test -e msg_multiple_tsv.log
-grep -qi "single file can be provided" msg_multiple_tsv.log
+grep -qi "single file must be provided" msg_multiple_tsv.log
 
 # Exit with success code
 exit 0
