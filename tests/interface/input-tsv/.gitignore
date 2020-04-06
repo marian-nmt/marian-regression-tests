@@ -10,8 +10,9 @@ train_vocab
 train_vocabs
 train_vocabs_yml
 train_vocabs_nopaths
-train_empty_lines
 train_lm
+train_empty_lines
+train_extra_tabs
 
 train.de
 train.en
@@ -20,6 +21,7 @@ train.bpe.de
 train.bpe.en
 train.bpe.tsv
 train_empty_lines.tsv
+train_extra_tabs.tsv
 
 valid
 valid.tsv
