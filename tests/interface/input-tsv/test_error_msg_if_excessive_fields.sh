@@ -1,8 +1,8 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Train a model on data from a TSV file with excessive fields
-# TAGS: sentencepiece tsv train_extra_tabs
+# SUMMARY: Report an error if the tab-separated training data has a line with excessive fields
+# TAGS: sentencepiece tsv train
 #####################################################################
 
 # Exit on error
@@ -23,15 +23,10 @@ $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     -m train_extra_tabs/model.npz --tsv -t train_extra_tabs.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 10 --disp-freq 2 \
-    --log train_extra_tabs.log
+    > train_extra_tabs.log 2>&1 || true
 
-# Check if files exist
-test -e train_extra_tabs/model.npz
 test -e train_extra_tabs.log
-
-# Compare the current output with the expected output
-cat train_extra_tabs.log | $MRT_TOOLS/strip-timestamps.sh | grep -i 'warn.*excessive field' > train_extra_tabs.out
-$MRT_TOOLS/diff.sh train_extra_tabs.out train_extra_tabs.expected > train_extra_tabs.diff
+grep -qi "excessive field" train_extra_tabs.log
 
 # Exit with success code
 exit 0
