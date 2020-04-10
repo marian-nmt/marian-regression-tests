@@ -58,8 +58,9 @@ Cleaning test artifacts:
     make clean
 
 Notes:
-- The framework assumes it runs Marian compiled with the CUDA support. To run
-  only tests designed for CPU, use `./run_mrt.sh '#cpu'`.
+- Majority of tests has been designed for GPU, so the framework assumes it runs
+  Marian compiled with the CUDA support. To run only tests designed for CPU,
+  use `./run_mrt.sh '#cpu'`.
 - Directories and test files with names starting with an underscore are turned
   off and are not traversed or executed by `./run_mrt.sh`.
 - Only some regression tests have been annotated with tags, so, for example,
