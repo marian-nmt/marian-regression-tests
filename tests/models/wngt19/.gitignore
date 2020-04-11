@@ -1,2 +1,3 @@
 *.bin
 newstest2014.*
+*.out.bleu

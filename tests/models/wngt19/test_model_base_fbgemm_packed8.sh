@@ -41,6 +41,10 @@ $MRT_MARIAN/marian-decoder \
     --mini-batch 24 --maxi-batch 100 --maxi-batch-sort src -w 512 \
     --max-length 150 --max-length-crop --quiet-translation
 
+# Print current and expected BLEU for debugging
+$MRT_TOOLS/sacrebleu/sacrebleu.py newstest2014.ref < $prefix.out | tee $prefix.out.bleu
+cat $prefix.$suffix.expected.bleu
+
 # Compare with the expected output
 $MRT_TOOLS/diff.sh $prefix.out $prefix.$suffix.expected > $prefix.diff
 
