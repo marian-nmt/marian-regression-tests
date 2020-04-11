@@ -1,0 +1,9 @@
+relative-paths: true
+model: model.npz
+vocabs:
+  - vocab.spm
+  - vocab.spm
+  - vocab.spm
+mini-batch: 32
+maxi-batch: 100
+maxi-batch-sort: src
