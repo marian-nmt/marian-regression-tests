@@ -49,11 +49,23 @@ where `previous.log` contains a list of test files, one test per line.  This
 file is automatically generated each time `./run_mrt.sh` finishes running.
 The last example starts all regression tests labeled with '#tag'.  The list of
 tests annotated with each available tag can be displayed by running
-`./show_tags.sh`.
+`./show_tags.sh`, e.g.:
+
+    ./show_tags.sh cpu
 
 Cleaning test artifacts:
 
     make clean
+
+Notes:
+- Majority of tests has been designed for GPU, so the framework assumes it runs
+  Marian compiled with the CUDA support. To run only tests designed for CPU,
+  use `./run_mrt.sh '#cpu'`.
+- Directories and test files with names starting with an underscore are turned
+  off and are not traversed or executed by `./run_mrt.sh`.
+- Only some regression tests have been annotated with tags, so, for example,
+  running tests with the tag #scoring will not start all available tests for
+  scoring. The complete tags is #cpu.
 
 
 ## Debugging failed tests
