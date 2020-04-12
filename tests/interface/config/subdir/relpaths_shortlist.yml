@@ -1,0 +1,12 @@
+relative-paths: true
+models:
+    - ../../../../models/rnn-spm/model.npz
+vocabs:
+    - ../../../../models/rnn-spm/vocab.deen.spm
+    - ../../../../models/rnn-spm/vocab.deen.spm
+shortlist:
+    - ../../../../models/rnn-spm/lex.s2t.gz
+    - 65
+    - 45
+beam-size: 4
+mini-batch: 16
