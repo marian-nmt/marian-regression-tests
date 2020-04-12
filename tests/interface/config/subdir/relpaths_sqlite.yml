@@ -1,0 +1,7 @@
+relative-paths: true
+vocabs:
+    - ../../../../models/rnn-spm/vocab.deen.spm
+    - ../../../../models/rnn-spm/vocab.deen.spm
+sqlite: temporary
+beam-size: 4
+mini-batch: 16
