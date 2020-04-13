@@ -21,7 +21,7 @@ $MRT_MARIAN/marian \
 
 test -e decoder_c_tt/model.npz
 
-$MRT_MARIAN/../scripts/contrib/model_info.py -m decoder_c_tt/model.npz > decoder_c_tt.out
+python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m decoder_c_tt/model.npz > decoder_c_tt.out
 grep -q "decoder_c_tt" decoder_c_tt.out
 
 # Exit with success code
