@@ -48,21 +48,27 @@ done
 
 log "Using Marian binary: $MRT_MARIAN/marian"
 
-# Get CMake settings
-cd $MRT_MARIAN
-cmake -L 2> /dev/null > $MRT_ROOT/cmake.log
-cd $MRT_ROOT
+# Log Marian version
+export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
+log "Version: $MRT_MARIAN_VERSION"
+
+# Get CMake settings from the --build-info option
+if ! grep -q "build-info" < <( $MARIAN/marian --help ); then
+    echo "Error: Marian is too old as it does not have the required --build-info option"
+    exit 1
+fi
+
+$MRT_MARIAN/marian --build-info all 2> $MRT_ROOT/cmake.log
 
 # Check Marian compilation settings
-export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
-export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log | grep "CMAKE_BUILD_TYPE" | cut -f2 -d=)
-export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log | grep "MKL_ROOT" | egrep -v "MKL_ROOT.*NOTFOUND|USE_CUDNN:BOOL=(OFF|off|0)")
-export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log | egrep "USE_CUDNN:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log | egrep "USE_FBGEMM:BOOL=(ON|on|1)")
-export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log | egrep "COMPILE_TESTS:BOOL=(ON|on|1)")
+export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
+export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log           | egrep "COMPILE_CPU=(ON|on|1)")
+export MRT_MARIAN_USE_CUDA=$(cat $MRT_ROOT/cmake.log          | egrep "COMPILE_CUDA=(ON|on|1)")
+export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log         | egrep "USE_CUDNN=(ON|on|1)")
+export MRT_MARIAN_USE_SENTENCEPIECE=$(cat $MRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE=(ON|on|1)")
+export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log        | egrep "USE_FBGEMM=(ON|on|1)")
+export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log     | egrep "COMPILE_TESTS=(ON|on|1)")
 
-log "Version: $MRT_MARIAN_VERSION"
 log "Build type: $MRT_MARIAN_BUILD_TYPE"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
 log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
@@ -75,7 +81,7 @@ cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
 export MRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
 
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
-log "Using number of devices: $MRT_NUM_DEVICES"
+log "Using number of GPU devices: $MRT_NUM_DEVICES"
 
 # Exit codes
 export EXIT_CODE_SUCCESS=0
