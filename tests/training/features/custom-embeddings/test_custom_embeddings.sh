@@ -25,7 +25,7 @@ test -e custom_emb.log
 grep -q "Loading embedding vectors from" custom_emb.log
 
 # Check if embeddings in the saved model are very similar to the original vectors
-$MRT_MARIAN/../scripts/embeddings/export_embeddings.py -m custom_emb/model.npz -o custom_emb.all
+python3 $MRT_MARIAN/../scripts/embeddings/export_embeddings.py -m custom_emb/model.npz -o custom_emb.all
 
 # The custom embeddings have been trained only for the first 100 words from each vocabulary
 cat custom_emb.all.src | head -n 101 > custom_emb.src

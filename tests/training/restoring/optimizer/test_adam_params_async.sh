@@ -27,11 +27,11 @@ test -e adam_async.log
 $MRT_TOOLS/extract-costs.sh < adam_async.log > adam_async.costs.out
 $MRT_TOOLS/diff-nums.py adam_async.costs.out adam_async.costs.expected -p 500.0 -o adam_async.costs.diff
 
-python $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz > adam_async.keys.out
+python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz > adam_async.keys.out
 $MRT_TOOLS/diff.sh adam_async.keys.out adam.keys.expected > adam_async.keys.diff
 
-python $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_mt" > adam_async.mt.out
-python $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_vt" > adam_async.vt.out
+python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_mt" > adam_async.mt.out
+python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam_async/model.npz.optimizer.npz -k "adam_vt" > adam_async.vt.out
 
 $MRT_TOOLS/diff-nums.py --numpy -a -p 0.02  adam_async.mt.out adam_async.mt.expected -o adam_async.mt.diff
 $MRT_TOOLS/diff-nums.py --numpy    -p 0.001 adam_async.vt.out adam_async.vt.expected -o adam_async.vt.diff
