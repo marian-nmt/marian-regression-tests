@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Translate with mini-batch 32 using marian-server
+# TAGS: server
+#####################################################################
+
 # Exit on error
 set -e
 

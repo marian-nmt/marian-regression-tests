@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Translate using marian-server and return alignment
+# TAGS: server
+#####################################################################
+
 # Exit on error
 set -e
 
