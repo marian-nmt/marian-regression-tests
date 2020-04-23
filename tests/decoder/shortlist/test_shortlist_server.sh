@@ -3,11 +3,11 @@
 #####################################################################
 # SUMMARY: Decode with a lexical shortlist on GPU via marian-server
 # AUTHOR: snukky
+# TAGS: server
 #####################################################################
 
 # Exit on error
 set -e
-
 
 # Check if marian-server is compiled
 test -f $MRT_MARIAN/marian-server || exit 100

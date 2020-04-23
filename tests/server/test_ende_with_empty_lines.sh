@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Translate a text with empty lines using marian-server
+# TAGS: server
+#####################################################################
+
 # Exit on error
 set -e
 
