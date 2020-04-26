@@ -53,7 +53,7 @@ export MRT_MARIAN_VERSION=$($MRT_MARIAN/marian --version 2>&1)
 log "Version: $MRT_MARIAN_VERSION"
 
 # Get CMake settings from the --build-info option
-if ! grep -q "build-info" < <( $MARIAN/marian --help ); then
+if ! grep -q "build-info" < <( $MRT_MARIAN/marian --help ); then
     echo "Error: Marian is too old as it does not have the required --build-info option"
     exit 1
 fi
