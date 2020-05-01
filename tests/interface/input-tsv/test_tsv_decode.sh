@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Translate a single-source input with --tsv option enabled
-# TAGS: multi-source transformer sentencepiece tsv
+# TAGS: sentencepiece tsv
 #####################################################################
 
 # Exit on error
