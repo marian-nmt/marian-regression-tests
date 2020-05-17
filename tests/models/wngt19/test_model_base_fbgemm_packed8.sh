@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Decode the 8-bit WNGT19 model on CPU with AVX2 or AVX512 support
-# TAGS: cpu wngt packed student shortlist
+# TAGS: cpu wngt packed student shortlist fbgemm
 #####################################################################
 
 # Exit on error
