@@ -13,6 +13,9 @@ train_vocabs_nopaths
 train_lm
 train_empty_lines
 train_extra_tabs
+train_align
+train_weights
+train_align_weights
 
 train.de
 train.en
