@@ -18,6 +18,7 @@ train_align0
 train_weights
 train_weights0
 train_align_weights
+train_align_stdin
 
 train.de
 train.en

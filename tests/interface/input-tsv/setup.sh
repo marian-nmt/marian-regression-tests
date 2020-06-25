@@ -23,3 +23,5 @@ test -s train2.de-en-aln.tsv || paste train2.{de,en,aln} > train2.de-en-aln.tsv
 test -s train2.aln-de-en.tsv || paste train2.{aln,de,en} > train2.aln-de-en.tsv
 test -s train2.de-en-w.tsv   || paste train2.{de,en,w}   > train2.de-en-w.tsv
 test -s train2.w-de-en.tsv   || paste train2.{w,de,en}   > train2.w-de-en.tsv
+
+test -s train2.de-w-aln-en.tsv || paste train2.{de,w,aln,en} > train2.de-w-aln-en.tsv
