@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Training transformer model with guided alignment using synchronous SGD
 # AUTHOR: snukky
+# TAGS: align transformer syncsgd
 #####################################################################
 
 # Exit on error
