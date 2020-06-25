@@ -18,3 +18,8 @@ test -s train.tsv || paste train.{de,en} > train.tsv
 test -s train.bpe.de  || cat $MRT_DATA/train.max50.de > train.bpe.de
 test -s train.bpe.en  || cat $MRT_DATA/train.max50.en > train.bpe.en
 test -s train.bpe.tsv || paste train.bpe.{de,en} > train.bpe.tsv
+
+test -s train2.de-en-aln.tsv || paste train2.{de,en,aln} > train2.de-en-aln.tsv
+test -s train2.aln-de-en.tsv || paste train2.{aln,de,en} > train2.aln-de-en.tsv
+test -s train2.de-en-w.tsv   || paste train2.{de,en,w}   > train2.de-en-w.tsv
+test -s train2.w-de-en.tsv   || paste train2.{w,de,en}   > train2.w-de-en.tsv

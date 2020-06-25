@@ -14,7 +14,9 @@ train_lm
 train_empty_lines
 train_extra_tabs
 train_align
+train_align0
 train_weights
+train_weights0
 train_align_weights
 
 train.de
@@ -25,6 +27,7 @@ train.bpe.en
 train.bpe.tsv
 train_empty_lines.tsv
 train_extra_tabs.tsv
+train2*.tsv
 
 valid
 valid.tsv
