@@ -35,6 +35,7 @@ models:
 	cd $@ && bash ./download-rnn-spm.sh
 	cd $@ && bash ./download-wngt19.sh
 	cd $@ && bash ./download-ape.sh
+	cd $@ && bash ./download-student-eten.sh
 
 data:
 	mkdir -p $@
