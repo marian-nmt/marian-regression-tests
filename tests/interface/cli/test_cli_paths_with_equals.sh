@@ -5,6 +5,10 @@ set -e
 
 rm -rf config_paths.yml
 
+# Create temporary mockup files otherwise marian-decoder will complain instead generating a config file
+mkdir -p tmpdir
+touch tmpdir/model.npz tmpdir/vocab.yml
+
 # 'input' and 'models' are vector-like options with single values only
 $MRT_MARIAN/marian-decoder \
     --input=tmpdir/input.txt \
