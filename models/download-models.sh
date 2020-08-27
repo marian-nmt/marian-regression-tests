@@ -1,33 +1,53 @@
 #!/bin/bash
 
+# Download model tarballs from Marian storage on Azure.
+#
+# Usage examples:
+#   ./download-models.sh            # download all tarbals
+#   ./download-models.sh wngt19     # download only wngt19.tar.gz
+#
 # If you want to add new model files to our Azure storage, open an issue at
 # https://github.com/marian-nmt/marian-regression-tests
 
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/models
 
-# Each tarball contains a single directory of the same name as the tarball without .tar.gz
-DATA_TARBALLS=(
-    wmt16_systems.tar.gz  # A part of En-De WMT16 model from http://data.statmt.org/wmt16_systems/en-de/
-    wmt17_systems.tar.gz  # A part of En-De WMT17 model from http://data.statmt.org/wmt17_systems/en-de/
-    ape.tar.gz            # A multi-source Transformer model trained on WMT16: APE Shared Task data with SentencePiece
-    lmgec.tar.gz          # LM from http://data.statmt.org/romang/gec-naacl18/models.tgz
-    rnn-spm.tar.gz        # Small De-En RNN-based model trained with SentencePiece
-    transformer.tar.gz    # En-De transformer model from marian-examples/transformer
-    wnmt18.tar.gz         # WNMT18 student models
-    wngt19.tar.gz         # WNGT19 student models
-    student-eten.tar.gz   # Et-En student model from https://github.com/browsermt/students
-    #char-s2s.tar.gz       # A character-level RNN model (obsolete)
+# Each tarball is a .tar.gz file that contains a single directory of the same
+# name as the tarball without .tar.gz
+MODEL_TARBALLS=(
+    wmt16_systems  # A part of En-De WMT16 model from http://data.statmt.org/wmt16_systems/en-de/
+    wmt17_systems  # A part of En-De WMT17 model from http://data.statmt.org/wmt17_systems/en-de/
+    ape            # A multi-source Transformer model trained on WMT16: APE Shared Task data with SentencePiece
+    lmgec          # LM from http://data.statmt.org/romang/gec-naacl18/models.tgz
+    rnn-spm        # Small De-En RNN-based model trained with SentencePiece
+    transformer    # En-De transformer model from marian-examples/transformer
+    wnmt18         # WNMT18 student models
+    wngt19         # WNGT19 student models
+    student-eten   # Et-En student model from https://github.com/browsermt/students
+    #char-s2s       # A character-level RNN model (obsolete)
 )
 
-for file in ${DATA_TARBALLS[@]}; do
+if [ $# -gt 0 ]; then
+    echo The list of parameters is not empty.
+    echo Skipping models not in the list: $*
+fi
+
+for model in ${MODEL_TARBALLS[@]}; do
+    file=$model.tar.gz
+
+    # If an argument list is provided, download only tarballs that are present
+    # in the list. Otherwise download all predefined tarballs
+    if [ $# -gt 0 ] && [[ "$file" != *"$*"* ]]; then
+        echo Skipping $file
+        continue;
+    fi
+
     echo Downloading checksum for $file ...
-    wget -nv -O- $URL/$file.md5 > $file.md5.newest
+    wget -nv -O- $URL/$file.md5 > $model.md5.newest
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
-    if test -s $file.md5 && $(cmp --silent $file.md5 $file.md5.newest); then
+    if test -s $model.md5 && $(cmp --silent $model.md5 $model.md5.newest); then
         echo File $file does not need to be updated
-        continue;
     else
         echo Downloading $file ...
         wget -nv $URL/$file
@@ -36,5 +56,5 @@ for file in ${DATA_TARBALLS[@]}; do
         # Remove archive to save disk space
         rm -f $file
     fi
-    mv $file.md5.newest $file.md5
+    mv $model.md5.newest $model.md5
 done

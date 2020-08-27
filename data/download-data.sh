@@ -5,19 +5,22 @@
 
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/data
 
+# Each tarball is a .tar.gz file that contains a single directory of the same
+# name as the tarball
 DATA_TARBALLS=(
-  europarl.de-en.tar.gz
+  europarl.de-en
 )
 
-for file in ${DATA_TARBALLS[@]}; do
+for name in ${DATA_TARBALLS[@]}; do
+    file=$name.tar.gz
+
     echo Downloading checksum for $file ...
-    wget -nv -O- $URL/$file.md5 > $file.md5.newest
+    wget -nv -O- $URL/$file.md5 > $name.md5.newest
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
-    if test -s $file.md5 && $(cmp --silent $file.md5 $file.md5.newest); then
+    if test -s $name.md5 && $(cmp --silent $name.md5 $name.md5.newest); then
         echo File $file does not need to be updated
-        continue;
     else
         echo Downloading $file ...
         wget -nv $URL/$file
@@ -26,7 +29,7 @@ for file in ${DATA_TARBALLS[@]}; do
         # Remove archive to save disk space
         rm -f $file
     fi
-    mv $file.md5.newest $file.md5
+    mv $name.md5.newest $name.md5
 done
 
 DATA_FILES=(
