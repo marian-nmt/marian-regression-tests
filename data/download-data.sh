@@ -9,12 +9,24 @@ DATA_TARBALLS=(
   europarl.de-en.tar.gz
 )
 
-for tar_file in ${DATA_TARBALLS[@]}; do
-    echo Downloading $tar_file ...
-    # Download
-    test -s $tar_file || wget -nv -O- $URL/$tar_file > $tar_file
-    # Uncompress
-    tar zxf $tar_file
+for file in ${DATA_TARBALLS[@]}; do
+    echo Downloading checksum for $file ...
+    wget -nv -O- $URL/$file.md5 > $file.md5.newest
+
+    # Do not download if the checksum files are identical, i.e. the archive has
+    # not been updated since it was downloaded last time
+    if test -s $file.md5 && $(cmp --silent $file.md5 $file.md5.newest); then
+        echo File $file does not need to be updated
+        continue;
+    else
+        echo Downloading $file ...
+        wget -nv $URL/$file
+        # Extract the archive
+        tar zxf $file
+        # Remove archive to save disk space
+        rm -f $file
+    fi
+    mv $file.md5.newest $file.md5
 done
 
 DATA_FILES=(
@@ -23,6 +35,7 @@ DATA_FILES=(
 )
 
 for file in ${DATA_FILES[@]}; do
+    echo Extracting $file ...
     test -s $file || exit 1
     # Uncompress if needed
     target="${file%.*}"
