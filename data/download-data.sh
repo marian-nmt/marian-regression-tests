@@ -1,24 +1,32 @@
 #!/bin/bash
 
-URL=http://data.statmt.org/romang/marian-regression-tests/data
+# If you want to add new data files to our Azure storage, open an issue at
+# https://github.com/marian-nmt/marian-regression-tests
 
-MODEL_FILES=(
+URL=https://romang.blob.core.windows.net/mariandev/regression-tests/data
+
+DATA_TARBALLS=(
+  europarl.de-en.tar.gz
+)
+
+for tar_file in ${DATA_TARBALLS[@]}; do
+    echo Downloading $tar_file ...
+    # Download
+    test -s $tar_file || wget -nv -O- $URL/$tar_file > $tar_file
+    # Uncompress
+    tar zxf $tar_file
+done
+
+DATA_FILES=(
   europarl.de-en/corpus.bpe.de.gz
   europarl.de-en/corpus.bpe.en.gz
 )
 
-for file in ${MODEL_FILES[@]}; do
-    echo Downloading $file ...
-    mkdir -p $(dirname $file)
-
-    # Download the file
-    test -s $file || wget -nv -O- $URL/$file > $file
-
+for file in ${DATA_FILES[@]}; do
+    test -s $file || exit 1
     # Uncompress if needed
-    if [[ $file = *.gz ]]; then
-        target="${file%.*}"
-        test -s $target || gzip -dc $file > $target
-    fi
+    target="${file%.*}"
+    test -s $target || gzip -dc $file > $target
 done
 
 # Get de-BPEed small training data
