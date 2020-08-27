@@ -34,6 +34,7 @@ data:
 
 clean:
 	git clean -x -d -f tests
+	rm -f data/*.tar.gz models/*.tar.gz
 
 clean-all:
 	git clean -x -d -f
