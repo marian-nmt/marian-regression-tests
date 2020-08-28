@@ -7,6 +7,8 @@ pure C++ with minimal dependencies.
 This repository contains the regression test framework for the main development
 repository: https://github.com/marian-nmt/marian-dev.
 
+Tests have been developed for Linux.
+
 
 ## Structure
 
@@ -43,7 +45,7 @@ More invocation examples:
     ./run_mrt.sh tests/training/basics
     ./run_mrt.sh tests/training/basics/test_valid_script.sh
     ./run_mrt.sh previous.log
-    ./run_mrt.sh '#tag'
+    ./run_mrt.sh '#cpu'
 
 where `previous.log` contains a list of test files, one test per line.  This
 file is automatically generated each time `./run_mrt.sh` finishes running.
@@ -65,7 +67,7 @@ Notes:
   off and are not traversed or executed by `./run_mrt.sh`.
 - Only some regression tests have been annotated with tags, so, for example,
   running tests with the tag #scoring will not start all available tests for
-  scoring. The complete tags is #cpu.
+  scoring. The complete tags are #cpu, #server.
 
 
 ## Debugging failed tests
@@ -118,6 +120,14 @@ On Jenkins, Marian is compiled using the following commands:
     make test
 
 If this succeeds, created executables are used to run regression tests.
+
+
+## Data storage
+
+We host data and models used for regression tests on the dedicated Azure
+Storage (see `models/download-models.sh`). If you want to add new files
+required for new regression tests to our storage, please open a new issue
+providing a link to tarball.
 
 
 ## Acknowledgements

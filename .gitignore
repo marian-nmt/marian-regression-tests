@@ -8,6 +8,7 @@
 *.stderr
 *.stdout
 *.tgz
+**/*.tar.gz
 
 vocab.de.yml
 vocab.en.yml
@@ -34,8 +35,11 @@ models/*/vocab.*
 models/rnn-spm
 models/wngt19
 models/ape
+models/student-eten
+models/*.md5
 
 data/*/corpus.*
 data/*/*.bpe
 data/*/truecase*
 data/*/*.gz
+data/*.md5
