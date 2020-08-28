@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Training S2S model with guided alignment
 # AUTHOR: snukky
+# TAGS: align rnn
 #####################################################################
 
 # Exit on error
