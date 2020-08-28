@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Training transformer model with guided alignment
 # AUTHOR: snukky
+# TAGS: align transformer
 #####################################################################
 
 # Exit on error
