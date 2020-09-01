@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model with shuffling training sentences from a TSV file
-# TAGS: sentencepiece tsv train
+# TAGS: sentencepiece tsv train gcc5-fails
 #####################################################################
 
 # Exit on error

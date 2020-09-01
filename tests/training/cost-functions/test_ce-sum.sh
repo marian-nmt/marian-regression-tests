@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Train using the 'ce-sum' cost function
 # AUTHOR: snukky
+# TAGS: gcc5-fails sync-sgd
 #####################################################################
 
 # Exit on error
@@ -14,7 +15,7 @@ mkdir -p ce-sum
 
 $MRT_MARIAN/marian \
     --cost-type ce-sum \
-    --seed 9999 --optimizer sgd \
+    --seed 9999 --optimizer sgd --sync-sgd \
     -m ce-sum/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \
     --log ce-sum.log

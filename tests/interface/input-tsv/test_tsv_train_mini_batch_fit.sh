@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model on data in the TSV format with mini-batch-fit
-# TAGS: sentencepiece tsv train mini-batch-fit
+# TAGS: sentencepiece tsv train mini-batch-fit gcc5-fails
 #####################################################################
 
 # Exit on error

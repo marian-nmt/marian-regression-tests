@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Run a basic training command with toy vocabs
 # AUTHOR: snukky
+# TAGS: gcc5-fails small-vocab
 #####################################################################
 
 # Exit on error

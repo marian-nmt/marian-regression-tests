@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Fine-tuning on another data with --no-restore-corpus
 # AUTHOR: snukky
-# TAGS: finetune restore
+# TAGS: finetune restore gcc5-fails
 #####################################################################
 
 # Exit on error

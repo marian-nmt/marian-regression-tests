@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model on shuffled TSV data with guided alignment
-# TAGS: sentencepiece tsv train align
+# TAGS: sentencepiece tsv train align gcc5-fails
 #####################################################################
 
 # Exit on error
