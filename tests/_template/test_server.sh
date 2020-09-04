@@ -8,6 +8,9 @@
 # Exit on error
 set -e
 
+# Check if marian-server is compiled
+test -f $MRT_MARIAN/marian-server || exit $EXIT_CODE_SKIP
+
 # Make sure the server is not running
 clean_up() {
     kill $SERVER_PID
