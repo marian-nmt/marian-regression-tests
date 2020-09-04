@@ -62,6 +62,7 @@ $MRT_MARIAN/marian --build-info all 2> $MRT_ROOT/cmake.log
 
 # Check Marian compilation settings
 export MRT_MARIAN_BUILD_TYPE=$(cat $MRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
+export MRT_MARIAN_COMPILER=$(cat $MRT_ROOT/cmake.log          | grep "CMAKE_CXX_COMPILER=" | cut -f2 -d=)
 export MRT_MARIAN_USE_MKL=$(cat $MRT_ROOT/cmake.log           | egrep "COMPILE_CPU=(ON|on|1)")
 export MRT_MARIAN_USE_CUDA=$(cat $MRT_ROOT/cmake.log          | egrep "COMPILE_CUDA=(ON|on|1)")
 export MRT_MARIAN_USE_CUDNN=$(cat $MRT_ROOT/cmake.log         | egrep "USE_CUDNN=(ON|on|1)")
@@ -70,6 +71,7 @@ export MRT_MARIAN_USE_FBGEMM=$(cat $MRT_ROOT/cmake.log        | egrep "USE_FBGEM
 export MRT_MARIAN_USE_UNITTESTS=$(cat $MRT_ROOT/cmake.log     | egrep "COMPILE_TESTS=(ON|on|1)")
 
 log "Build type: $MRT_MARIAN_BUILD_TYPE"
+log "Using compiler: $MRT_MARIAN_COMPILER"
 log "Using MKL: $MRT_MARIAN_USE_MKL"
 log "Using CUDNN: $MRT_MARIAN_USE_CUDNN"
 log "Using SentencePiece: $MRT_MARIAN_USE_SENTENCEPIECE"
