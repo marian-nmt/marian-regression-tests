@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Fine-tuning on another data with --no-restore-corpus
 # AUTHOR: snukky
-# TAGS: finetune restore
+# TAGS: finetune restore gcc5-fails
 #####################################################################
 
 # Exit on error
@@ -32,7 +32,7 @@ test -e finetune/model.npz.progress.yml
 cat finetune_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' > finetune.out
 
 
-# Restart the training on another training corpus without --no-restore-corpus
+# Restart the training on another training corpus with --no-restore-corpus
 $MRT_MARIAN/marian \
     -m finetune/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 60 $extra_opts --log finetune_2.log \

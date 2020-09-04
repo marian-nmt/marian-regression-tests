@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model with shuffling training sentences from a TSV file
-# TAGS: sentencepiece tsv train
+# TAGS: sentencepiece tsv train gcc5-fails sync-sgd
 #####################################################################
 
 # Exit on error
@@ -14,7 +14,7 @@ mkdir -p train_shuffle
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \
+    --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd \
     -m train_shuffle/model.npz --tsv --tsv-fields 2 -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 20 --disp-freq 4 \
     --log train_shuffle.log

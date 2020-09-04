@@ -43,7 +43,7 @@ $MRT_MARIAN/marian-decoder \
     -i dev.bpe.en -o compare-trans.decoder.out
 
 # Compare outputs from the in-training translation and the decoding outside the training
-$MRT_TOOLS/diff.sh compare-trans.out compare-trans.decoder.out
+$MRT_TOOLS/diff.sh compare-trans.out compare-trans.decoder.out | tee compare-trans.decoder.diff
 
 # Exit with success code
 exit 0

@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model on shuffled TSV data with guided alignment
-# TAGS: sentencepiece tsv train align
+# TAGS: sentencepiece tsv train align gcc5-fails sync-sgd
 #####################################################################
 
 # Exit on error
@@ -14,7 +14,7 @@ mkdir -p train_align_shuffle
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --seed 4444 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
+    --seed 4444 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 --sync-sgd \
     -m train_align_shuffle/model.npz --tsv -t train2.aln-de-en.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 100 --disp-freq 4 \
     --guided-alignment 0 --guided-alignment-weight 1.0 \
