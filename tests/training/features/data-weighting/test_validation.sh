@@ -13,7 +13,7 @@ rm -rf valid valid_script.temp
 mkdir -p valid
 
 $MRT_MARIAN/marian \
-    --seed 4444 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 \
+    --seed 4444 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --cost-type ce-mean \
     -m valid/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
     --disp-freq 5 --valid-freq 15 --after-batches 50 \
     --data-weighting train.1k.weights.txt --data-weighting-type sentence \
