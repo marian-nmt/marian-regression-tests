@@ -15,7 +15,7 @@ mkdir -p rnn
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
+    --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --cost-type ce-mean \
     -m rnn/model.npz -t corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 100 --disp-freq 10 \
     --guided-alignment corpus.bpe.align --guided-alignment-weight 1.0 --learn-rate 0.1 \
