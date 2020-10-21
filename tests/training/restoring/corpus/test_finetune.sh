@@ -17,6 +17,8 @@ test -e vocab.de.yml
 test -e vocab.en.yml
 
 extra_opts="--seed 2222 --maxi-batch 1 --maxi-batch-sort none --mini-batch 64 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Train a model on a training corpus

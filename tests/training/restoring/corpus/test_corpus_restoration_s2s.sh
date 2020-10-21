@@ -11,6 +11,8 @@ test -e vocab.de.yml
 test -e vocab.en.yml
 
 extra_opts="--seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4 --type s2s"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Step 1: Train a model in one go, up to the update no. 70, and save training logs

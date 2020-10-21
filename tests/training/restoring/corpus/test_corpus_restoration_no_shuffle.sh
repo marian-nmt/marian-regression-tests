@@ -11,6 +11,8 @@ test -e vocab.de.yml
 test -e vocab.en.yml
 
 extra_opts="--seed 1234 --no-shuffle --maxi-batch 8 --maxi-batch-sort src --mini-batch 32 --mini-batch-fit -w 100 --optimizer sgd --dim-emb 128 --dim-rnn 256 --disp-freq 4"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 $MRT_MARIAN/marian \
     -m corpus_noshuf/model_full.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
