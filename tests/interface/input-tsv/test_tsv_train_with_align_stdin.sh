@@ -14,7 +14,7 @@ mkdir -p train_align_stdin
 
 # Run marian command
 cat train2.aln-de-en.tsv | $MRT_MARIAN/marian \
-    --no-shuffle --seed 5555 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
+    --cost-type ce-mean --no-shuffle --seed 5555 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
     -m train_align_stdin/model.npz -t stdin -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --disp-freq 4 \
     --guided-alignment 0 --guided-alignment-weight 1.0 \
