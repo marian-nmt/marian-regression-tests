@@ -16,7 +16,7 @@ mkdir -p valid_reset_stalled
 test -s valid.mini.bpe.en || head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.en > valid.mini.bpe.en
 test -s valid.mini.bpe.de || head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 
-extra_opts="--no-shuffle --seed 222 --maxi-batch 1 --maxi-batch-sort none"
+extra_opts="--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation"
 extra_opts="$extra_opts --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd"
 extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
