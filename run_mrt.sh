@@ -12,6 +12,8 @@
 #  - MARIAN - path to Marian build directory
 #  - CUDA_VISIBLE_DEVICES - CUDA's variable specifying GPU device IDs
 #  - NUM_DEVICES - maximum number of GPU devices to be used
+#  - TIMEOUT - maximum duration for execution of a single test in the format
+#    accepted by the timeout command; set to 0 to disable
 
 SHELL=/bin/bash
 
@@ -85,9 +87,18 @@ export MRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 log "Using number of GPU devices: $MRT_NUM_DEVICES"
 
+export MRT_TIMEOUT=${TIMEOUT:-5m}   # the default time out is 5 minutes, see `man timeout`
+cmd_timeout=""
+if [ $MRT_TIMEOUT != "0" ]; then
+    cmd_timeout="timeout $MRT_TIMEOUT"
+fi
+
+log "Using time out: $MRT_TIMEOUT"
+
 # Exit codes
 export EXIT_CODE_SUCCESS=0
 export EXIT_CODE_SKIP=100
+export EXIT_CODE_TIMEOUT=124    # Exit code returned by the timeout command if timed out
 
 function format_time {
     dt=$(echo "$2 - $1" | bc 2>/dev/null)
@@ -134,13 +145,15 @@ fi
 
 ###############################################################################
 success=true
+count_all=0
+count_failed=0
 count_passed=0
 count_skipped=0
-count_failed=0
-count_all=0
+count_timedout=0
 
-declare -a tests_skipped
 declare -a tests_failed
+declare -a tests_skipped
+declare -a tests_timedout
 
 time_start=$(date +%s.%N)
 
@@ -156,7 +169,7 @@ do
         log "Running setup script"
 
         cd $test_dir
-        $SHELL -v setup.sh &> setup.log
+        $cmd_timeout $SHELL -v setup.sh &> setup.log
         if [ $? -ne 0 ]; then
             log "Warning: setup script returns a non-success exit code"
             success=false
@@ -195,7 +208,7 @@ do
 
         # Run test
         # Note: all output gets written to stderr (very very few cases write to stdout)
-        $SHELL -x $test_file 2> $test_file.log 1>&2
+        $cmd_timeout $SHELL -x $test_file 2> $test_file.log 1>&2
         exit_code=$?
 
         # Check exit code
@@ -206,6 +219,15 @@ do
             ((++count_skipped))
             tests_skipped+=($test_path)
             echo " skipped"
+        elif [ $exit_code -eq $EXIT_CODE_TIMEOUT ]; then
+            ((++count_timedout))
+            tests_timedout+=($test_path)
+            # Add a comment to the test log file that it timed out
+            echo "The test timed out after $TIMEOUT" >> $test_file.log
+            # A timed out test is a failed test
+            ((++count_failed))
+            echo " timed out"
+            success=false
         else
             ((++count_failed))
             tests_failed+=($test_path)
@@ -227,7 +249,7 @@ do
         log "Running teardown script"
 
         cd $test_dir
-        $SHELL teardown.sh &> teardown.log
+        $cmd_timeout $SHELL teardown.sh &> teardown.log
         if [ $? -ne 0 ]; then
             log "Warning: teardown script returns a non-success exit code"
             success=false
@@ -247,7 +269,7 @@ rm -f $prev_log
 
 ###############################################################################
 # Print skipped and failed tests
-if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ]; then
+if [ -n "$tests_skipped" ] || [ -n "$tests_failed" ] || [ -n "$tests_timedout" ]; then
     echo "---------------------"
 fi
 [[ -z "$tests_skipped" ]] || echo "Skipped:" | tee -a $prev_log
@@ -256,6 +278,10 @@ for test_name in "${tests_skipped[@]}"; do
 done
 [[ -z "$tests_failed" ]] || echo "Failed:" | tee -a $prev_log
 for test_name in "${tests_failed[@]}"; do
+    echo "  - $test_name" | tee -a $prev_log
+done
+[[ -z "$tests_timedout" ]] || echo "Timed out:" | tee -a $prev_log
+for test_name in "${tests_timedout[@]}"; do
     echo "  - $test_name" | tee -a $prev_log
 done
 [[ -z "$tests_failed" ]] || echo "Logs:"
@@ -267,7 +293,9 @@ done
 ###############################################################################
 # Print summary
 echo "---------------------" | tee -a $prev_log
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
+echo -n "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
+[ -n "$tests_timedout" ] && (echo -n " (incl. $count_timedout timed out)" | tee -a $prev_log)
+echo "" | tee -a $prev_log
 
 # Return exit code
 $success && [ $count_all -gt 0 ]
