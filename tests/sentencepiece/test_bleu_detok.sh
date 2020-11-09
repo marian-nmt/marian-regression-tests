@@ -39,7 +39,7 @@ $MRT_TOOLS/diff.sh bleu-detok.bleu bleu-detok.bleu.expected > bleu-detok.bleu.di
 
 # Run sacreBLEU removing the version information
 python3 $MRT_TOOLS/sacrebleu/sacrebleu.py dev.en < bleu-detok.out | sed -r 's/.version[^ ]* / /' > bleu-detok.sacrebleu
-# Check BLEU from the validation translation output 
+# Check BLEU from the validation translation output
 $MRT_TOOLS/diff.sh bleu-detok.sacrebleu bleu-detok.sacrebleu.expected > bleu-detok.sacrebleu.diff
 
 

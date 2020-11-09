@@ -31,7 +31,7 @@ grep -q "Setting vocabulary size .* to 4,\?000" vocab.lm.log
 grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocab.lm.log
 
 # Extract a textual vocabulary and compare with the expected output
-LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.lm/vocab.en.spm | head -n 3980 | sort > vocab.lm.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.lm/vocab.en.spm | sort > vocab.lm.out
 
 $MRT_TOOLS/diff-nums.py vocab.lm.out vocabs.en.expected -o vocab.lm.diff
 
