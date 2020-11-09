@@ -3,6 +3,8 @@ vocab.joint/
 vocab.maxlines/
 vocab.norm/
 vocab.lm/
-bleu-detok/
+bleu/
+chrf/
 *.bleu
 *.sacrebleu
+*.score
