@@ -1,0 +1,12 @@
+Training started
+Ep. 2.258 : Up. 4 : Sen. 512 : Cost 9.69286919 * 13,547 after 13,547
+Ep. 3.400 : Up. 6 : Sen. 768 : Cost 9.68953419 * 6,851 after 20,398
+Ep. 5.131 : Up. 9 : Sen. 1,152 : Cost 9.68455887 * 10,387 after 30,785
+Ep. 6.793 : Up. 12 : Sen. 1,536 : Cost 9.68291855 * 9,975 after 40,760
+Seen 1542 samples
+Starting data epoch 2 in logical epoch 6.819
+Ep. 8.472 : Up. 16 : Sen. 384 : Cost 9.67040443 * 10,074 after 50,834
+Ep. 10.219 : Up. 19 : Sen. 768 : Cost 9.66528606 * 10,481 after 61,315
+Training finished
+Saving model to log_epoch_t/model.npz
+Saving Adam parameters to log_epoch_t/model.npz.optimizer.npz
