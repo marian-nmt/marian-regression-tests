@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Train with --mini-batch-fit
 # AUTHOR: snukky
-# TAGS: batchfit
+# TAGS: mini-batch-fit
 #####################################################################
 
 # Exit on error
