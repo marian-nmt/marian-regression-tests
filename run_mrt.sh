@@ -293,7 +293,9 @@ done
 ###############################################################################
 # Print summary
 echo "---------------------" | tee -a $prev_log
-echo "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed (incl. $count_timedout timed out)" | tee -a $prev_log
+echo -n "Ran $count_all tests in $time_total, $count_passed passed, $count_skipped skipped, $count_failed failed" | tee -a $prev_log
+[ -n "$tests_timedout" ] && (echo -n " (incl. $count_timedout timed out)" | tee -a $prev_log)
+echo "" | tee -a $prev_log
 
 # Return exit code
 $success && [ $count_all -gt 0 ]
