@@ -14,7 +14,7 @@ mkdir -p train_shuffle
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd \
+    --cost-type ce-mean --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd \
     -m train_shuffle/model.npz --tsv --tsv-fields 2 -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 20 --disp-freq 4 \
     --log train_shuffle.log

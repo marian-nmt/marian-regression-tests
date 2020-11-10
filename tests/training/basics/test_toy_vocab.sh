@@ -25,7 +25,7 @@ test -e toy/model.npz.yml
 test -e toy/model.npz.amun.yml
 
 cat toy.log | $MRT_TOOLS/extract-costs.sh > toy.out
-$MRT_TOOLS/diff-nums.py toy.out toy.expected -p 0.5 -o toy.diff
+$MRT_TOOLS/diff-nums.py toy.out toy.expected -p 0.1 -o toy.diff
 
 # Exit with success code
 exit 0

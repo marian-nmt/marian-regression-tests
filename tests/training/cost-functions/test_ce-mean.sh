@@ -14,6 +14,7 @@ rm -rf ce-mean ce-mean.log
 mkdir -p ce-mean
 
 $MRT_MARIAN/marian \
+    --cost-type ce-mean \
     --seed 9999 --sync-sgd \
     -m ce-mean/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \

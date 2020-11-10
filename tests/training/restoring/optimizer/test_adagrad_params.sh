@@ -10,7 +10,7 @@ mkdir -p adagrad
 $MRT_MARIAN/marian \
     --no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --dim-emb 128 --dim-rnn 256 \
     -m adagrad/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
-    --disp-freq 10 --after-batches 100 --save-freq 60 --optimizer adagrad \
+    --disp-freq 10 --after-batches 100 --save-freq 60 --optimizer adagrad --cost-type ce-mean \
     --log adagrad.log
 
 test -e adagrad/model.npz
