@@ -21,7 +21,7 @@ $MRT_MARIAN/marian \
     --cost-type cross-entropy --sync-sgd --after-batches 20 --disp-freq 10 \
     --log $PREFIX.log
 
-# Train an 8-bits model 
+# Train an 8-bits model
 $MRT_MARIAN/marian \
     --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --learn-rate 0.1 --optimizer sgd \
     -m $PREFIX/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v train/vocab.en.yml train/vocab.de.yml \
