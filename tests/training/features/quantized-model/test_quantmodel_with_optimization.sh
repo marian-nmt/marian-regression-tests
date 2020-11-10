@@ -27,7 +27,7 @@ test -e $PREFIX.log
 
 # Compare the current output with the expected output
 cat $PREFIX.log | $MRT_TOOLS/extract-costs.sh > $PREFIX.out
-$MRT_TOOLS/diff-nums.py $PREFIX.out $PREFIX.expected -o $PREFIX.diff
+$MRT_TOOLS/diff-nums.py $PREFIX.out $PREFIX.expected -o $PREFIX.diff -p 0.01
 
 # make sure that the resulting model has no more than 256 different values (i.e. quantized)
 $MRT_TOOLS/check-model-unique-vals.py $PREFIX/model.npz -b 8
