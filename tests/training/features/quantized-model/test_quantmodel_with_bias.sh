@@ -12,8 +12,7 @@ PREFIX=quantized-with-bias
 
 # Remove old artifacts and create working directory
 rm -rf $PREFIX $PREFIX.{log,out,diff}
-mkdir -p $PREFIX
-
+mkdir -p $PREFIX train
 
 # training with quantized bias is tricky, so we start by training a normal model first before finetuning it to the quantized space.
 $MRT_MARIAN/marian \

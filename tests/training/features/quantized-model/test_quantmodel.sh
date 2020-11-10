@@ -12,8 +12,7 @@ PREFIX=quantized
 
 # Remove old artifacts and create working directory
 rm -rf $PREFIX $PREFIX.{log,out,diff}
-mkdir -p $PREFIX
-
+mkdir -p $PREFIX train
 
 # Train an 8-bits model 
 $MRT_MARIAN/marian \
