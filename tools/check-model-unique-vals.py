@@ -29,7 +29,8 @@ def main():
                    key, \
                    2**args.bits), args)
           exit_code = 1
-    
+        if (args.print_centers):
+          message("Tensor {} unique centers: {}".format(key, np.unique(data[key])), args)    
     return exit_code
 
 
@@ -47,6 +48,7 @@ def parse_user_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("file", type=str)
     parser.add_argument("-o", "--output", type=argparse.FileType('w'), metavar="FILE", default=sys.stdout)
+    parser.add_argument("--print_centers", action="store_true")
     parser.add_argument("-b", "--bits", type=int)
     parser.add_argument("--with_bias", action="store_true") 
     parser.add_argument("-q", "--quiet", action="store_true")
