@@ -28,9 +28,9 @@ test -e trans_empty_lines/train.en || cat $MRT_DATA/train.max50.en | sed 's/@@ /
 
 # Train
 $MRT_MARIAN/marian \
-    --seed 2222 --no-shuffle --mini-batch 32 --maxi-batch 1 --optimizer sgd \
+    --seed 2222 --no-shuffle --clip-norm 0 --mini-batch 32 --maxi-batch 1 --optimizer sgd -l 0.00001 \
     -m trans_empty_lines/model.npz -t trans_empty_lines/train.{de,en} -v trans_empty_lines/vocab.{spm,spm} \
-    --disp-freq 20 --valid-freq 60 --after-batches 60 \
+    --disp-freq 10 --valid-freq 30 --after 30u \
     --valid-metrics cross-entropy translation --valid-translation-output trans_empty_lines.out \
     --valid-sets trans_empty_lines.de trans_empty_lines.en \
     --valid-log trans_empty_lines.log
