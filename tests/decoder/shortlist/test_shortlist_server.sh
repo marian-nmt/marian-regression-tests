@@ -10,7 +10,7 @@
 set -e
 
 # Check if marian-server is compiled
-test -f $MRT_MARIAN/marian-server || exit 100
+test -f $MRT_MARIAN/marian-server || exit $EXIT_CODE_SKIP
 
 clean_up() {
     kill $SERVER_PID

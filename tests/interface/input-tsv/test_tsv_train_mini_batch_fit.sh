@@ -2,7 +2,7 @@
 
 #####################################################################
 # SUMMARY: Train a model on data in the TSV format with mini-batch-fit
-# TAGS: sentencepiece tsv train mini-batch-fit
+# TAGS: sentencepiece tsv train mini-batch-fit gcc5-fails sync-sgd
 #####################################################################
 
 # Exit on error
@@ -14,7 +14,7 @@ mkdir -p train_fit
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --mini-batch-fit -w 500 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \
+    --cost-type ce-mean --mini-batch-fit -w 500 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd \
     -m train_fit/model.npz --tsv -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 20 --disp-freq 4 \
     --log train_fit.log

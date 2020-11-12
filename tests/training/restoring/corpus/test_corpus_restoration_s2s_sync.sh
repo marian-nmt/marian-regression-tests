@@ -12,6 +12,8 @@ test -e vocab.en.yml
 
 # TODO: Weight decaying in Adam is disabled, because it gives unstable results on GPU
 extra_opts="--seed 2222 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --dim-emb 128 --dim-rnn 256 --disp-freq 4 --type s2s --sync-sgd --optimizer adam --optimizer-params 0.9 0.98 0"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Step 1: Train a model in one go, up to the update no. 70, and save training logs

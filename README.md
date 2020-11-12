@@ -7,6 +7,8 @@ pure C++ with minimal dependencies.
 This repository contains the regression test framework for the main development
 repository: https://github.com/marian-nmt/marian-dev.
 
+Tests have been developed for Linux for Marian compiled using GCC 7+.
+
 
 ## Structure
 
@@ -43,7 +45,7 @@ More invocation examples:
     ./run_mrt.sh tests/training/basics
     ./run_mrt.sh tests/training/basics/test_valid_script.sh
     ./run_mrt.sh previous.log
-    ./run_mrt.sh '#tag'
+    ./run_mrt.sh '#cpu'
 
 where `previous.log` contains a list of test files, one test per line.  This
 file is automatically generated each time `./run_mrt.sh` finishes running.
@@ -65,7 +67,7 @@ Notes:
   off and are not traversed or executed by `./run_mrt.sh`.
 - Only some regression tests have been annotated with tags, so, for example,
   running tests with the tag #scoring will not start all available tests for
-  scoring. The complete tags is #cpu.
+  scoring. The complete tags are #cpu, #server.
 
 
 ## Debugging failed tests
@@ -107,17 +109,27 @@ Please follow these recommendations:
 ## Jenkins
 
 The regression tests are run automatically on Jenkins after each push to the
-master branch and a successful compilation with g++ 5.4.0 20160609 and CUDA
+master branch and a successful compilation with GCC 8.4.0 and CUDA
 10.1.243: http://vali.inf.ed.ac.uk/jenkins/view/marian/
 
 On Jenkins, Marian is compiled using the following commands:
 
-    cmake -DUSE_SENTENCEPIECE=ON -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON \
+    CC=/usr/bin/gcc-8 CXX=/usr/bin/g++-8 CUDAHOSTCXX=/usr/bin/g++8 \
+    cmake -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=on \
+        -DCOMPILE_CPU=on -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON \
         -DCUDA_TOOLKIT_ROOT_DIR=/var/lib/jenkins/cuda-10.1 ..
     make -j
     make test
 
 If this succeeds, created executables are used to run regression tests.
+
+
+## Data storage
+
+We host data and models used for regression tests on the dedicated Azure
+Storage (see `models/download-models.sh`). If you want to add new files
+required for new regression tests to our storage, please open a new issue
+providing a link to tarball.
 
 
 ## Acknowledgements

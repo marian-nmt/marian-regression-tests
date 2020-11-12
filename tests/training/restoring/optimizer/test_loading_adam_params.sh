@@ -8,6 +8,8 @@ rm -rf adam_load adam_load_?.log
 mkdir -p adam_load
 
 extra_opts="--no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --mini-batch 2 --dim-rnn 64 --dim-emb 32"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 $MRT_MARIAN/marian \
     -m adam_load/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \

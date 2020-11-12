@@ -8,6 +8,8 @@ rm -rf sgd_2e sgd_1st_epoch.log sgd_2nd_epoch.log
 mkdir -p sgd_2e
 
 extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd"
+# Added because default options has changes
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Uncomment to prepare the expected output

@@ -35,7 +35,7 @@ grep -q "Loading SentencePiece vocabulary .*vocab.en.spm" vocabs.log
 grep -q "Loading SentencePiece vocabulary .*vocab.de.spm" vocabs.log
 
 # Extract a textual vocabulary and compare with the expected output
-LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocabs/vocab.en.spm | head -n 3980 | sort > vocabs.en.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocabs/vocab.en.spm | sort > vocabs.en.out
 LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocabs/vocab.de.spm | sort > vocabs.de.out
 
 $MRT_TOOLS/diff-nums.py vocabs.en.out vocabs.en.expected -o vocabs.en.diff

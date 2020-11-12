@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY:
+# TAGS: dataweights
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -13,7 +18,7 @@ cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/2/g' > word_twos.weigh
 
 # Train with word weighting
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
+    --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
     -m word_twos/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log word_twos.log --disp-freq 5 -e 2 \
     --data-weighting word_twos.weights.txt --data-weighting-type word
@@ -36,7 +41,7 @@ echo "data-weighting-type: word" >> word_twos.config.yml
 
 # Train with word weighting
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
+    --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
     -m word_twos_cfg/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml \
     --log word_twos_cfg.log --disp-freq 5 -e 2 \
     -c word_twos.config.yml

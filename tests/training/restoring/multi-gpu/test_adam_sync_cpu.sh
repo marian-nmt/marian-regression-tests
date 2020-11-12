@@ -20,6 +20,8 @@ mkdir -p adam_sync_cpu
 # TODO: The weight decaying in the Adam optimizer is enabled for CPU, because
 # it gives stable results, in contrary to the GPU version
 opts="--no-shuffle --seed 777 --mini-batch 2 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --learn-rate 0.1 --optimizer adam --optimizer-params 0.9 0.98 0.001 --sync-sgd --devices 0 1 --cpu-threads 1"
+# Added because default options has changes
+opts="$opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Step 1: Training in one go

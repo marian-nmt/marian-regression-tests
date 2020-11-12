@@ -15,7 +15,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 
 #$MRT_MARIAN/marian \
     #--type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
-    #--dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
+    #--dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd --cost-type ce-mean \
     #-m valid_newbest/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     #--disp-freq 5 --valid-freq 10 --after-batches 100 \
     #--valid-metrics cross-entropy translation --valid-script-path ./count_bytes.sh \
@@ -29,7 +29,7 @@ head -n 8 $MRT_DATA/europarl.de-en/toy.bpe.de > valid.mini.bpe.de
 
 $MRT_MARIAN/marian \
     --type s2s --no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --quiet-translation \
-    --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd \
+    --dim-emb 64 --dim-rnn 128 --mini-batch 16 --optimizer sgd --cost-type ce-mean \
     -m valid_newbest/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 5 --valid-freq 10 --after-batches 50 \
     --valid-metrics cross-entropy translation --valid-script-path ./count_bytes.sh \

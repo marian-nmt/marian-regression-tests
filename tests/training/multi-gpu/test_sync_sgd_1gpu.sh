@@ -10,7 +10,7 @@ mkdir -p sync_sgd_1gpu
 $MRT_MARIAN/marian \
     --no-shuffle --seed 888 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none \
     --dim-rnn 64 --dim-emb 32 --learn-rate 0.1 \
-    --devices 0 --sync-sgd --optimizer sgd \
+    --devices 0 --sync-sgd --optimizer sgd --cost-type ce-mean \
     -m sync_sgd_1gpu/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 5 --save-freq 10 --after-batches 20 \
     --log sync_sgd_1gpu.log
