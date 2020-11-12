@@ -14,7 +14,7 @@ rm -rf multi-s2s multi-s2s.log
 mkdir -p multi-s2s
 
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle \
+    --seed 1111 --no-shuffle --clip-norm 0 \
     --type multi-s2s --dim-emb 128 --dim-rnn 256 --cost-type ce-mean \
     -m multi-s2s/model.npz -t train.bpe.{en,xx,de} -v vocab.en.yml vocab.xx.yml vocab.de.yml \
     --disp-freq 20 --after-batches 100 \

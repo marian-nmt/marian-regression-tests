@@ -14,7 +14,7 @@ rm -rf multi-transformer multi-transformer.log
 mkdir -p multi-transformer
 
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle \
+    --seed 1111 --no-shuffle --clip-norm 0 \
     --type multi-transformer --dim-emb 128 --dim-rnn 256 --cost-type ce-mean \
     -m multi-transformer/model.npz -t train.bpe.{en,xx,de} -v vocab.en.yml vocab.xx.yml vocab.de.yml \
     --disp-freq 20 --after-batches 100 \
