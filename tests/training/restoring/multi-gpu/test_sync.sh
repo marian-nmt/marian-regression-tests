@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Training with SGD on 2 GPUs (sync-sgd)
+# AUTHOR: snukky
+# TAGS: optimizer multigpu clip-norm
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -12,7 +18,7 @@ fi
 rm -rf sync sync_*.log
 mkdir -p sync
 
-opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.1 --devices 0 1 --sync-sgd"
+opts="--no-shuffle --clip-norm 0 --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.01 --devices 0 1 --sync-sgd"
 # Added because default options has changes
 opts="$opts --cost-type ce-mean --disp-label-counts false"
 
@@ -49,7 +55,7 @@ test -e sync_2.log
 
 cat sync_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | sed 's/ : Time.*//' >> sync.out
 
-$MRT_TOOLS/diff-nums.py -p 0.3 sync.out sync.expected -o sync.diff
+$MRT_TOOLS/diff-nums.py -p 0.1 sync.out sync.expected -o sync.diff
 
 # Exit with success code
 exit 0
