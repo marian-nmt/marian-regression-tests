@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Restaring training after the 1st epoch (sync-sgd)
+# AUTHOR: snukky
+# TAGS: optimizer clip-norm
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -7,12 +13,13 @@ set -e
 rm -rf sgd_sync_2e sgd_sync_*_epoch.log
 mkdir -p sgd_sync_2e
 
-extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd --sync-sgd"
+extra_opts="--no-shuffle --clip-norm 1 --seed 1111 --maxi-batch 1 --maxi-batch-sort none --mini-batch 32 --optimizer sgd --sync-sgd"
 # Added because default options has changes
 extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
 
 
 # Uncomment to prepare the expected output
+#rm -f sgd_sync_two_epochs.log
 #$MRT_MARIAN/marian \
     #-m sgd_sync_2e/model_2e.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     #--disp-freq 4 --save-freq 32 --after-epochs 2 -l 0.1 $extra_opts \
