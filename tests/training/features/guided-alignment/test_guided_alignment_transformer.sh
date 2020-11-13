@@ -15,7 +15,7 @@ mkdir -p transformer
 
 # Run marian command
 $MRT_MARIAN/marian --type transformer \
-    --no-shuffle --seed 2222 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --cost-type ce-mean \
+    --no-shuffle --clip-norm 0 --seed 2222 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --cost-type ce-mean \
     -m transformer/model.npz -t corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 100 --disp-freq 10 \
     --guided-alignment corpus.bpe.align --guided-alignment-weight 1.0 --learn-rate 0.1 \

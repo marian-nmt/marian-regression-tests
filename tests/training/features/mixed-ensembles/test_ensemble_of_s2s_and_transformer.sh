@@ -7,7 +7,7 @@ set -e
 rm -rf s2s_transf s2s_transf*.log
 mkdir -p s2s_transf
 
-options="--no-shuffle --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --disp-freq 20 --after-batches 100"
+options="--no-shuffle --clip-norm 0 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --disp-freq 20 --after-batches 60"
 
 # Train model A
 $MRT_MARIAN/marian \
