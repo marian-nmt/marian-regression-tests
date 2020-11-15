@@ -16,8 +16,12 @@
 avx=$1
 
 for suffix in '' .bleu; do
-    test -f fbgemm_intgemm_8bit.$avx.expected  && cp fbgemm_intgemm_8bit.out$suffix  fbgemm_intgemm_8bit.$avx.expected$suffix
-    test -f intgemm_8bit.$avx.expected         && cp intgemm_16bit.out$suffix        intgemm_16bit.$avx.expected$suffix
+    test -f intgemm_16bit.$avx.expected        && cp intgemm_16bit.out$suffix        intgemm_16bit.$avx.expected$suffix
     test -f intgemm_8bit.$avx.expected         && cp intgemm_8bit.out$suffix         intgemm_8bit.$avx.expected$suffix
-    test -f intgemm_8bit_shifted.$avx.expected && cp intgemm_8bit_shifted.out$suffix intgemm_8bit_shifted.$avx.expected$suffix
+
+    test -f intgemm_16bit.sse2.expected        && cp intgemm_16bit.sse2.out$suffix   intgemm_16bit.sse2.expected$suffix
+    test -f intgemm_8bit.ssse3.expected        && cp intgemm_8bit.ssse3.out$suffix   intgemm_8bit.ssse3.expected$suffix
+
+    #test -f fbgemm_intgemm_8bit.$avx.expected  && cp fbgemm_intgemm_8bit.out$suffix  fbgemm_intgemm_8bit.$avx.expected$suffix
+    #test -f intgemm_8bit_shifted.$avx.expected && cp intgemm_8bit_shifted.out$suffix intgemm_8bit_shifted.$avx.expected$suffix
 done

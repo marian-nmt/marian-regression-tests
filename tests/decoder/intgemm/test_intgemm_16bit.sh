@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #####################################################################
-# SUMMARY: Decode intgemm 16bit with on-the-fly conversion
+# SUMMARY: Decode intgemm 16bit with a binary model
 # TAGS: cpu student shortlist intgemm
 #####################################################################
 
@@ -31,14 +31,18 @@ prefix=intgemm_16bit
 
 
 # Remove previous outputs
-rm -f $prefix.out
+rm -f $prefix.out $prefix.$suffix.bin
+
+# Pack the model
+$MRT_MARIAN/marian-conv -f $MRT_MODELS/student-eten/model.npz -t $prefix.$suffix.bin --gemm-type intgemm16
+test -s $prefix.$suffix.bin
 
 # Run test
 $MRT_MARIAN/marian-decoder \
-    -m $MRT_MODELS/student-eten/model.npz -v $MRT_MODELS/student-eten/{vocab.spm,vocab.spm} \
+    -m $prefix.$suffix.bin -v $MRT_MODELS/student-eten/{vocab.spm,vocab.spm} \
     -i newstest2018.src -o $prefix.out \
     -b 1 --mini-batch 32 --maxi-batch 100 --maxi-batch-sort src -w 128 \
-    --shortlist $MRT_MODELS/student-eten/lex.s2t 50 50 --cpu-threads 1 --int16 \
+    --shortlist $MRT_MODELS/student-eten/lex.s2t 50 50 --cpu-threads 1 \
     --quiet-translation
 
 # Print current and expected BLEU for debugging
