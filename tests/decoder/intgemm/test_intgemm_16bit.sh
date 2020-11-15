@@ -17,7 +17,7 @@ elif ! grep -q "avx" /proc/cpuinfo; then
     exit 100
 fi
 
-# Outputs differ on CPUs supporting AVX AVX2 or AVX512
+# Outputs differ on CPUs supporting AVX, AVX2 or AVX512
 suffix=avx
 if grep -q "avx512_vnni" /proc/cpuinfo; then
     suffix=avx512_vnni
