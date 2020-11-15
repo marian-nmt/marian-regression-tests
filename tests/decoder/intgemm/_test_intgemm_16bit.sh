@@ -38,7 +38,7 @@ $MRT_MARIAN/marian-decoder \
     -m $MRT_MODELS/student-eten/model.npz -v $MRT_MODELS/student-eten/{vocab.spm,vocab.spm} \
     -i newstest2018.src -o $prefix.out \
     -b 1 --mini-batch 32 --maxi-batch 100 --maxi-batch-sort src -w 128 \
-    --shortlist $MRT_MODELS/student-eten/lex.s2t 50 50 --cpu-threads 1 --int16 \
+    --shortlist $MRT_MODELS/student-eten/lex.s2t 50 50 --cpu-threads 1 \
     --quiet-translation
 
 # Print current and expected BLEU for debugging
