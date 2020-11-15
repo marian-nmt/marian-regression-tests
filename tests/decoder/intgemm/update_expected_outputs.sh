@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Script for re-generatting expected outputs and BLEU scores for CPUs with
 # avx/avx2/avx512 architectures after running regression tests.
@@ -11,7 +11,7 @@
 #    3. Run `bash update_expected_outputs.sh avx2` from this directory
 #    4. Add and commit *.expected* files
 
-[[ $# -eq 1 ]] || (echo "This script must take avx/avx2/avx512 as the first argument" && exit 1)
+[[ $# -ne 1 ]] && { echo "This script must take avx/avx2/avx512 as the first argument"; exit 1; }
 
 avx=$1
 

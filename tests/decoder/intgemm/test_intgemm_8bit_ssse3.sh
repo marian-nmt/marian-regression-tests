@@ -47,7 +47,8 @@ $MRT_MARIAN/marian-decoder \
 
 # Print current and expected BLEU for debugging
 python3 $MRT_TOOLS/sacrebleu/sacrebleu.py newstest2018.ref < $prefix.out | tee $prefix.out.bleu
-cat $prefix.expected.bleu || true
+# BLEU scores calculated on AVX, AVX2, AVX512 should be very similar, but does not have to be identical
+tail -n1 $prefix.*.expected.bleu || true
 
 # Compare with the expected output
 $MRT_TOOLS/diff.sh $prefix.out $prefix.$suffix.expected > $prefix.diff
