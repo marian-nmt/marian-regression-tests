@@ -21,6 +21,8 @@ for suffix in '' .bleu; do
 
     cp intgemm_16bit_sse2.out$suffix   intgemm_16bit_sse2.$avx.expected$suffix
     cp intgemm_8bit_ssse3.out$suffix   intgemm_8bit_ssse3.$avx.expected$suffix
+    cp intgemm_16bit_avx2.out$suffix   intgemm_16bit_avx2.$avx.expected$suffix
+    cp intgemm_8bit_avx2.out$suffix    intgemm_8bit_avx2.$avx.expected$suffix
 
     #cp fbgemm_intgemm_8bit.out$suffix  fbgemm_intgemm_8bit.$avx.expected$suffix
     #cp intgemm_8bit_shifted.out$suffix intgemm_8bit_shifted.$avx.expected$suffix
