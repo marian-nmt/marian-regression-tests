@@ -14,7 +14,7 @@ mkdir -p train_align_weights_intypes
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --cost-type ce-mean --no-shuffle --seed 7777 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
+    --cost-type ce-mean --no-shuffle --clip-norm 1 --seed 7777 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
     -m train_align_weights_intypes/model.npz --tsv -t train2.de-w-aln-en.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 60 --disp-freq 4 \
     --input-types sequence weight alignment sequence --guided-alignment-weight 1.0 \

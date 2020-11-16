@@ -14,7 +14,7 @@ mkdir -p train_stdin_2e
 
 # Train for the 1st epoch
 cat train.tsv | $MRT_MARIAN/marian \
-    --cost-type ce-mean --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
+    --cost-type ce-mean --no-shuffle --clip-norm 0 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     -m train_stdin_2e/model.npz --tsv -t stdin -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --disp-freq 5 \
     --log train_stdin_2e.log
@@ -25,7 +25,7 @@ test -e train_stdin_2e.log
 
 # Train for the 2nd epoch
 cat train.tsv | $MRT_MARIAN/marian \
-    --cost-type ce-mean --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.002 \
+    --cost-type ce-mean --no-shuffle --clip-norm 0 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.002 \
     -m train_stdin_2e/model.npz --tsv -t stdin -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --disp-freq 5 \
     --log train_stdin_2e.log

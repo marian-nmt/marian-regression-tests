@@ -20,7 +20,7 @@ paste train.{de,en} \
 
 # Run marian command
 cat train_empty_lines.tsv | $MRT_MARIAN/marian \
-    --cost-type ce-mean --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --max-length 200 \
+    --cost-type ce-mean --no-shuffle --clip-norm 0 --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --max-length 200 \
     -m train_empty_lines/model.npz --tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-epochs 1 --disp-freq 2 \
     --log train_empty_lines.log
