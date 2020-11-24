@@ -13,7 +13,7 @@ rm -rf sqlite sqlite.log
 mkdir -p sqlite
 
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
+    --seed 1111 --clip-norm 0 --no-shuffle --maxi-batch 1 --maxi-batch-sort none --max-length 100 --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
     -m sqlite/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
     --log sqlite.log --disp-freq 1 --after-batches 100 --mini-batch 1 \
     --data-weighting train.1k.weights.txt --data-weighting-type sentence --sqlite sqlite/corpus.sqlite3
