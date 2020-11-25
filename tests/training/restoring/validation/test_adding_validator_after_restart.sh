@@ -9,7 +9,7 @@ mkdir -p valid_add
 
 extra_opts="--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd"
 extra_opts="$extra_opts --dim-emb 128 --dim-rnn 256 --mini-batch 16"
-extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false --clip-norm 0"
 
 #$MRT_MARIAN/marian $extra_opts \
     #-m valid_add/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \

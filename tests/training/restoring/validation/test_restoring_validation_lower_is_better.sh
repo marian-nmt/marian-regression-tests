@@ -9,7 +9,7 @@ mkdir -p valid_lowisbet
 
 extra_opts="--no-shuffle --seed 1111 --maxi-batch 1 --maxi-batch-sort none"
 extra_opts="$extra_opts --dim-emb 64 --dim-rnn 128 --mini-batch 32"
-extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false"
+extra_opts="$extra_opts --cost-type ce-mean --disp-label-counts false --clip-norm 0"
 
 
 # Files for the validation sets are swapped intentionally
