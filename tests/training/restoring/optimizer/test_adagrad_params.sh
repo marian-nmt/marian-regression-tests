@@ -30,7 +30,7 @@ python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adagrad/model.npz.optimi
 $MRT_TOOLS/diff.sh adagrad.keys.out adagrad.keys.expected > adagrad.keys.diff
 
 python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.npz -k "adagrad_gt" > adagrad.gt.out
-$MRT_TOOLS/diff-nums.py --numpy -p 0.003 adagrad.gt.out adagrad.gt.expected -o adagrad.gt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.009 adagrad.gt.out adagrad.gt.expected -o adagrad.gt.diff
 
 # Exit with success code
 exit 0
