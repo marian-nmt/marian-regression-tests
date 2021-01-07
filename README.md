@@ -121,6 +121,10 @@ On Jenkins, Marian is compiled using the following commands:
     make -j
     make test
 
+This compilation command allows to build Marian that is needed to test
+majority of regression tests (only few might be skipped due to requirements
+for specific CPU architectures).
+
 If this succeeds, created executables are used to run regression tests.
 
 
