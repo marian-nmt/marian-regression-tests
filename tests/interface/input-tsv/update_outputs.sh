@@ -1,0 +1,27 @@
+#!/bin/sh -x
+cp train.out train.expected
+cp train_stdin2.out train.expected
+cp train_vocab.out train_vocab.expected
+cp train_vocabs.out train_vocabs.expected
+cp train_vocabs.de.spm.out train_vocabs.de.spm.expected
+cp train_vocabs.en.spm.out train_vocabs.en.spm.expected
+cp train_vocabs_yml.out train_vocabs_yml.expected
+cp train_intypes_stdin.out train.expected
+cp train_fit.out train_fit.expected
+cp train_fit_stdin.out train_fit_stdin.expected
+cp restore_stdin.out restore_stdin.expected
+cp train_shuffle.out train_shuffle.expected
+cp train_shuffle_ram.out train_shuffle.expected
+cp train_stdin.out train.expected
+cp train_stdin_2e.out train_stdin_2e.expected
+cp train_empty_lines.out train_empty_lines.expected
+cp train_lm.out train_lm.expected
+cp train_align.out train_align.expected
+cp train_align_weights.out train_align_weights.expected
+cp train_align_weights_intypes.out train_align_weights.expected
+cp train_align0.out train_align.expected
+cp train_align_shuffle.out train_align_shuffle.expected
+cp train_align_shuffle_ram.out train_align_shuffle.expected
+cp train_align_stdin.out train_align_stdin.expected
+cp train_weights.out train_weights.expected
+cp train_weights0.out train_weights.expected

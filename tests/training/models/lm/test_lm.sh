@@ -14,7 +14,7 @@ rm -rf lm lm.log
 mkdir -p lm
 
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle \
+    --seed 1111 --no-shuffle --clip-norm 0 \
     --type lm --dim-emb 128 --dim-rnn 256 --cost-type ce-mean \
     -m lm/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.en -v vocab.en.yml \
     --disp-freq 20 --after-batches 100 \

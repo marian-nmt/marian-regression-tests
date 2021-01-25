@@ -18,7 +18,7 @@ cat $MRT_DATA/europarl.de-en/toy.bpe.en | sed -r 's/[^ ]+/2/g' > word_twos_sync.
 
 # Train with word weighting
 $MRT_MARIAN/marian \
-    --seed 1111 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
+    --seed 1111 --no-shuffle --clip-norm 0 --dim-emb 128 --dim-rnn 256 --optimizer sgd --cost-type ce-mean \
     -m word_twos_sync/model.npz -t $MRT_DATA/europarl.de-en/toy.bpe.{de,en} -v vocab.{de,en}.yml --sync-sgd \
     --log word_twos_sync.log --disp-freq 5 -e 2 \
     --data-weighting word_twos_sync.weights.txt --data-weighting-type word

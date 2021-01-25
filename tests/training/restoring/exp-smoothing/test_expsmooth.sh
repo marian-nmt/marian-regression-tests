@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Compare costs from a restarted training with exp-smoothing with a single pass
+# AUTHOR: snukky
+# TAGS: exp-smooth clip-norm
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -8,7 +14,7 @@ rm -rf expsmooth expsmooth_*.log
 mkdir -p expsmooth
 
 
-opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none"
+opts="--no-shuffle --clip-norm 1 --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none"
 opts="$opts --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5"
 opts="$opts --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32"
 # Added because default options has changes

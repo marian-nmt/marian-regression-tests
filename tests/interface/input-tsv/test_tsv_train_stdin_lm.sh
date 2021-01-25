@@ -14,7 +14,7 @@ mkdir -p train_lm
 
 # Run marian command
 cat train.en | $MRT_MARIAN/marian --type lm \
-    --cost-type ce-mean --no-shuffle --seed 4444 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
+    --cost-type ce-mean --no-shuffle --clip-norm 0 --seed 4444 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     -m train_lm/model.npz -t stdin -v $MRT_MODELS/rnn-spm/vocab.deen.spm \
     --after-batches 10 --disp-freq 2 \
     --log train_lm.log

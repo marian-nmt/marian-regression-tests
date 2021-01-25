@@ -16,7 +16,7 @@ test -e vocab.de.yml || $MRT_MARIAN/marian-vocab < $MRT_DATA/europarl.de-en/corp
 test -e vocab.en.yml || $MRT_MARIAN/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.en > vocab.en.yml
 
 $MRT_MARIAN/marian \
-    --seed 6666 --no-shuffle --dim-emb 128 --dim-rnn 256 --optimizer sgd \
+    --seed 6666 --no-shuffle --clip-norm 0 --dim-emb 128 --dim-rnn 256 --optimizer sgd \
     -m word_maxibatch/model.npz -t train.1k.{de,en} -v vocab.{de,en}.yml \
     --log word_maxibatch.log --disp-freq 10 --after-batches 100 --mini-batch 16 --cost-type ce-mean \
     --data-weighting train.1k.wordinc.txt --data-weighting-type word

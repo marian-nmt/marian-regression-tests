@@ -14,7 +14,7 @@ rm -rf ce-sum ce-sum.log
 mkdir -p ce-sum
 
 $MRT_MARIAN/marian \
-    --cost-type ce-sum --disp-label-counts false \
+    --cost-type ce-sum --disp-label-counts false --clip-norm 0 \
     --seed 9999 --optimizer sgd --sync-sgd \
     -m ce-sum/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \

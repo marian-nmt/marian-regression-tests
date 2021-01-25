@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Compare costs from a restarted training with exp-smoothing with a single pass on 2 GPUs
+# AUTHOR: snukky
+# TAGS: exp-smooth clip-norm multigpu
+#####################################################################
+
 # Exit on error
 set -e
 

@@ -1,5 +1,9 @@
 #!/bin/bash -x
 
+#####################################################################
+# TAGS: clip-norm
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -8,7 +12,7 @@ rm -rf expsmooth expsmooth*.log
 mkdir -p expsmooth
 
 
-opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32 --cost-type ce-mean"
+opts="--no-shuffle --clip-norm 1 --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32 --cost-type ce-mean"
 
 # No exponential smoothing
 $MRT_MARIAN/marian \

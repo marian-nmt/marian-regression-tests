@@ -14,7 +14,7 @@ mkdir -p train_shuffle_ram
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --cost-type ce-mean --shuffle-in-ram --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \
+    --cost-type ce-mean --shuffle-in-ram --clip-norm 0 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd \
     -m train_shuffle_ram/model.npz --tsv --tsv-fields 2 -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 20 --disp-freq 4 \
     --log train_shuffle_ram.log

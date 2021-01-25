@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Training with SGD on 2 GPUs (async)
+# AUTHOR: snukky
+# TAGS: optimizer multigpu clip-norm
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -12,7 +18,7 @@ fi
 rm -rf async async_*.log async.*out async.*expected
 mkdir -p async
 
-opts="--no-shuffle --seed 777 --mini-batch 1 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.1 --devices 0 1"
+opts="--no-shuffle --clip-norm 0 --seed 777 --mini-batch 1 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.005 --devices 0 1"
 # Added because default options has changes
 opts="$opts --cost-type ce-mean --disp-label-counts false"
 

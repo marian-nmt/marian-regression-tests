@@ -18,7 +18,7 @@ test -e valid/vocab.spm || cp $MRT_MODELS/rnn-spm/vocab.deen.spm valid/vocab.spm
 
 # Train
 $MRT_MARIAN/marian \
-    --seed 2222 --no-shuffle --mini-batch 32 --maxi-batch 1 --optimizer sgd \
+    --seed 2222 --no-shuffle --clip-norm 1 --mini-batch 32 --maxi-batch 1 --optimizer sgd \
     -m valid/model.npz --tsv -t train.tsv -v valid/vocab.{spm,spm} \
     --disp-freq 20 --valid-freq 30 --after-batches 30 \
     --valid-metrics cross-entropy translation --valid-translation-output valid.out \

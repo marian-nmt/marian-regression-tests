@@ -13,7 +13,7 @@ set -e
 rm -rf two_s2s two_s2s*.log
 mkdir -p two_s2s
 
-options="--no-shuffle --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --disp-freq 20 --after-batches 100"
+options="--no-shuffle --clip-norm 0 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --disp-freq 20 --after-batches 60"
 
 # Train model A
 $MRT_MARIAN/marian \

@@ -7,7 +7,7 @@ set -e
 rm -rf transformer transformer*.log
 mkdir -p transformer
 
-opts="--no-shuffle --seed 1111 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --dim-emb 64 --dim-rnn 128 --cost-type ce-mean"
+opts="--no-shuffle --clip-norm 0 --seed 1111 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --dim-emb 64 --dim-rnn 128 --cost-type ce-mean"
 
 $MRT_MARIAN/marian \
     --type transformer -m transformer/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
