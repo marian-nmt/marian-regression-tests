@@ -1,10 +1,10 @@
 [valid] Ep. 1 : Up. 15 : cross-entropy : 307.647 : new best
 [valid] Ep. 1 : Up. 15 : valid-script : 1 : new best
-[valid] Ep. 1 : Up. 30 : cross-entropy : 305.551 : new best
+[valid] Ep. 1 : Up. 30 : cross-entropy : 305.336 : new best
 [valid] Ep. 1 : Up. 30 : valid-script : 2 : new best
-[valid] Ep. 1 : Up. 45 : cross-entropy : 299.442 : new best
+[valid] Ep. 1 : Up. 45 : cross-entropy : 297.463 : new best
 [valid] Ep. 1 : Up. 45 : valid-script : 3 : new best
-[valid] Ep. 1 : Up. 60 : cross-entropy : 281.549 : new best
+[valid] Ep. 1 : Up. 60 : cross-entropy : 277.038 : new best
 [valid] Ep. 1 : Up. 60 : valid-script : 4 : new best
-[valid] Ep. 1 : Up. 75 : cross-entropy : 268.403 : new best
+[valid] Ep. 1 : Up. 75 : cross-entropy : 265.286 : new best
 [valid] Ep. 1 : Up. 75 : valid-script : 5 : new best

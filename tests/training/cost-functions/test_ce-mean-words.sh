@@ -14,7 +14,7 @@ rm -rf ce-mean-words ce-mean-words.log
 mkdir -p ce-mean-words
 
 $MRT_MARIAN/marian \
-    --cost-type ce-mean-words \
+    --cost-type ce-mean-words --clip-norm 0 \
     --seed 9999 --sync-sgd \
     -m ce-mean-words/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \

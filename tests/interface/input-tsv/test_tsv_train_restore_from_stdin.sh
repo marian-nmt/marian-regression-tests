@@ -11,7 +11,7 @@ test -e vocab.de.yml || $MRT_MARIAN/marian-vocab < train.bpe.de > vocab.de.yml
 test -e vocab.en.yml || $MRT_MARIAN/marian-vocab < train.bpe.en > vocab.en.yml
 
 # TODO: Weight decaying in Adam is disabled, because it gives unstable results on GPU
-extra_opts="--no-shuffle --seed 2222 --maxi-batch 1 --maxi-batch-sort none --mini-batch 16 --dim-emb 128 --dim-rnn 256 --disp-freq 2 --type s2s --sync-sgd --optimizer sgd --cost-type ce-mean"
+extra_opts="--no-shuffle --clip-norm 0 --seed 2222 --maxi-batch 1 --maxi-batch-sort none --mini-batch 16 --dim-emb 128 --dim-rnn 256 --disp-freq 2 --type s2s --sync-sgd --optimizer sgd --cost-type ce-mean"
 
 # Step 1: Train a model in one go, up to the update no. 70, and save training logs
 #$MRT_MARIAN/marian \

@@ -14,7 +14,7 @@ mkdir -p train_align
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --cost-type ce-mean --no-shuffle --seed 5555 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.1 \
+    --cost-type ce-mean --no-shuffle --clip-norm 0 --seed 5555 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --learn-rate 0.001 \
     -m train_align/model.npz --tsv -t train2.de-en-aln.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 100 --disp-freq 4 \
     --guided-alignment 2 --guided-alignment-weight 1.0 \

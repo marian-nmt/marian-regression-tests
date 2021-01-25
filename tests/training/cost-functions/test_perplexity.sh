@@ -14,7 +14,7 @@ rm -rf perplexity perplexity.log
 mkdir -p perplexity
 
 $MRT_MARIAN/marian \
-    --cost-type perplexity \
+    --cost-type perplexity --clip-norm 0 \
     --seed 9999 --optimizer sgd --sync-sgd \
     -m perplexity/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \

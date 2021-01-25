@@ -27,7 +27,7 @@ $MRT_MARIAN/marian $extra_opts \
     --disp-freq 10 --valid-freq 20 --after-batches 140 --early-stopping 5 \
     --valid-metrics translation valid-script cross-entropy --valid-script-path ./valid_script_ab.sh \
     --valid-sets valid.mini.bpe.{de,en} \
-    --overwrite --keep-best \
+    --overwrite --keep-best --clip-norm 0 \
     --log valid_reset_stalled_1.log
 
 test -e valid_reset_stalled/model.npz
@@ -43,7 +43,7 @@ $MRT_MARIAN/marian $extra_opts \
     --disp-freq 10 --valid-freq 20 --after-batches 200 --early-stopping 5 --valid-reset-stalled \
     --valid-metrics translation valid-script cross-entropy --valid-script-path ./valid_script_ab.sh \
     --valid-sets valid.mini.bpe.{de,en} \
-    --overwrite --keep-best \
+    --overwrite --keep-best --clip-norm 0 \
     --log valid_reset_stalled_2.log
 
 test -e valid_reset_stalled/model.npz

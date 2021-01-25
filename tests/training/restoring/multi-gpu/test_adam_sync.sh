@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Training with Adam on 2 GPUs (sync-sgd)
+# AUTHOR: snukky
+# TAGS: optimizer adam multigpu
+#####################################################################
+
 # Exit on error
 set -e
 

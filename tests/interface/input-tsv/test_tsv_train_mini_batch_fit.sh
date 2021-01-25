@@ -14,7 +14,7 @@ mkdir -p train_fit
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --cost-type ce-mean --mini-batch-fit -w 500 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd \
+    --cost-type ce-mean --mini-batch-fit -w 500 --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 10 --optimizer sgd --sync-sgd --clip-norm 0 \
     -m train_fit/model.npz --tsv -t train.tsv -v $MRT_MODELS/rnn-spm/vocab.deen.{spm,spm} \
     --after-batches 20 --disp-freq 4 \
     --log train_fit.log

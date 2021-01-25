@@ -11,10 +11,10 @@ test -e train.bpe.en || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.en > tr
 test -e train.bpe.de || head -n 3000 $MRT_DATA/europarl.de-en/corpus.bpe.de > train.bpe.de
 
 $MRT_MARIAN/marian \
-    --no-shuffle --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
+    --no-shuffle --clip-norm 0 --seed 1111 --optimizer sgd --dim-emb 64 --dim-rnn 128 \
     -m final_epoch/model.npz -t train.bpe.{en,de} \
     -v vocab.small.en.yml vocab.small.de.yml --dim-vocabs 50000 50000 \
-    --mini-batch 32 --disp-freq 20 --valid-freq 40 --after-epochs 1 \
+    --mini-batch 32 --disp-freq 20 --valid-freq 40 --after 1e \
     --valid-metrics cross-entropy --valid-sets valid.bpe.{en,de} \
     --valid-log final_epoch.log
 

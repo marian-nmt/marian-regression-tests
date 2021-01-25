@@ -1,5 +1,11 @@
 #!/bin/bash -x
 
+#####################################################################
+# SUMMARY: Training with Adagrad optimizer
+# AUTHOR: snukky
+# TAGS: optimizer adagrad
+#####################################################################
+
 # Exit on error
 set -e
 
@@ -8,7 +14,7 @@ rm -rf adagrad adagrad*.log
 mkdir -p adagrad
 
 $MRT_MARIAN/marian \
-    --no-shuffle --seed 7777 --maxi-batch 1 --maxi-batch-sort none --dim-emb 128 --dim-rnn 256 \
+    --no-shuffle --clip-norm 0 --seed 7777 --maxi-batch 1 --maxi-batch-sort none --dim-emb 128 --dim-rnn 256 \
     -m adagrad/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 10 --after-batches 100 --save-freq 60 --optimizer adagrad --cost-type ce-mean \
     --log adagrad.log
@@ -24,7 +30,7 @@ python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adagrad/model.npz.optimi
 $MRT_TOOLS/diff.sh adagrad.keys.out adagrad.keys.expected > adagrad.keys.diff
 
 python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adagrad/model.npz.optimizer.npz -k "adagrad_gt" > adagrad.gt.out
-$MRT_TOOLS/diff-nums.py --numpy -p 0.001 adagrad.gt.out adagrad.gt.expected -o adagrad.gt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.009 adagrad.gt.out adagrad.gt.expected -o adagrad.gt.diff
 
 # Exit with success code
 exit 0
