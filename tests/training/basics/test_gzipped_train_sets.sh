@@ -22,7 +22,7 @@ test -e gzip/model.npz
 test -e gzip.log
 
 cat gzip.log | $MRT_TOOLS/extract-costs.sh > gzip.out
-$MRT_TOOLS/diff-nums.py gzip.out gzip.expected -p 0.1 -o gzip.diff
+$MRT_TOOLS/diff-nums.py gzip.out gzip.expected -p 0.05 -o gzip.diff
 
 # Exit with success code
 exit 0

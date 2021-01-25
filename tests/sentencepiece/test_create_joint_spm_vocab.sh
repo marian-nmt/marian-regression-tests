@@ -32,7 +32,7 @@ grep -q "Sampling .* from .*corpus.small.de.gz, .*corpus.small.en.gz" vocab.join
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.joint.log
 
 # Extract a textual vocabulary and compare with the expected output
-LC=UTF-8 $MRT_MARIAN/spm_export_vocab --model vocab.joint/vocab.ende.spm | head -n 7800 | sort > vocab.joint.out
+LC=UTF-8 $MRT_MARIAN/spm_export_vocab --model vocab.joint/vocab.ende.spm | sort > vocab.joint.out
 $MRT_TOOLS/diff-nums.py vocab.joint.out vocab.joint.expected -o vocab.joint.diff
 
 # Exit with success code

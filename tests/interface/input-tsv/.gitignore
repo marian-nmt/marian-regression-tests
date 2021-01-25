@@ -13,6 +13,16 @@ train_vocabs_nopaths
 train_lm
 train_empty_lines
 train_extra_tabs
+train_align
+train_align0
+train_align_weights
+train_align_weights_intypes
+train_align_shuffle
+train_align_shuffle_ram
+train_align_stdin
+train_weights
+train_weights0
+train_intypes_stdin
 
 train.de
 train.en
@@ -22,6 +32,7 @@ train.bpe.en
 train.bpe.tsv
 train_empty_lines.tsv
 train_extra_tabs.tsv
+train2*.tsv
 
 valid
 valid.tsv

@@ -33,7 +33,7 @@ grep -q "Sampling at most 2345 lines from" vocab.maxlines.log
 grep -q "Loading SentencePiece vocabulary .*vocab.ende.spm" vocab.maxlines.log
 
 # Extract a textual vocabulary and compare with the expected output
-LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.maxlines/vocab.ende.spm | head -n 3700 | sort > vocab.maxlines.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.maxlines/vocab.ende.spm | sort > vocab.maxlines.out
 $MRT_TOOLS/diff-nums.py vocab.maxlines.out vocab.maxlines.expected -o vocab.maxlines.diff
 
 # Exit with success code

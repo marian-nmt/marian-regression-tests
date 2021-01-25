@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Train using the 'ce-mean' cost function
 # AUTHOR: snukky
+# TAGS: gcc5-fails sync-sgd
 #####################################################################
 
 # Exit on error
@@ -13,7 +14,8 @@ rm -rf ce-mean ce-mean.log
 mkdir -p ce-mean
 
 $MRT_MARIAN/marian \
-    --seed 9999 \
+    --cost-type ce-mean \
+    --seed 9999 --sync-sgd \
     -m ce-mean/model.npz -t $MRT_DATA/train.max50.{en,de} -v vocab.en.yml vocab.de.yml \
     --disp-freq 2 --after-epochs 1 \
     --log ce-mean.log

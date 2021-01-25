@@ -1,5 +1,6 @@
 newstest2014.in
 newstest2014.ref
 
-optimize.bleu
-optimize_aan.bleu
+*.bleu
+*.bin
+*.expected

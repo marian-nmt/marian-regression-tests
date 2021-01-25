@@ -29,11 +29,11 @@ test -e vocab.norm.log
 grep -q "Training SentencePiece vocabulary .*vocab.ende.spm" vocab.norm.log
 
 # Extract a textual vocabulary and compare with the expected output
-LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.norm/vocab.ende.spm | head -n 3900 | sort > vocab.norm.out
+LC_ALL=C $MRT_MARIAN/spm_export_vocab --model vocab.norm/vocab.ende.spm | sort > vocab.norm.out
 $MRT_TOOLS/diff-nums.py vocab.norm.out vocab.norm.expected -o vocab.norm.diff
 
 # Normalization is uppercasing, so check if there is no lowercased ASCII characters
-grep -qvP '[a-z]' vocab.norm.out 
+grep -qvP '[a-z]' vocab.norm.out
 
 # Exit with success code
 exit 0

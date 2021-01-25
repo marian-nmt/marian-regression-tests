@@ -13,6 +13,8 @@ rm -rf sync sync_*.log
 mkdir -p sync
 
 opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.1 --devices 0 1 --sync-sgd"
+# Added because default options has changes
+opts="$opts --cost-type ce-mean --disp-label-counts false"
 
 
 $MRT_MARIAN/marian \

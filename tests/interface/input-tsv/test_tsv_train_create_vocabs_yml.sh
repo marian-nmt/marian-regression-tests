@@ -14,7 +14,7 @@ mkdir -p train_vocabs_yml
 
 # Run marian command
 $MRT_MARIAN/marian \
-    --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
+    --cost-type ce-mean --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd \
     -m train_vocabs_yml/model.npz --tsv -t train.bpe.tsv -v train_vocabs_yml/vocab.de.yml train_vocabs_yml/vocab.en.yml --dim-vocabs 2000 2000 -T train_vocabs_yml \
     --after-batches 20 --disp-freq 2 \
     --log train_vocabs_yml.log

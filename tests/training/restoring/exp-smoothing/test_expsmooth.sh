@@ -8,7 +8,11 @@ rm -rf expsmooth expsmooth_*.log
 mkdir -p expsmooth
 
 
-opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5 --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32"
+opts="--no-shuffle --seed 777 --mini-batch 4 --maxi-batch 1 --maxi-batch-sort none"
+opts="$opts --dim-rnn 64 --dim-emb 32 --optimizer sgd --learn-rate 0.5"
+opts="$opts --valid-sets valid.bpe.en valid.bpe.de --valid-metrics cross-entropy --valid-mini-batch 32"
+# Added because default options has changes
+opts="$opts --cost-type ce-mean --disp-label-counts false"
 
 opt_disp=20
 opt_valid=20
