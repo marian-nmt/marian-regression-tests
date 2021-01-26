@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Make sure that the resulting model is in quantized form
 # AUTHOR: afaji
+# TAGS: clip-norm
 #####################################################################
 
 # Exit on error
@@ -16,7 +17,7 @@ mkdir -p train
 
 # Train an 8-bits model
 $MRT_MARIAN/marian \
-    --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --learn-rate 0.1 --optimizer sgd \
+    --no-shuffle --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --learn-rate 0.1 --optimizer sgd --clip-norm 1 \
     -m train/model.npz -t $MRT_DATA/europarl.de-en/corpus.bpe.{en,de} -v train/vocab.en.yml train/vocab.de.yml \
     --cost-type cross-entropy --sync-sgd --after-batches 10 --disp-freq 2 --quantize-bits 3
 
