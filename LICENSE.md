@@ -1,6 +1,6 @@
 MIT License 
 
-Copyright (c) 2016 Marcin Junczys-Dowmunt, the University of Edinburgh, Adam 
+Copyright (c) 2016-2021 Marcin Junczys-Dowmunt, the University of Edinburgh, Adam 
 Mickiewicz University
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
