@@ -8,6 +8,11 @@
 set -e
 
 # Test code goes here
+test -f $MRT_MODELS/factors/model.npz || exit 1
+test -f $MRT_MODELS/factors/model.npz.decoder.yml || exit 1
+test -f $MRT_MODELS/factors/vocab.en.fsv || exit 1
+test -f $MRT_MODELS/factors/vocab.de.fsv || exit 1
+
 test -f $MRT_DATA/europarl.de-en/toy.bpe.en || exit 1
 test -f $MRT_DATA/europarl.de-en/toy.bpe.de || exit 1
 
