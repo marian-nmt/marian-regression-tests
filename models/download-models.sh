@@ -23,6 +23,7 @@ MODEL_TARBALLS=(
     wnmt18         # WNMT18 student models
     wngt19         # WNGT19 student models
     student-eten   # Et-En student model from https://github.com/browsermt/students
+    factors        # Small En-De model trained with factorized vocabs by Unbabel
     #char-s2s       # A character-level RNN model (obsolete)
 )
 
