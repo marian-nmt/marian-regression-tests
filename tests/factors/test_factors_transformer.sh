@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Training a factored model 
+# SUMMARY: Training a factored model using the transformer model 
 # AUTHOR: pedrodiascoelho
 # TAGS: factors
 #####################################################################

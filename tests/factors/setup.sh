@@ -13,6 +13,11 @@ test -f $MRT_MODELS/factors/model.npz.decoder.yml || exit 1
 test -f $MRT_MODELS/factors/vocab.en.fsv || exit 1
 test -f $MRT_MODELS/factors/vocab.de.fsv || exit 1
 
+test -f $MRT_MODELS/factors/factors_concat/model.npz || exit 1 
+
+test -f $MRT_DATA/europarl.de-en/corpus.bpe.de || exit 1
+test -s vocab.de.yml || $MRT_MARIAN/marian-vocab < $MRT_DATA/europarl.de-en/corpus.bpe.de > vocab.de.yml
+
 test -f $MRT_DATA/europarl.de-en/toy.bpe.en || exit 1
 test -f $MRT_DATA/europarl.de-en/toy.bpe.de || exit 1
 
