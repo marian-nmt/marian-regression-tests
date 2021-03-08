@@ -25,7 +25,7 @@ test -e log_epoch_e/model.npz
 test -e log_epoch_e.log
 
 # Compare actual and expected outputs
-cat log_epoch_e.log | $MRT_TOOLS/strip-timestamps.sh | grep -v '^\[' | sed 's/ : Time.*//' > log_epoch_e.out
+cat log_epoch_e.log | $MRT_TOOLS/strip-timestamps.sh | grep -v '^\[' | grep -v 'Synced' | sed 's/ : Time.*//' > log_epoch_e.out
 $MRT_TOOLS/diff-nums.py log_epoch_e.out log_epoch_e.expected -p 0.01 -o log_epoch_e.diff
 
 # Exit with success code

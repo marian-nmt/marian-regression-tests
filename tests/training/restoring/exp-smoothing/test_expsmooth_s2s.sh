@@ -60,7 +60,8 @@ $MRT_MARIAN/marian \
     --log expsmooth_s2s_1.log
 
 test -e expsmooth_s2s/model.npz
-test -e expsmooth_s2s/model.npz.orig.npz
+# @TODO: test for smoothed parameters in checkpoint file
+# test -e expsmooth_s2s/model.npz.orig.npz
 test -e expsmooth_s2s_1.log
 
 cat expsmooth_s2s_1.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'valid' | sed 's/ : Time.*//' > expsmooth_s2s.out
@@ -74,7 +75,8 @@ $MRT_MARIAN/marian \
     --log expsmooth_s2s_2.log
 
 test -e expsmooth_s2s/model.npz
-test -e expsmooth_s2s/model.npz.orig.npz
+# @TODO: test for smoothed parameters in checkpoint file
+# test -e expsmooth_s2s/model.npz.orig.npz
 test -e expsmooth_s2s_2.log
 
 cat expsmooth_s2s_2.log | $MRT_TOOLS/strip-timestamps.sh | grep "Ep\. " | grep -v 'valid'  | sed 's/ : Time.*//' >> expsmooth_s2s.out
