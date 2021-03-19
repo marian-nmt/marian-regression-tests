@@ -9,6 +9,7 @@ URL=https://romang.blob.core.windows.net/mariandev/regression-tests/data
 # name as the tarball
 DATA_TARBALLS=(
   europarl.de-en
+  exdb_mnist
 )
 
 for name in ${DATA_TARBALLS[@]}; do

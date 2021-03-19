@@ -43,3 +43,4 @@ data/*/*.bpe
 data/*/truecase*
 data/*/*.gz
 data/*.md5
+data/exdb_mnist
