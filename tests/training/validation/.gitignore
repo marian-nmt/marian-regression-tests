@@ -13,3 +13,5 @@ trans_maxlen
 compare-trans
 compare-trans.bleu
 *.temp
+stop_on_any
+devset.??
