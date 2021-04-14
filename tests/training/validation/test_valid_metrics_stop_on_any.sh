@@ -1,9 +1,9 @@
 #!/bin/bash -x
 
 #####################################################################
-# SUMMARY: Test early stopping after stalling on any stop_on_anyation metric
+# SUMMARY: Test early stopping after stalling on any validation metric
 # AUTHOR: snukky
-# TAGS: stop_on_any stop_on_any-script
+# TAGS: valid valid-script
 #####################################################################
 
 # Exit on error
