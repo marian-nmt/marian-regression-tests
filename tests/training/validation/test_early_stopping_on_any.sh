@@ -21,21 +21,21 @@ test -s devset.de || head -n 50 $MRT_MODELS/wngt19/newstest2014.de | sed -r 's/@
 
 # Training sides are intentionaly reversed to test early stopping
 $MRT_MARIAN/marian \
-    --seed 2222 --no-shuffle --clip-norm 1 --maxi-batch 1 --mini-batch 64 -w 2500 \
+    --seed 2222 --no-shuffle --clip-norm 1 --maxi-batch 1 --mini-batch 32 -w 2500 \
     -m stop_on_any/model.npz -t $MRT_DATA/europarl.de-en/corpus.small.{de,en}.gz \
     -v $MRT_MODELS/wngt19/en-de.{spm,spm} \
-    --disp-freq 5 --valid-freq 10 --after-batches 100 \
-    --valid-metrics ce-mean-words valid-script \
+    --disp-freq 5 --valid-freq 10 --after-batches 200 \
+    --valid-metrics valid-script ce-mean-words \
     --valid-script-path ./stop_on_script.sh \
     --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
-    --early-stopping 4 \
-    --valid-log stop_on_any.log
+    --valid-log stop_on_any.log \
+    --early-stopping 4 --early-stopping-on any
 
 test -e stop_on_any/model.npz
 test -e stop_on_any/model.npz.yml
 test -e stop_on_any.log
 
-$MRT_TOOLS/strip-timestamps.sh < stop_on_any.log | grep '\[valid\]'> stop_on_any.out
+$MRT_TOOLS/strip-timestamps.sh < stop_on_any.log | grep '\[valid\]' > stop_on_any.out
 $MRT_TOOLS/diff-nums.py stop_on_any.out stop_on_any.expected -p 0.2 -o stop_on_any.diff
 
 # Exit with success code

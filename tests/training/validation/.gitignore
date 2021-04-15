@@ -14,4 +14,6 @@ compare-trans
 compare-trans.bleu
 *.temp
 stop_on_any
+stop_on_all
+stop_on_1st
 devset.??
