@@ -3,6 +3,7 @@
 #####################################################################
 # SUMMARY: Templated file names for translation outputs with BLEU
 # AUTHOR: snukky
+# TAGS: valid
 #####################################################################
 
 
