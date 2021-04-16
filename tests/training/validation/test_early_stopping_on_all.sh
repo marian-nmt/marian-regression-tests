@@ -27,7 +27,7 @@ $MRT_MARIAN/marian \
     --disp-freq 5 --valid-freq 10 --after-batches 200 \
     --valid-metrics ce-mean-words valid-script \
     --valid-script-path ./stop_on_script.sh \
-    --valid-sets $MRT_DATA/europarl.de-en/toy.bpe.{en,de} \
+    --valid-sets devset.{en,de} \
     --valid-log stop_on_all.log \
     --early-stopping 4 --early-stopping-on all
 
