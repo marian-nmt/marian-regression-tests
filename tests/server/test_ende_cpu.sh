@@ -14,7 +14,7 @@ if [ ! $MRT_MARIAN_USE_MKL ]; then
 fi
 
 clean_up() {
-    kill $SERVER_PID
+    kill $SERVER_PID || :
 }
 trap clean_up EXIT
 
