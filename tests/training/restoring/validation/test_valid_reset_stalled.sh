@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Test the option for resetting stalled validations after the training is resumed
 # AUTHOR: snukky
-# TAGS: restore valid validscript validreset
+# TAGS: restore valid valid-script valid-reset
 #####################################################################
 
 # Exit on error
