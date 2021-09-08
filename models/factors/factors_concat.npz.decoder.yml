@@ -1,0 +1,12 @@
+relative-paths: true
+models:
+  - factors_concat/model.npz
+vocabs:
+  - vocab.en.fsv
+  - vocab.de.yml
+beam-size: 6
+normalize: 0
+word-penalty: 0
+mini-batch: 32
+maxi-batch: 100
+maxi-batch-sort: src

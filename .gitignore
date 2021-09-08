@@ -36,6 +36,8 @@ models/rnn-spm
 models/wngt19
 models/ape
 models/student-eten
+models/factors/*.npz
+models/factors/*/*.npz
 models/*.md5
 
 data/*/corpus.*
