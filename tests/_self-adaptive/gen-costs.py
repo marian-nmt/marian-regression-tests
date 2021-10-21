@@ -46,48 +46,43 @@ def main():
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
-def iterate_over_inputs(config, source, target, inputs):
-    all_costs_and_translations = []
-    files_removed = True
-    has_context = False
-    try:
-        for sline, tline in zip(source, target):
-            if files_removed:
-                sfile = tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False)
-                tfile = tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False)
-                eprint(f"Created temp files for training data: {sfile.name}, {tfile.name}")
-                files_removed = False
-                has_context = False
+def training_file_generator(source, target):
+    begin_sentences = True
+    contains_sentences = False
+    for sline, tline in zip(source, target):
+        if begin_sentences:
+            sfile = tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False)
+            tfile = tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', delete=False)
+            eprint(f"Created temp files for training data: {sfile.name}, {tfile.name}")
+            begin_sentences = False
+            contains_sentences = False
 
-            if sline != "\n" or tline != "\n":
-                eprint("NOOOOOOOO")
-                eprint(sline)
-                eprint(tline)
-                sfile.write(sline)
-                tfile.write(tline)
-                has_context = True
-            else:
-                sfile.close()
-                tfile.close()
-                eprint("AAAAAA")
-                input_line = inputs.readline()
-                if has_context:
-                    costs_and_translations = run_marian(sfile.name, tfile.name, input_line, config)
-                else:
-                    eprint("No context provided, skipping training")
-                    translations = translate_marian(input_line, config)
-                    costs_and_translations = [([], t) for t in translations]
-                all_costs_and_translations.append(costs_and_translations)
-                os.remove(sfile.name)
-                os.remove(tfile.name)
-                files_removed = True
-        # If the files didn't end with a newline, marian wasn't run for the last set of sentences
-        if not files_removed:
+        if sline != "\n" or tline != "\n":
+            eprint("NOOOOOOOO")
+            eprint(sline)
+            eprint(tline)
+            sfile.write(sline)
+            tfile.write(tline)
+            contains_sentences = True
+        else:
             sfile.close()
             tfile.close()
             eprint("AAAAAA")
-            input_line = inputs.readline()
-            if has_context:
+            yield (contains_sentences, sfile, tfile)
+            begin_sentences = True
+
+    # The last non-empty set of sentences can not be delimited with an empty line
+    if contains_sentences:
+        sfile.close()
+        tfile.close()
+        eprint("AAAAAA")
+        yield (contains_sentences, sfile, tfile)
+
+def iterate_over_inputs(config, source, target, inputs):
+    all_costs_and_translations = []
+    try:
+        for input_line, (contains_sentences, sfile, tfile) in zip(inputs, training_file_generator(source, target)):
+            if contains_sentences:
                 costs_and_translations = run_marian(sfile.name, tfile.name, input_line, config)
             else:
                 eprint("No context provided, skipping training")
