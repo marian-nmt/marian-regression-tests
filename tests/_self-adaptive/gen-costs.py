@@ -87,7 +87,7 @@ def iterate_over_inputs(config, source, target, inputs):
             else:
                 eprint("No context provided, skipping training")
                 translations = translate_marian(input_line, config)
-                costs_and_translations = [([], t) for t in translations]
+                costs_and_translations = ([], translations)
             all_costs_and_translations.append(costs_and_translations)
             os.remove(sfile.name)
             os.remove(tfile.name)
