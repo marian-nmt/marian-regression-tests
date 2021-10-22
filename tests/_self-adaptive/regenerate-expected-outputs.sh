@@ -20,7 +20,7 @@ echo "### Generating files for the oracle tests"
 # Generate BLEU
 $MRT_TOOLS/moses-scripts/scripts/generic/multi-bleu.perl -lc ubuntu.ref < oracle.expected > oracle.bleu.expected
 
-echo "\n\n### Generating files for the partial context tests"
+echo -e "\n\n### Generating files for the partial context tests"
 ./gen-costs.py \
     -t ubuntu.contextpart.{src,ref} \
     -m $MODELS/model.npz \
@@ -32,12 +32,12 @@ echo "\n\n### Generating files for the partial context tests"
     --output-transl contextpart.expected
 
 
-echo "\n\n### Generating files for the no context tests"
+echo -e "\n\n### Generating files for the no context tests"
 ./gen-costs.py \
     -t ubuntu.nocontext.{src,ref} \
     -m $MODELS/model.npz \
     -v $MODELS/vocab.{en,de}.json \
     -e 1 \
     --marian-dir ~/prog/cpp/marian-adaptive/build/ \
-    -i ubuntu.nocontext.src \
+    -i ubuntu.src \
     --output-transl nocontext.expected

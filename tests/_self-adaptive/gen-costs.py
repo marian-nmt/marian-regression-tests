@@ -147,6 +147,7 @@ def translate_marian(input_line, config):
                       '--type', 'amun', '-v', c.vocab1, '-v', c.vocab2,
                       '--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2),
                       '--dim-emb', '500'], input=input_line, capture_output=True, text=True)
+    eprint(f"Translate input: {input_line}")
     eprint("STDOUT:")
     eprint(process.stdout)
     eprint("STDERR:")
@@ -161,10 +162,10 @@ def output_costs_and_translations(costs_and_translations, output_costs, output_t
 
     if output_costs is not None:
         all_costs = [cost for costs, _ in costs_and_translations for cost in costs]
-        output_costs.write('\n'.join(all_costs))
+        output_costs.writelines(map(lambda c: c + '\n', all_costs))
     if output_transl is not None:
         all_translations = [translation for _, translations in costs_and_translations for translation in translations]
-        output_transl.write('\n'.join(all_translations))
+        output_transl.writelines(map(lambda t: t + '\n', all_translations))
 
 
 if __name__ == "__main__":
