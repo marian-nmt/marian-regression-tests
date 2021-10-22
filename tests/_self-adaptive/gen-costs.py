@@ -120,7 +120,7 @@ def create_temp_model_copy(model):
 
 def train_marian(sfile, tfile, config):
     c = config
-    process = sp.run([f"{c.marian_dir}/marian", '-m', c.model, '--disp-freq', '1', '--type', 'amun', '-v',
+    process = sp.run([f"{c.marian_dir}/marian", '-m', c.model, '--disp-freq', '1', '--optimizer', 'sgd', '--type', 'amun', '-v',
                       c.vocab1, '-v', c.vocab2, '--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2), '--dim-emb', '500',
                       '--after-epochs', str(c.epochs), '--mini-batch', '1', '-t', sfile, tfile], capture_output=True, text=True)
     eprint("STDOUT:")
