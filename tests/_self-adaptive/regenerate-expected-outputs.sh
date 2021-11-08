@@ -50,3 +50,16 @@ echo -e "\n\n### Generating files for the no context tests"
     --marian-dir ~/prog/cpp/marian-adaptive/build/ \
     -i ubuntu.src \
     --output-transl nocontext.expected
+
+
+echo -e "\n\n### Generating files for the transformer partial context tests"
+./gen-costs.py \
+    -t ubuntu.contextpart.{src,ref} \
+    -m $MRT_MODELS/transformer/model.npz \
+    --type transformer \
+    -v $MRT_MODELS/transformer/vocab.ende.yml{,} \
+    -e 1 \
+    --marian-dir ~/prog/cpp/marian-adaptive/build/ \
+    -i ubuntu.src \
+    --output-costs transformer.contextpart.costs.expected \
+    --output-transl transformer.contextpart.expected
