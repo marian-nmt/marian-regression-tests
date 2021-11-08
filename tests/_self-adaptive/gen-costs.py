@@ -58,16 +58,14 @@ def training_file_generator(source, target):
             contains_sentences = False
 
         if sline != "\n" or tline != "\n":
-            eprint("NOOOOOOOO")
-            eprint(sline)
-            eprint(tline)
+            eprint(sline.rstrip())
+            eprint(tline.rstrip())
             sfile.write(sline)
             tfile.write(tline)
             contains_sentences = True
         else:
             sfile.close()
             tfile.close()
-            eprint("AAAAAA")
             yield (contains_sentences, sfile, tfile)
             begin_sentences = True
 
@@ -75,7 +73,6 @@ def training_file_generator(source, target):
     if contains_sentences:
         sfile.close()
         tfile.close()
-        eprint("AAAAAA")
         yield (contains_sentences, sfile, tfile)
 
 def iterate_over_inputs(config, source, target, inputs):
