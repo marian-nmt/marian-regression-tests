@@ -15,12 +15,17 @@ from dataclasses import dataclass
 class MarianTrainConfig:
     marian_dir: str
     model: str
+    model_type: str
     vocab1: str
     vocab2: str
     dim_vocab1: int
     dim_vocab2: int
+    dim_emb: int
     epochs: int
 
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 def main():
     parser = ag.ArgumentParser()
@@ -29,7 +34,10 @@ def main():
     parser.add_argument('-i', '--input', type=ag.FileType('r', encoding='utf-8'), required=True)
     parser.add_argument('-m', '--model', required=True)
     parser.add_argument('-v', '--vocabs', nargs=2, required=True)
+    parser.add_argument('--dim-vocabs', nargs=2, type=int, required=False)
+    parser.add_argument('--dim-emb', type=int, required=False)
     parser.add_argument('-e', '--epochs', type=int, required=True)
+    parser.add_argument('--type', required=True)
     parser.add_argument('--marian-dir', required=True)
     parser.add_argument('--output-costs', type=ag.FileType('w', encoding='utf-8'))
     parser.add_argument('--output-transl', type=ag.FileType('w', encoding='utf-8'))
@@ -38,13 +46,13 @@ def main():
 
     [sfile, tfile] = args.train_sets
     [vocab1, vocab2] = args.vocabs
-    config = MarianTrainConfig(args.marian_dir, args.model, vocab1, vocab2, 85000, 85000, args.epochs)
+    [dvocab1, dvocab2] = args.dim_vocabs if args.dim_vocabs is not None else [None, None]
+    config = MarianTrainConfig(args.marian_dir, args.model, args.type, vocab1,
+                               vocab2, dvocab1, dvocab1, args.dim_emb, args.epochs)
+    eprint(config)
     costs_and_translations = iterate_over_inputs(config, sfile, tfile, args.input)
     output_costs_and_translations(costs_and_translations, args.output_costs, args.output_transl)
 
-
-def eprint(*args, **kwargs):
-    print(*args, file=sys.stderr, **kwargs)
 
 def training_file_generator(source, target):
     begin_sentences = True
@@ -117,9 +125,15 @@ def create_temp_model_copy(model):
 
 def train_marian(sfile, tfile, config):
     c = config
-    process = sp.run([f"{c.marian_dir}/marian", '-m', c.model, '--disp-freq', '1', '--optimizer', 'sgd', '--type', 'amun', '-v',
-                      c.vocab1, '-v', c.vocab2, '--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2), '--dim-emb', '500',
-                      '--after-epochs', str(c.epochs), '--mini-batch', '1', '-t', sfile, tfile], capture_output=True, text=True)
+
+    args = [f"{c.marian_dir}/marian", '-m', c.model, '--disp-freq', '1', '--optimizer', 'sgd', '--type', c.model_type, '-v',
+            c.vocab1, '-v', c.vocab2, '--after-epochs', str(c.epochs), '--mini-batch', '1', '-t', sfile, tfile]
+    if c.dim_emb is not None:
+        args += ['--dim-emb', str(c.dim_emb)]
+    if c.dim_vocab1 is not None and c.dim_vocab2 is not None:
+        args += ['--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2)]
+    process = sp.run(args, capture_output=True, text=True)
+
     eprint("STDOUT:")
     eprint(process.stdout)
     eprint("STDERR:")
@@ -140,10 +154,15 @@ def extract_costs(output_log):
 
 def translate_marian(input_line, config):
     c = config
-    process = sp.run([f"{c.marian_dir}/marian-decoder", '-m', c.model,
-                      '--type', 'amun', '-v', c.vocab1, '-v', c.vocab2,
-                      '--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2),
-                      '--dim-emb', '500'], input=input_line, capture_output=True, text=True)
+
+    args = [f"{c.marian_dir}/marian-decoder", '-m', c.model,
+            '--type', c.model_type, '-v', c.vocab1, '-v', c.vocab2]
+    if c.dim_emb is not None:
+        args += ['--dim-emb', str(c.dim_emb)]
+    if c.dim_vocab1 is not None and c.dim_vocab2 is not None:
+        args += ['--dim-vocabs', str(c.dim_vocab1), str(c.dim_vocab2)]
+    process = sp.run(args, input=input_line, capture_output=True, text=True)
+
     eprint(f"Translate input: {input_line}")
     eprint("STDOUT:")
     eprint(process.stdout)
