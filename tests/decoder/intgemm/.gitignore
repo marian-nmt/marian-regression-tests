@@ -2,3 +2,5 @@
 *.out.bleu
 *.src
 *.ref
+*.bleu_score
+*.bleu_score.expected

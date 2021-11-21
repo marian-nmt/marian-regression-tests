@@ -48,8 +48,13 @@ python3 $MRT_TOOLS/sacrebleu/sacrebleu.py newstest2018.ref < $prefix.out | tee $
 # BLEU scores calculated on AVX, AVX2, AVX512 should be very similar, but does not have to be identical
 tail -n1 $prefix.*.expected.bleu || true
 
-# Compare with the expected output
-$MRT_TOOLS/diff.sh $prefix.out $prefix.$suffix.expected > $prefix.diff
+# Compare with the expected output, allow up to 20 different lines
+$MRT_TOOLS/diff.sh $prefix.out $prefix.$suffix.expected 20 > $prefix.diff
+
+# Compare BLEU scores
+cut -f3 -d' ' $prefix.out.bleu > $prefix.out.bleu_score
+cut -f3 -d' ' $prefix.$suffix.expected.bleu > $prefix.out.bleu_score.expected
+$MRT_TOOLS/diff-nums.py -a -p 0.9 $prefix.out.bleu_score{,.expected}
 
 
 # Exit with success code
