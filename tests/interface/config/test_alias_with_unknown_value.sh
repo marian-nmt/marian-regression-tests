@@ -14,7 +14,7 @@ mkdir -p alias_unk
 
 # Run with no config file
 $MRT_MARIAN/marian --task some-unknown-alias-option transformer-base --dim-rnn 32 --dim-emb 16 --after-batches 2 \
-    --train-sets $MRT_DATA/europarl.de-en/corpus.bpe.{de,en} --model nonex_config/model.npz --vocabs vocab.de.yml vocab.en.yml \
+    --train-sets $MRT_DATA/europarl.de-en/corpus.bpe.{de,en} --model alias_unk/model.npz --vocabs vocab.de.yml vocab.en.yml \
     > alias_unk.log 2>&1 || true
 
 test -e alias_unk.log
