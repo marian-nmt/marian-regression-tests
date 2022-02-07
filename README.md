@@ -116,7 +116,7 @@ On Jenkins, Marian is compiled using the following commands:
 
     CC=/usr/bin/gcc-8 CXX=/usr/bin/g++-8 CUDAHOSTCXX=/usr/bin/g++8 \
     cmake -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=on \
-        -DCOMPILE_CPU=on -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON \
+        -DCOMPILE_CPU=on -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON -DCOMPILE_SERVER=ON \
         -DCUDA_TOOLKIT_ROOT_DIR=/var/lib/jenkins/cuda-10.1 ..
     make -j
     make test
