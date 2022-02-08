@@ -66,8 +66,11 @@ Notes:
 - Directories and test files with names starting with an underscore are turned
   off and are not traversed or executed by `./run_mrt.sh`.
 - Only some regression tests have been annotated with tags, so, for example,
-  running tests with the tag #scoring will not start all available tests for
-  scoring. The complete tags are #cpu, #server.
+  running tests with the tag #scoring may not start all tests for the scorer.
+  The complete tags are #cpu, #server.
+- Since Marian version 1.10.42, it needs to be compiled with the CMake flag
+  `-DDETERMINISTIC=on` in order to successfully pass multi-GPU regression
+  tests.
 
 
 ## Debugging failed tests
@@ -115,7 +118,7 @@ master branch and a successful compilation with GCC 8.4.0 and CUDA
 On Jenkins, Marian is compiled using the following commands:
 
     CC=/usr/bin/gcc-8 CXX=/usr/bin/g++-8 CUDAHOSTCXX=/usr/bin/g++8 \
-    cmake -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=on \
+    cmake -DDETERMINISTIC=on -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=on \
         -DCOMPILE_CPU=on -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON -DCOMPILE_SERVER=ON \
         -DCUDA_TOOLKIT_ROOT_DIR=/var/lib/jenkins/cuda-10.1 ..
     make -j
