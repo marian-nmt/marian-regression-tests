@@ -18,7 +18,7 @@ $MRT_MARIAN/marian \
     --no-shuffle --clip-norm 1 --seed 1111 --dim-emb 32 --dim-rnn 64 --mini-batch 32 --maxi-batch 1 --maxi-batch-sort none --optimizer sgd --cost-type ce-mean \
     -m rnn/model.npz -t corpus.bpe.{en,de} -v vocab.en.yml vocab.de.yml \
     --after-batches 100 --disp-freq 10 \
-    --guided-alignment corpus.bpe.align --guided-alignment-weight 1.0 --learn-rate 0.1 \
+    --guided-alignment corpus.bpe.align --guided-alignment-weight 1.0 --guided-alignment-cost ce --learn-rate 0.1 \
     --log rnn.log
 
 # Check if files exist
