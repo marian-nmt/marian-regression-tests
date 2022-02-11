@@ -29,7 +29,7 @@ grep -qi "weights from" train_align_weights_intypes.log
 
 # Compare the current output with the expected output
 cat train_align_weights_intypes.log | $MRT_TOOLS/extract-costs.sh > train_align_weights_intypes.out
-$MRT_TOOLS/diff-nums.py train_align_weights_intypes.out train_align_weights.expected -p 0.01 -o train_align_weights_intypes.diff
+$MRT_TOOLS/diff-nums.py train_align_weights_intypes.out train_align_weights.expected -p 0.1 -o train_align_weights_intypes.diff -n 1
 
 # Exit with success code
 exit 0
