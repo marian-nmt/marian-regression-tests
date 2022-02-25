@@ -28,7 +28,7 @@ grep -qi "word alignments from file" rnn.log
 
 # Compare the current output with the expected output
 cat rnn.log | $MRT_TOOLS/extract-costs.sh > rnn.out
-$MRT_TOOLS/diff-nums.py rnn.out rnn.expected -o rnn.diff
+$MRT_TOOLS/diff-nums.py rnn.out rnn.expected -o rnn.diff -p 0.005
 
 # Exit with success code
 exit 0
