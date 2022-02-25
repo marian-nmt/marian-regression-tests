@@ -27,6 +27,12 @@ MODEL_TARBALLS=(
     #char-s2s       # A character-level RNN model (obsolete)
 )
 
+AZCOPY=true
+if ! command -v azcopy &> /dev/null; then
+    echo "Warning: 'azcopy' is not installed in your system. Downloading with 'wget'."
+    AZCOPY=false
+fi
+
 if [ $# -gt 0 ]; then
     echo The list of parameters is not empty.
     echo Skipping models not in the list: $*
@@ -43,7 +49,11 @@ for model in ${MODEL_TARBALLS[@]}; do
     fi
 
     echo Downloading checksum for $file ...
-    wget -nv -O- $URL/$file.md5 > $model.md5.newest
+    if $AZCOPY; then
+        azcopy copy "$URL/$file.md5" $model.md5.newest
+    else
+        wget -nv -O- $URL/$file.md5 > $model.md5.newest
+    fi
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
@@ -51,7 +61,11 @@ for model in ${MODEL_TARBALLS[@]}; do
         echo File $file does not need to be updated
     else
         echo Downloading $file ...
-        wget -nv $URL/$file
+        if $AZCOPY; then
+            azcopy copy "$URL/$file" .
+        else
+            wget -nv $URL/$file
+        fi
         # Extract the archive
         tar zxf $file
         # Remove archive to save disk space

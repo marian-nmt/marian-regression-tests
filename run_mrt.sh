@@ -14,6 +14,8 @@
 #  - NUM_DEVICES - maximum number of GPU devices to be used
 #  - TIMEOUT - maximum duration for execution of a single test in the format
 #    accepted by the timeout command; set to 0 to disable
+#  - MODELS - path to the directory with models, default: ./models
+#  - DATA - path to the directory with data, default: ./data
 
 SHELL=/bin/bash
 
@@ -32,8 +34,13 @@ log "Running on $(hostname) as process $$"
 export MRT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export MRT_TOOLS=$MRT_ROOT/tools
 export MRT_MARIAN="$( realpath ${MARIAN:-$MRT_ROOT/../build} )"
-export MRT_MODELS=$MRT_ROOT/models
-export MRT_DATA=$MRT_ROOT/data
+
+# Print folders which contain models and data for regression tests
+export MRT_MODELS="$( realpath ${MODELS:-$MRT_ROOT/models} )"
+export MRT_DATA="$( realpath ${DATA:-$MRT_ROOT/data} )"
+
+log "Using models from: $MRT_MODELS"
+log "Using data from: $MRT_DATA"
 
 # Try adding build/ to MARIAN for backward compatibility
 if [[ ! -e $MRT_MARIAN/marian-decoder ]]; then
