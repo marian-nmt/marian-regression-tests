@@ -25,7 +25,7 @@ tools: pip
 	git -C $@/sacrebleu pull     || git clone $(GIT_SACREBLEU) $@/sacrebleu
 
 pip: requirements.txt
-	pip3 install --user -r $<
+	python3 -m pip install --user -r $<
 
 models:
 	mkdir -p $@
