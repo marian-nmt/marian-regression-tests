@@ -7,7 +7,8 @@ pure C++ with minimal dependencies.
 This repository contains the regression test framework for the main development
 repository: https://github.com/marian-nmt/marian-dev.
 
-Tests have been developed for Linux for Marian compiled using GCC 7+.
+Tests have been developed for Linux for Marian compiled using GCC 8+ and Nvidia
+Maxwell/Pascal GPUs.
 
 
 ## Structure
