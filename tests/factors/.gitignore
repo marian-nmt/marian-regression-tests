@@ -1,2 +1,4 @@
 factors
+factors_concat
+factors_transformer
 toy.*
