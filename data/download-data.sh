@@ -4,6 +4,12 @@
 # https://github.com/marian-nmt/marian-regression-tests
 
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/data
+TOKEN="${SAS_TOKEN:-}"
+
+# If the SAS token is not provided, switch to to the mirror server
+if [ -z $TOKEN ]; then
+    URL=http://data.statmt.org/romang/marian-regression-tests/data
+fi
 
 # Each tarball is a .tar.gz file that contains a single directory of the same
 # name as the tarball
@@ -12,11 +18,23 @@ DATA_TARBALLS=(
   exdb_mnist
 )
 
+AZCOPY=true
+if ! grep -q "blob\.core\.windows\.net" <<< "$URL"; then
+    AZCOPY=false
+elif ! command -v azcopy &> /dev/null; then
+    echo "Warning: 'azcopy' is not installed in your system. Using wget."
+    AZCOPY=false
+fi
+
 for name in ${DATA_TARBALLS[@]}; do
     file=$name.tar.gz
 
     echo Downloading checksum for $file ...
-    wget -nv -O- $URL/$file.md5 > $name.md5.newest
+    if $AZCOPY; then
+        azcopy copy "$URL/$file.md5?$TOKEN" $name.md5.newest
+    else
+        wget -nv -O- $URL/$file.md5 > $name.md5.newest
+    fi
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
@@ -24,7 +42,11 @@ for name in ${DATA_TARBALLS[@]}; do
         echo File $file does not need to be updated
     else
         echo Downloading $file ...
-        wget -nv $URL/$file
+        if $AZCOPY; then
+            azcopy copy "$URL/$file?$TOKEN" .
+        else
+            wget -nv $URL/$file
+        fi
         # Extract the archive
         tar zxf $file
         # Remove archive to save disk space

@@ -10,6 +10,12 @@
 # https://github.com/marian-nmt/marian-regression-tests
 
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/models
+TOKEN="${SAS_TOKEN:-}"
+
+# If the SAS token is not provided, switch to to the mirror server
+if [ -z $TOKEN ]; then
+    URL=http://data.statmt.org/romang/marian-regression-tests/models
+fi
 
 # Each tarball is a .tar.gz file that contains a single directory of the same
 # name as the tarball without .tar.gz
@@ -28,8 +34,10 @@ MODEL_TARBALLS=(
 )
 
 AZCOPY=true
-if ! command -v azcopy &> /dev/null; then
-    echo "Warning: 'azcopy' is not installed in your system. Downloading with 'wget'."
+if ! grep -q "blob\.core\.windows\.net" <<< "$URL"; then
+    AZCOPY=false
+elif ! command -v azcopy &> /dev/null; then
+    echo "Warning: 'azcopy' is not installed in your system. Using wget."
     AZCOPY=false
 fi
 
@@ -50,7 +58,7 @@ for model in ${MODEL_TARBALLS[@]}; do
 
     echo Downloading checksum for $file ...
     if $AZCOPY; then
-        azcopy copy "$URL/$file.md5" $model.md5.newest
+        azcopy copy "$URL/$file.md5?$TOKEN" $model.md5.newest
     else
         wget -nv -O- $URL/$file.md5 > $model.md5.newest
     fi
@@ -62,7 +70,7 @@ for model in ${MODEL_TARBALLS[@]}; do
     else
         echo Downloading $file ...
         if $AZCOPY; then
-            azcopy copy "$URL/$file" .
+            azcopy copy "$URL/$file?$TOKEN" .
         else
             wget -nv $URL/$file
         fi
