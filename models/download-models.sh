@@ -10,7 +10,7 @@
 # https://github.com/marian-nmt/marian-regression-tests
 
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/models
-TOKEN="${SAS_TOKEN:-}"
+TOKEN="${AZURE_STORAGE_SAS_TOKEN:-}"
 
 # If the SAS token is not provided, switch to to the mirror server
 if [ -z $TOKEN ]; then
