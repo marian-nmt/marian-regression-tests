@@ -12,10 +12,14 @@
 URL=https://romang.blob.core.windows.net/mariandev/regression-tests/models
 TOKEN="${AZURE_STORAGE_SAS_TOKEN:-}"
 
-# If the SAS token is not provided, switch to to the mirror server
+# If the SAS token is not provided, switch to the mirror server
 if [ -z $TOKEN ]; then
+    echo "No SAS token provided. Using statmt.org mirror"
     URL=http://data.statmt.org/romang/marian-regression-tests/models
+else
+    echo "SAS token provided. It has ${#TOKEN} characters"
 fi
+echo "Downloading from: $URL"
 
 # Each tarball is a .tar.gz file that contains a single directory of the same
 # name as the tarball without .tar.gz
@@ -35,9 +39,10 @@ MODEL_TARBALLS=(
 
 AZCOPY=true
 if ! grep -q "blob\.core\.windows\.net" <<< "$URL"; then
+    echo "Warning: URL does not look like Azure blob storage URI. Using wget"
     AZCOPY=false
 elif ! command -v azcopy &> /dev/null; then
-    echo "Warning: 'azcopy' is not installed in your system. Using wget."
+    echo "Warning: azcopy is not installed in your system. Using wget"
     AZCOPY=false
 fi
 
