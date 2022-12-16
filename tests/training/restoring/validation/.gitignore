@@ -6,6 +6,7 @@ valid_stalled
 valid_add
 valid_newbest
 valid_reset_add
+valid_reset_all
 train.*
 valid.*
 dev.bpe.de
