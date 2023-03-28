@@ -9,7 +9,7 @@
 set -e
 
 # Skip if requirements are not met
-if [ ! $MRT_MARIAN_USE_MKL ]; then
+if [ ! $MRT_MARIAN_USE_CPU ]; then
     echo "Marian is not compiled with CPU" 1>&2
     exit 100
 elif ! grep -q "sse2" /proc/cpuinfo; then

@@ -8,8 +8,8 @@
 # Exit on error
 set -e
 
-# Skip if no MKL found
-if [ ! $MRT_MARIAN_USE_MKL ]; then
+# Skip if no CPU found
+if [ ! $MRT_MARIAN_USE_CPU ]; then
     exit 100
 fi
 
