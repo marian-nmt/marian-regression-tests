@@ -16,4 +16,7 @@ compare-trans.bleu
 stop_on_any
 stop_on_all
 stop_on_1st
+eps_stop_on_any
+eps_stop_on_all
+eps_stop_on_1st
 devset.??
