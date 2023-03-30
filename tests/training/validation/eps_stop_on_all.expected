@@ -1,0 +1,16 @@
+[valid] Ep. 1 : Up. 10 : ce-mean-words : 2.61588 : new best
+[valid] Ep. 1 : Up. 10 : valid-script : 11.2 : new best
+[valid] Ep. 1 : Up. 20 : ce-mean-words : 2.58024 : new best
+[valid] Ep. 1 : Up. 20 : valid-script : 11.4 : stalled 1 times (last best: 11.4)
+[valid] Ep. 1 : Up. 30 : ce-mean-words : 2.56749 : new best
+[valid] Ep. 1 : Up. 30 : valid-script : 11.6 : stalled 2 times (last best: 11.6)
+[valid] Ep. 1 : Up. 40 : ce-mean-words : 2.59487 : stalled 1 times (last best: 2.56749)
+[valid] Ep. 1 : Up. 40 : valid-script : 12.1 : new best
+[valid] Ep. 1 : Up. 50 : ce-mean-words : 2.58416 : stalled 2 times (last best: 2.56749)
+[valid] Ep. 1 : Up. 50 : valid-script : 12.3 : stalled 1 times (last best: 12.3)
+[valid] Ep. 1 : Up. 60 : ce-mean-words : 2.60018 : stalled 3 times (last best: 2.56749)
+[valid] Ep. 1 : Up. 60 : valid-script : 12.5 : stalled 2 times (last best: 12.5)
+[valid] Ep. 1 : Up. 70 : ce-mean-words : 2.6712 : stalled 4 times (last best: 2.56749)
+[valid] Ep. 1 : Up. 70 : valid-script : 12 : stalled 3 times (last best: 12.5)
+[valid] Ep. 1 : Up. 80 : ce-mean-words : 2.71746 : stalled 5 times (last best: 2.56749)
+[valid] Ep. 1 : Up. 80 : valid-script : 12.2 : stalled 4 times (last best: 12.5)
