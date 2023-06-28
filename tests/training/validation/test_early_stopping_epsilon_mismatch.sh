@@ -14,7 +14,7 @@ rm -rf eps_stop_mismatch eps_stop_mismatch.log
 mkdir -p eps_stop_mismatch
 
 # Test code goes here
-cp $MRT_MODELS/wngt19/model.small.npz eps_stop_on_1st/model.npz
+cp $MRT_MODELS/wngt19/model.small.npz eps_stop_mismatch/model.npz
 
 $MRT_MARIAN/marian \
     --seed 2222 --no-shuffle --clip-norm 1 --maxi-batch 1 --mini-batch 32 -w 2500 \
