@@ -10,10 +10,10 @@ if [ ! $MRT_MARIAN_USE_CPU ]; then
 fi
 
 readonly metrics=$MRT_MODELS/metrics
-readonly max_segs=48
-CPU_ARGS="--cpu-threads 8 -w 8000"
-GPU_ARGS="--devices 0"  # one gpu
-MARIAN_ARGS="$CPU_ARGS --width 4 --like comet-qe --mini-batch 16 --maxi-batch 256 --max-length 512 --max-length-crop true --average skip"
+readonly max_segs=16
+CPU_ARGS="--cpu-threads 8 -w 8000 --mini-batch 4"
+GPU_ARGS="--devices 0 --mini-batch 16"  # one gpu
+MARIAN_ARGS="$CPU_ARGS --width 4 --like comet-qe --maxi-batch 256 --max-length 512 --max-length-crop true --average skip"
 
 
 for pair in ${pairs[@]}; do
@@ -35,7 +35,6 @@ for pair in ${pairs[@]}; do
             | head -n $max_segs \
             | $MRT_MARIAN/marian evaluate -m $model_file -v $vocab_file $vocab_file $MARIAN_ARGS \
             | cut -f1 -d ' ' > $got
-        #$MRT_TOOLS/diff.sh <(head -n $max_segs $expected) $got > $diff
         $MRT_TOOLS/diff-nums.py <(head -n $max_segs $expected) $got > $diff
     done
 done

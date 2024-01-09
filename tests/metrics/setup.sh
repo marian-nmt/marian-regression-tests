@@ -49,7 +49,7 @@ for pair in ${pairs[@]}; do
     for met in ${metrics[@]}; do
         test -e $MRT_DATA/metrics/$pair.score.$met.seg.expect || {
             echo "Missing $MRT_DATA/metrics/$pair.score.$met.seg.expect" >&2
-            #exit 100 #TODO: create the missing .expect files
+            exit 100 #TODO: create the missing .expect files
         }
     done
 done
