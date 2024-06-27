@@ -3,16 +3,16 @@
 # If you want to add new data files to our Azure storage, open an issue at
 # https://github.com/marian-nmt/marian-regression-tests
 
-URL=https://romang.blob.core.windows.net/mariandev/regression-tests/data
-TOKEN="${AZURE_STORAGE_SAS_TOKEN:-}"
+HF_REPO=marian-nmt/marian-regression-tests
+which huggingface-cli > /dev/null || {
+    echo "huggingface-cli is not found in PATH. Please install it (pip install huggingface-cli) and try again."
+    exit 1
+}
+echo "huggingface-cli is found. Proceeding with the downloads from $HF_REPO"
 
-# If the SAS token is not provided, switch to the mirror server
-if [ -z $TOKEN ]; then
-    echo "No SAS token provided. Using statmt.org mirror"
-    URL=http://data.statmt.org/romang/marian-regression-tests/data
-else
-    echo "SAS token provided. It has ${#TOKEN} characters"
-fi
+hf-get(){
+    huggingface-cli download --repo-type dataset $HF_REPO $@
+}
 echo "Downloading from: $URL"
 
 # Each tarball is a .tar.gz file that contains a single directory of the same
@@ -22,42 +22,29 @@ DATA_TARBALLS=(
   exdb_mnist
 )
 
-AZCOPY=true
-if ! grep -q "blob\.core\.windows\.net" <<< "$URL"; then
-    echo "Warning: URL does not look like Azure blob storage URI. Using wget"
-    AZCOPY=false
-elif ! command -v azcopy &> /dev/null; then
-    echo "Warning: azcopy is not installed in your system. Using wget"
-    AZCOPY=false
-fi
 
 for name in ${DATA_TARBALLS[@]}; do
     file=$name.tar.gz
-
     echo Downloading checksum for $file ...
-    if $AZCOPY; then
-        azcopy copy "$URL/$file.md5?$TOKEN" $name.md5.newest
-    else
-        wget -nv -O- $URL/$file.md5 > $name.md5.newest
-    fi
+
+    # hf cli doesnt allow specifying the output file name, it downloads under a directory
+    # and also, it repeats dir structure of remote repo in the local one
+    hf-get data/$name.md5 --force-download --quiet --local-dir .hub/
+
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
-    if test -s $name.md5 && $(cmp --silent $name.md5 $name.md5.newest); then
+    if test -s $name.md5 && $(cmp --silent $name.md5 .hub/data/$name.md5); then
         echo File $file does not need to be updated
     else
         echo Downloading $file ...
-        if $AZCOPY; then
-            azcopy copy "$URL/$file?$TOKEN" .
-        else
-            wget -nv $URL/$file
-        fi
+        hf-get data/$file --force-download --local-dir .hub/
         # Extract the archive
-        tar zxf $file
+        tar zxf .hub/data/$file
         # Remove archive to save disk space
-        rm -f $file
+        rm -f .hub/data/$file
     fi
-    mv $name.md5.newest $name.md5
+    mv .hub/data/$name.md5 $name.md5
 done
 
 DATA_FILES=(

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Download model tarballs from Marian storage on Azure.
 #
@@ -9,17 +9,18 @@
 # If you want to add new model files to our Azure storage, open an issue at
 # https://github.com/marian-nmt/marian-regression-tests
 
-URL=https://romang.blob.core.windows.net/mariandev/regression-tests/models
-TOKEN="${AZURE_STORAGE_SAS_TOKEN:-}"
 
-# If the SAS token is not provided, switch to the mirror server
-if [ -z $TOKEN ]; then
-    echo "No SAS token provided. Using statmt.org mirror"
-    URL=http://data.statmt.org/romang/marian-regression-tests/models
-else
-    echo "SAS token provided. It has ${#TOKEN} characters"
-fi
-echo "Downloading from: $URL"
+HF_REPO=marian-nmt/marian-regression-tests
+which  huggingface-cli > /dev/null || {
+    echo "huggingface-cli is not found in PATH. Please install it (pip install huggingface-cli) and try again."
+    exit 1
+}
+
+echo "huggingface-cli is found. Proceeding with the downloads from $HF_REPO"
+
+hf-get(){
+    huggingface-cli download --repo-type dataset $HF_REPO $@
+}
 
 # Each tarball is a .tar.gz file that contains a single directory of the same
 # name as the tarball without .tar.gz
@@ -37,14 +38,6 @@ MODEL_TARBALLS=(
     #char-s2s       # A character-level RNN model (obsolete)
 )
 
-AZCOPY=true
-if ! grep -q "blob\.core\.windows\.net" <<< "$URL"; then
-    echo "Warning: URL does not look like Azure blob storage URI. Using wget"
-    AZCOPY=false
-elif ! command -v azcopy &> /dev/null; then
-    echo "Warning: azcopy is not installed in your system. Using wget"
-    AZCOPY=false
-fi
 
 if [ $# -gt 0 ]; then
     echo The list of parameters is not empty.
@@ -62,27 +55,24 @@ for model in ${MODEL_TARBALLS[@]}; do
     fi
 
     echo Downloading checksum for $file ...
-    if $AZCOPY; then
-        azcopy copy "$URL/$file.md5?$TOKEN" $model.md5.newest
-    else
-        wget -nv -O- $URL/$file.md5 > $model.md5.newest
-    fi
+    # hf cli doesnt allow specifying the output file name, it downloads under a directory
+    # and also, it repeats dir structure of remote repo in the local one
+    hf-get models/$model.md5 --force-download --quiet --local-dir .hub/
 
     # Do not download if the checksum files are identical, i.e. the archive has
     # not been updated since it was downloaded last time
-    if test -s $model.md5 && $(cmp --silent $model.md5 $model.md5.newest); then
+    if test -s $model.md5 && $(cmp --silent $model.md5 .hub/models/$model.md5); then
         echo File $file does not need to be updated
     else
         echo Downloading $file ...
-        if $AZCOPY; then
-            azcopy copy "$URL/$file?$TOKEN" .
-        else
-            wget -nv $URL/$file
-        fi
+        # download; note: it will be stored in the models/ directory
+        hf-get models/$file --force-download --local-dir .hub/
         # Extract the archive
-        tar zxf $file
+        tar zxf .hub/models/$file
         # Remove archive to save disk space
-        rm -f $file
+        rm -f .hub/models/$file
+        # remove old md5 file
     fi
-    mv $model.md5.newest $model.md5
+    rm -f $model.md5
+    mv .hub/models/$model.md5 $model.md5
 done
