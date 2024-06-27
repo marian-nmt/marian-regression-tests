@@ -5,7 +5,7 @@
 
 HF_REPO=marian-nmt/marian-regression-tests
 which huggingface-cli > /dev/null || {
-    echo "huggingface-cli is not found in PATH. Please install it (pip install huggingface-cli) and try again."
+    echo "huggingface-cli is not found in PATH. Please install it (pip install huggingface_hub) and try again."
     exit 1
 }
 echo "huggingface-cli is found. Proceeding with the downloads from $HF_REPO"
