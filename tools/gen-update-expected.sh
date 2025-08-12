@@ -108,6 +108,63 @@ collect_pairs FAILED failed_tests "$commented_tmp" commented
 pair_count=$(grep -c '^backup_and_update ' "$active_tmp" || true)
 failed_pair_count=$(grep -c '^# backup_and_update ' "$commented_tmp" || true)
 
+# Collect existing pairs (exp|out) to avoid duplicates when adding cross-file pairs
+existing_pairs_tmp=$(mktemp)
+grep '^backup_and_update ' "$active_tmp" | awk '{print $2"|"$3}' > "$existing_pairs_tmp" || true
+grep '^# backup_and_update ' "$commented_tmp" | awk '{print $3"|"$4}' >> "$existing_pairs_tmp" || true
+
+# Function to add cross-file pairs discovered in test scripts where the .out and .expected
+# filenames do not share the same basename (e.g. batched.out vs scores.expected)
+add_cross_file_pairs() {
+  local status="$1"   # PASSED or FAILED
+  shift
+  local -n scripts_ref=$1
+  local target_file="$2" # active or commented temp file path
+  local mode="$3"        # active or commented
+  local script
+  for script in "${scripts_ref[@]}"; do
+    [[ -f "$script" ]] || continue
+    local dir
+    dir=$(dirname "$script")
+    # Parse diff-nums.py invocation lines
+    while IFS= read -r line; do
+      # Skip if line doesn't reference diff-nums.py
+      [[ "$line" == *diff-nums.py* ]] || continue
+      # Strip output redirection and options, capture last two positional tokens ending with .out/.expected in either order
+      # We first tokenize the line
+      local tokens=()
+      while read -r tok; do tokens+=("$tok"); done < <(echo "$line" | sed -E 's/>.*//' | tr ' ' '\n')
+      local oFile="" eFile=""
+      local t
+      for ((i=0;i<${#tokens[@]};++i)); do
+        t="${tokens[$i]}"
+        [[ "$t" == -* ]] && continue # option
+        if [[ "$t" == *.out ]]; then oFile="$t"; fi
+        if [[ "$t" == *.expected ]]; then eFile="$t"; fi
+      done
+      [[ -n "$oFile" && -n "$eFile" ]] || continue
+      # Prepend directory if relative
+      [[ "$oFile" == /* ]] || oFile="$dir/$oFile"
+      [[ "$eFile" == /* ]] || eFile="$dir/$eFile"
+      # Skip if sibling basenames match (already handled) or pair already exists
+      if [[ "${oFile%.out}.expected" == "$eFile" ]]; then continue; fi
+      local key="$eFile|$oFile"
+      if grep -Fqx "$key" "$existing_pairs_tmp"; then continue; fi
+      echo "$key" >> "$existing_pairs_tmp"
+      if [[ "$mode" == active ]]; then
+        printf 'backup_and_update %q %q # cross-file\n' "$eFile" "$oFile" >> "$target_file"
+      else
+        printf '# FAILED (cross-file): %s -> %s <= %s\n' "$script" "$eFile" "$oFile" >> "$target_file"
+        printf '# backup_and_update %q %q # cross-file\n' "$eFile" "$oFile" >> "$target_file"
+      fi
+    done < "$script"
+  done
+}
+
+# Append cross-file pairs for passed and failed tests
+add_cross_file_pairs PASSED passed_tests "$active_tmp" active
+add_cross_file_pairs FAILED failed_tests "$commented_tmp" commented
+
 cat > "$OUT_SCRIPT" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
