@@ -51,6 +51,5 @@ tail -n1 $prefix.*.expected.bleu || true
 # Compare with the expected output
 $MRT_TOOLS/diff.sh $prefix.out $prefix.$suffix.expected > $prefix.diff
 
-
 # Exit with success code
 exit 0

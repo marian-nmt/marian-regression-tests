@@ -105,6 +105,8 @@ while IFS= read -r _line; do
   # Normalize tool path prefixes so they are executable from repo root
   sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff-nums\.py#\1tools/diff-nums.py#g')
   sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff\.sh#\1tools/diff.sh#g')
+  # Remove any leading set -x trace markers like '+ ' (possibly repeated)
+  sanitized_display=$(echo "$sanitized_display" | sed -E 's/^(\+[[:space:]]+)+//')
   diff_cmds["$key_rel"]="$sanitized_display"
     fi
   fi
@@ -159,6 +161,8 @@ parse_additional_diff_cmds() {
           fi
           sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff-nums\.py#\1tools/diff-nums.py#g')
           sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff\.sh#\1tools/diff.sh#g')
+          # Remove leading '+ ' trace markers
+          sanitized_display=$(echo "$sanitized_display" | sed -E 's/^(\+[[:space:]]+)+//')
           diff_cmds["$key_rel"]="$sanitized_display"
         fi
       done < "$file"
@@ -243,6 +247,50 @@ collect_pairs() {
         printf '# backup_and_update %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
       fi
     done
+    # Fallback: for FAILED tests only, handle pattern where expected file has dynamic suffix (e.g. prefix.$suffix.expected)
+    if [[ "$mode" == commented ]]; then
+      for out_file in "$test_dir"/*.out; do
+        [[ -f "$out_file" ]] || continue
+        local base_no_ext
+        base_no_ext=$(basename "$out_file" .out)
+        local direct_exp="$test_dir/$base_no_ext.expected"
+        # Skip if standard expected present (already processed) or we already emitted pairs for this test
+        if [[ -f "$direct_exp" || -n ${had_failed_pair[$test_path]+_} ]]; then
+          continue
+        fi
+        # Gather variant expected files
+        local variants=()
+        while IFS= read -r -d '' v; do variants+=("$v"); done < <(find "$test_dir" -maxdepth 1 -type f -name "$base_no_ext.*.expected" -print0 | sort -z)
+        [[ ${#variants[@]} -gt 0 ]] || continue
+        local chosen=""
+        if [[ ${#variants[@]} -eq 1 ]]; then
+          chosen="${variants[0]}"
+        else
+          # Heuristic: prefer one containing avx512, else avx2, else first
+            for cand in "${variants[@]}"; do [[ "$cand" == *avx512* ]] && chosen="$cand" && break; done
+            if [[ -z "$chosen" ]]; then for cand in "${variants[@]}"; do [[ "$cand" == *avx2* ]] && chosen="$cand" && break; done; fi
+            [[ -n "$chosen" ]] || chosen="${variants[0]}"
+        fi
+        # Evidence check: associated diff file (base.diff) or diff_cmd for chosen (unlikely due to variable expansion)
+        local diff_file_candidate="${out_file%.out}.diff"
+        local key_rel_candidate
+        key_rel_candidate=$(relpath "$chosen")
+        if [[ -z ${diff_cmds[$key_rel_candidate]+_} && ! ( -s "$diff_file_candidate" ) ]]; then
+          continue
+        fi
+        rel_exp=$(relpath "$chosen"); rel_out=$(relpath "$out_file")
+        emitted_any=1
+        had_failed_pair["$test_path"]=1
+        printf '# FAILED (variant-expected): %s -> %s\n' "$test_path" "$rel_exp" >> "$outfile"
+        if [[ -n ${diff_cmds[$key_rel_candidate]+_} ]]; then
+          printf '# diff: %s\n' "${diff_cmds[$key_rel_candidate]}" >> "$outfile"
+        else
+          printf '# diff (reconstruct): diff -u %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
+        fi
+        produce_diff_snippet "$rel_exp" "$rel_out" >> "$outfile"
+        printf '# backup_and_update %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
+      done
+    fi
     shopt -u nullglob
     if [[ "$mode" == commented && $emitted_any -eq 0 ]]; then
       # Mark lack of diff evidence (unless already had a pair earlier in same test_dir loop)
