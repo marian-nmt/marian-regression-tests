@@ -46,3 +46,6 @@ data/*/truecase*
 data/*/*.gz
 data/*.md5
 data/exdb_mnist
+
+# Generated helper script (do not version):
+tools/update-expected-from-previous.sh
