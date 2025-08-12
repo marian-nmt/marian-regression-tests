@@ -59,6 +59,9 @@ mapfile -t failed_tests < <(grep -E 'Running tests/.+\.sh \.\.\. failed' "$LOG_F
 # occasionally misspelled variants like diff-numps.py. Output redirection ('> file.diff')
 # is stripped so the command, when copied, shows output in the console.
 declare -A diff_cmds
+declare -A missing_logs        # failed test -> 1 if its .log file missing
+declare -A had_failed_pair     # failed test -> 1 if at least one failed exp/out pair emitted
+declare -A no_diff_evidence    # failed test -> 1 if processed but produced no diff evidence
 while IFS= read -r _line; do
   # Need both an .expected and a .out reference and either the word 'diff' or 'diff-nums'
   [[ "$_line" == *.expected* && "$_line" == *.out* ]] || continue
@@ -167,6 +170,11 @@ parse_additional_diff_cmds() {
 parse_additional_diff_cmds passed_tests
 parse_additional_diff_cmds failed_tests
 
+# Record missing per-test logs for failed tests (after augmentation parsing)
+for t in "${failed_tests[@]}"; do
+  [[ -f "$t.log" ]] || missing_logs["$t"]=1
+done
+
 if [[ ${#passed_tests[@]} -eq 0 ]]; then
   echo "No passed tests found to process." >&2
 fi
@@ -206,6 +214,7 @@ collect_pairs() {
     test_dir=$(dirname "$test_path")
     [[ -d "$test_dir" ]] || continue
     shopt -s nullglob
+    local emitted_any=0
     for out_file in "$test_dir"/*.out; do
       [[ -f "$out_file" ]] || continue
       local exp_file="${out_file%.out}.expected"
@@ -215,9 +224,16 @@ collect_pairs() {
         printf 'backup_and_update %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
       else
         rel_exp=$(relpath "$exp_file"); rel_out=$(relpath "$out_file")
+        # For failed listing, include only if we have a captured diff command OR a non-empty .diff artifact.
+        local diff_file="${exp_file%.expected}.diff"
+        key_rel=$(relpath "$exp_file")
+        if [[ -z ${diff_cmds[$key_rel]+_} && ! ( -s "$diff_file" ) ]]; then
+          continue  # Skip: no evidence this pair was actually diffed by this failing script
+        fi
+        emitted_any=1
+        had_failed_pair["$test_path"]=1
         printf '# FAILED: %s -> %s\n' "$test_path" "$rel_exp" >> "$outfile"
         # If we saw an original diff command referencing this expected file, include it.
-        key_rel=$(relpath "$exp_file")
         if [[ -n ${diff_cmds[$key_rel]+_} ]]; then
           printf '# diff: %s\n' "${diff_cmds[$key_rel]}" >> "$outfile"
         else
@@ -228,6 +244,12 @@ collect_pairs() {
       fi
     done
     shopt -u nullglob
+    if [[ "$mode" == commented && $emitted_any -eq 0 ]]; then
+      # Mark lack of diff evidence (unless already had a pair earlier in same test_dir loop)
+      if [[ -z ${had_failed_pair[$test_path]+_} ]]; then
+        no_diff_evidence["$test_path"]=1
+      fi
+    fi
   done
 }
 
@@ -309,6 +331,30 @@ add_cross_file_pairs() {
 add_cross_file_pairs PASSED passed_tests "$active_tmp" active
 add_cross_file_pairs FAILED failed_tests "$commented_tmp" commented
 
+# Append summary for failed tests with no diff evidence or missing logs
+summary_tmp=$(mktemp)
+{
+  any_entry=0
+  for t in "${failed_tests[@]}"; do
+    if [[ -n ${had_failed_pair[$t]+_} ]]; then
+      continue
+    fi
+    # Determine notes without triggering set -u (use +_ guards)
+    status_notes=()
+    [[ -n ${missing_logs[$t]+_} ]] && status_notes+=("missing-log")
+    [[ -n ${no_diff_evidence[$t]+_} ]] && status_notes+=("no-diff-lines")
+    [[ ${#status_notes[@]} -eq 0 ]] && status_notes+=("unspecified")
+    if [[ $any_entry -eq 0 ]]; then
+      echo "# === FAILED TESTS WITHOUT DIFF EVIDENCE SUMMARY ==="
+      any_entry=1
+    fi
+    printf '# SUMMARY: %s [%s]\n' "$t" "${status_notes[*]}"
+  done
+  if [[ $any_entry -eq 1 ]]; then
+    echo "# === END NO DIFF EVIDENCE SUMMARY ==="
+  fi
+} >> "$summary_tmp"
+
 cat > "$OUT_SCRIPT" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
@@ -362,10 +408,16 @@ echo -e "# === BEGIN FAILED TEST CANDIDATES (commented) ===" >> "$OUT_SCRIPT"
 cat "$commented_tmp" >> "$OUT_SCRIPT"
 echo -e "# === END FAILED TEST CANDIDATES ===\n" >> "$OUT_SCRIPT"
 
+# Append summary (missing logs / no diff evidence)
+if [[ -f "$summary_tmp" ]]; then
+  cat "$summary_tmp" >> "$OUT_SCRIPT"
+  echo >> "$OUT_SCRIPT"
+fi
+
 cat >> "$OUT_SCRIPT" <<'EOF'
 echo "Update complete: $updated updated, $skipped skipped." >&2
 EOF
 
 chmod +x "$OUT_SCRIPT"
 echo "Generated $OUT_SCRIPT with $pair_count active pairs and $failed_pair_count commented candidate pairs." >&2
-rm -f "$active_tmp" "$commented_tmp"
+rm -f "$active_tmp" "$commented_tmp" "$summary_tmp"
