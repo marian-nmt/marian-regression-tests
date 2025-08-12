@@ -16,8 +16,9 @@ updated=0
 skipped=0
 
 backup_and_update() {
-  local exp="$1"; shift
-  local out="$2"; shift
+  # Usage: backup_and_update <expected-file> <out-file>
+  local exp="$1"
+  local out="$2"
   if [[ ! -f "$exp" || ! -f "$out" ]]; then
     echo "[skip] Missing file for pair: $exp | $out" >&2
     ((skipped++))
@@ -85,6 +86,12 @@ backup_and_update tests/decoder/shortlist/rnn_cpu.expected tests/decoder/shortli
 backup_and_update tests/decoder/shortlist/rnn_gpu.expected tests/decoder/shortlist/rnn_gpu.out
 backup_and_update tests/decoder/shortlist/rnn_cpu.expected tests/decoder/shortlist/rnn_cpu.out
 backup_and_update tests/decoder/shortlist/rnn_gpu.expected tests/decoder/shortlist/rnn_gpu.out
+backup_and_update tests/decoder/wmt16/nbest.expected tests/decoder/wmt16/nbest.out
+backup_and_update tests/decoder/wmt16/text.expected tests/decoder/wmt16/text.out
+backup_and_update tests/decoder/wmt16/nbest.expected tests/decoder/wmt16/nbest.out
+backup_and_update tests/decoder/wmt16/text.expected tests/decoder/wmt16/text.out
+backup_and_update tests/decoder/wmt16/nbest.expected tests/decoder/wmt16/nbest.out
+backup_and_update tests/decoder/wmt16/text.expected tests/decoder/wmt16/text.out
 backup_and_update tests/decoder/wmt17/nbest.expected tests/decoder/wmt17/nbest.out
 backup_and_update tests/decoder/wmt17/text.expected tests/decoder/wmt17/text.out
 backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
@@ -92,6 +99,28 @@ backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decod
 backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
 backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
 backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
+backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
+backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out
+backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
+backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
+backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
+backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
+backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out
+backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
+backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
+backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
+backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
+backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out
+backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
+backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
+backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
+backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
+backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out
+backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
+backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
+backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
+backup_and_update tests/examples/iris/iris.expected tests/examples/iris/iris.out
+backup_and_update tests/examples/mnist/ffnn.expected tests/examples/mnist/ffnn.out
 backup_and_update tests/interface/config/dump_alias.expected tests/interface/config/dump_alias.out
 backup_and_update tests/interface/config/dump_expand.expected tests/interface/config/dump_expand.out
 backup_and_update tests/interface/config/dump_minimal.expected tests/interface/config/dump_minimal.out
@@ -1198,6 +1227,18 @@ backup_and_update tests/interface/input-tsv/train_vocabs.expected tests/interfac
 backup_and_update tests/interface/input-tsv/train_vocabs_yml.expected tests/interface/input-tsv/train_vocabs_yml.out
 backup_and_update tests/interface/input-tsv/train_weights.expected tests/interface/input-tsv/train_weights.out
 backup_and_update tests/interface/input-tsv/valid.expected tests/interface/input-tsv/valid.out
+backup_and_update tests/models/wmt16-ende/marian.b6n.expected tests/models/wmt16-ende/marian.b6n.out
+backup_and_update tests/models/wmt16-ende/marian.b6n.expected tests/models/wmt16-ende/marian.b6n.out
+backup_and_update tests/models/wmt16-ende/marian.b6n.expected tests/models/wmt16-ende/marian.b6n.out
+backup_and_update tests/models/wmt17-ende/marian.b6n.expected tests/models/wmt17-ende/marian.b6n.out
+backup_and_update tests/models/wnmt18/student_small_aan.expected tests/models/wnmt18/student_small_aan.out
+backup_and_update tests/models/wnmt18/student_small.expected tests/models/wnmt18/student_small.out
+backup_and_update tests/models/wnmt18/student_small_aan.expected tests/models/wnmt18/student_small_aan.out
+backup_and_update tests/models/wnmt18/student_small.expected tests/models/wnmt18/student_small.out
+backup_and_update tests/models/wnmt18/student_small_aan.expected tests/models/wnmt18/student_small_aan.out
+backup_and_update tests/models/wnmt18/student_small.expected tests/models/wnmt18/student_small.out
+backup_and_update tests/models/wnmt18/student_small_aan.expected tests/models/wnmt18/student_small_aan.out
+backup_and_update tests/models/wnmt18/student_small.expected tests/models/wnmt18/student_small.out
 backup_and_update tests/scorer/align/align.expected tests/scorer/align/align.out
 backup_and_update tests/scorer/align/nbest.expected tests/scorer/align/nbest.out
 backup_and_update tests/scorer/align/soft.expected tests/scorer/align/soft.out
@@ -1325,6 +1366,765 @@ backup_and_update tests/sentencepiece/vocab.maxlines.expected tests/sentencepiec
 backup_and_update tests/sentencepiece/vocab.norm.expected tests/sentencepiece/vocab.norm.out
 backup_and_update tests/sentencepiece/vocabs.de.expected tests/sentencepiece/vocabs.de.out
 backup_and_update tests/sentencepiece/vocabs.en.expected tests/sentencepiece/vocabs.en.out
+backup_and_update tests/server/text.align.expected tests/server/text.align.out
+backup_and_update tests/server/text.expected tests/server/text.out
+backup_and_update tests/server/text.someempty.expected tests/server/text.someempty.out
+backup_and_update tests/server/text.align.expected tests/server/text.align.out
+backup_and_update tests/server/text.expected tests/server/text.out
+backup_and_update tests/server/text.someempty.expected tests/server/text.someempty.out
+backup_and_update tests/server/text.align.expected tests/server/text.align.out
+backup_and_update tests/server/text.expected tests/server/text.out
+backup_and_update tests/server/text.someempty.expected tests/server/text.someempty.out
+backup_and_update tests/server/text.align.expected tests/server/text.align.out
+backup_and_update tests/server/text.expected tests/server/text.out
+backup_and_update tests/server/text.someempty.expected tests/server/text.someempty.out
+backup_and_update tests/training/basics/gzip.expected tests/training/basics/gzip.out
+backup_and_update tests/training/basics/tiny.expected tests/training/basics/tiny.out
+backup_and_update tests/training/basics/gzip.expected tests/training/basics/gzip.out
+backup_and_update tests/training/basics/tiny.expected tests/training/basics/tiny.out
+backup_and_update tests/training/basics/gzip.expected tests/training/basics/gzip.out
+backup_and_update tests/training/basics/tiny.expected tests/training/basics/tiny.out
+backup_and_update tests/training/basics/gzip.expected tests/training/basics/gzip.out
+backup_and_update tests/training/basics/tiny.expected tests/training/basics/tiny.out
+backup_and_update tests/training/basics/gzip.expected tests/training/basics/gzip.out
+backup_and_update tests/training/basics/tiny.expected tests/training/basics/tiny.out
+backup_and_update tests/training/cost-functions/ce-mean.expected tests/training/cost-functions/ce-mean.out
+backup_and_update tests/training/cost-functions/ce-mean-words.expected tests/training/cost-functions/ce-mean-words.out
+backup_and_update tests/training/cost-functions/ce-sum.expected tests/training/cost-functions/ce-sum.out
+backup_and_update tests/training/cost-functions/perplexity.expected tests/training/cost-functions/perplexity.out
+backup_and_update tests/training/cost-functions/ce-mean.expected tests/training/cost-functions/ce-mean.out
+backup_and_update tests/training/cost-functions/ce-mean-words.expected tests/training/cost-functions/ce-mean-words.out
+backup_and_update tests/training/cost-functions/ce-sum.expected tests/training/cost-functions/ce-sum.out
+backup_and_update tests/training/cost-functions/perplexity.expected tests/training/cost-functions/perplexity.out
+backup_and_update tests/training/cost-functions/ce-mean.expected tests/training/cost-functions/ce-mean.out
+backup_and_update tests/training/cost-functions/ce-mean-words.expected tests/training/cost-functions/ce-mean-words.out
+backup_and_update tests/training/cost-functions/ce-sum.expected tests/training/cost-functions/ce-sum.out
+backup_and_update tests/training/cost-functions/perplexity.expected tests/training/cost-functions/perplexity.out
+backup_and_update tests/training/cost-functions/ce-mean.expected tests/training/cost-functions/ce-mean.out
+backup_and_update tests/training/cost-functions/ce-mean-words.expected tests/training/cost-functions/ce-mean-words.out
+backup_and_update tests/training/cost-functions/ce-sum.expected tests/training/cost-functions/ce-sum.out
+backup_and_update tests/training/cost-functions/perplexity.expected tests/training/cost-functions/perplexity.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/data-weighting/maxibatch.expected tests/training/features/data-weighting/maxibatch.out
+backup_and_update tests/training/features/data-weighting/sqlite.expected tests/training/features/data-weighting/sqlite.out
+backup_and_update tests/training/features/data-weighting/sqlite_word.expected tests/training/features/data-weighting/sqlite_word.out
+backup_and_update tests/training/features/data-weighting/train.expected tests/training/features/data-weighting/train.out
+backup_and_update tests/training/features/data-weighting/valid.expected tests/training/features/data-weighting/valid.out
+backup_and_update tests/training/features/data-weighting/word_eos.expected tests/training/features/data-weighting/word_eos.out
+backup_and_update tests/training/features/data-weighting/word_maxibatch.expected tests/training/features/data-weighting/word_maxibatch.out
+backup_and_update tests/training/features/data-weighting/word_twos.expected tests/training/features/data-weighting/word_twos.out
+backup_and_update tests/training/features/data-weighting/word_twos_sync.expected tests/training/features/data-weighting/word_twos_sync.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth.expected tests/training/features/exp-smoothing/expsmooth.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth_sync.expected tests/training/features/exp-smoothing/expsmooth_sync.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth_sync.valid.expected tests/training/features/exp-smoothing/expsmooth_sync.valid.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth.valid.expected tests/training/features/exp-smoothing/expsmooth.valid.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth.expected tests/training/features/exp-smoothing/expsmooth.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth_sync.expected tests/training/features/exp-smoothing/expsmooth_sync.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth_sync.valid.expected tests/training/features/exp-smoothing/expsmooth_sync.valid.out
+backup_and_update tests/training/features/exp-smoothing/expsmooth.valid.expected tests/training/features/exp-smoothing/expsmooth.valid.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_all.expected tests/training/features/lr-decay/lrdecay_stalled_all.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_any.expected tests/training/features/lr-decay/lrdecay_stalled_any.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled.expected tests/training/features/lr-decay/lrdecay_stalled.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_all.expected tests/training/features/lr-decay/lrdecay_stalled_all.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_any.expected tests/training/features/lr-decay/lrdecay_stalled_any.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled.expected tests/training/features/lr-decay/lrdecay_stalled.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_all.expected tests/training/features/lr-decay/lrdecay_stalled_all.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled_any.expected tests/training/features/lr-decay/lrdecay_stalled_any.out
+backup_and_update tests/training/features/lr-decay/lrdecay_stalled.expected tests/training/features/lr-decay/lrdecay_stalled.out
+backup_and_update tests/training/features/mixed-ensembles/s2s_transf.expected tests/training/features/mixed-ensembles/s2s_transf.out
+backup_and_update tests/training/features/mixed-ensembles/two_s2s.expected tests/training/features/mixed-ensembles/two_s2s.out
+backup_and_update tests/training/features/mixed-ensembles/s2s_transf.expected tests/training/features/mixed-ensembles/s2s_transf.out
+backup_and_update tests/training/features/mixed-ensembles/two_s2s.expected tests/training/features/mixed-ensembles/two_s2s.out
+backup_and_update tests/training/features/mixed-ensembles/s2s_transf.expected tests/training/features/mixed-ensembles/s2s_transf.out
+backup_and_update tests/training/features/mixed-ensembles/two_s2s.expected tests/training/features/mixed-ensembles/two_s2s.out
+backup_and_update tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out
+backup_and_update tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out
+backup_and_update tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out
+backup_and_update tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out
+backup_and_update tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out
+backup_and_update tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out
+backup_and_update tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out
+backup_and_update tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out
+backup_and_update tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out
+backup_and_update tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out
+backup_and_update tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out
+backup_and_update tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out
+backup_and_update tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out
+backup_and_update tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out
+backup_and_update tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out
+backup_and_update tests/training/models/lm/lm.expected tests/training/models/lm/lm.out
+backup_and_update tests/training/models/lm/lm.scores.expected tests/training/models/lm/lm.scores.out
+backup_and_update tests/training/models/lm/lm-transformer.expected tests/training/models/lm/lm-transformer.out
+backup_and_update tests/training/models/lm/lm-transformer.scores.expected tests/training/models/lm/lm-transformer.scores.out
+backup_and_update tests/training/models/lm/lm.expected tests/training/models/lm/lm.out
+backup_and_update tests/training/models/lm/lm.scores.expected tests/training/models/lm/lm.scores.out
+backup_and_update tests/training/models/lm/lm-transformer.expected tests/training/models/lm/lm-transformer.out
+backup_and_update tests/training/models/lm/lm-transformer.scores.expected tests/training/models/lm/lm-transformer.scores.out
+backup_and_update tests/training/models/multi-source/multi-s2s.expected tests/training/models/multi-source/multi-s2s.out
+backup_and_update tests/training/models/multi-source/multi-transformer.expected tests/training/models/multi-source/multi-transformer.out
+backup_and_update tests/training/models/multi-source/multi-s2s.expected tests/training/models/multi-source/multi-s2s.out
+backup_and_update tests/training/models/multi-source/multi-transformer.expected tests/training/models/multi-source/multi-transformer.out
+backup_and_update tests/training/models/nematus/encdec_depth.expected tests/training/models/nematus/encdec_depth.out
+backup_and_update tests/training/models/nematus/wmt17.expected tests/training/models/nematus/wmt17.out
+backup_and_update tests/training/models/nematus/encdec_depth.expected tests/training/models/nematus/encdec_depth.out
+backup_and_update tests/training/models/nematus/wmt17.expected tests/training/models/nematus/wmt17.out
+backup_and_update tests/training/models/nematus/encdec_depth.expected tests/training/models/nematus/encdec_depth.out
+backup_and_update tests/training/models/nematus/wmt17.expected tests/training/models/nematus/wmt17.out
+backup_and_update tests/training/models/transformer/transformer.expected tests/training/models/transformer/transformer.out
+backup_and_update tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out
+backup_and_update tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out
+backup_and_update tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out
+backup_and_update tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out
+backup_and_update tests/training/restarting/sgd_2e.expected tests/training/restarting/sgd_2e.out
+backup_and_update tests/training/restarting/sgd_sync_2e.expected tests/training/restarting/sgd_sync_2e.out
+backup_and_update tests/training/restarting/sgd_2e.expected tests/training/restarting/sgd_2e.out
+backup_and_update tests/training/restarting/sgd_sync_2e.expected tests/training/restarting/sgd_sync_2e.out
+backup_and_update tests/training/restarting/sgd_2e.expected tests/training/restarting/sgd_2e.out
+backup_and_update tests/training/restarting/sgd_sync_2e.expected tests/training/restarting/sgd_sync_2e.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.expected tests/training/restoring/exp-smoothing/expsmooth.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.expected tests/training/restoring/exp-smoothing/expsmooth_sync.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.valid.expected tests/training/restoring/exp-smoothing/expsmooth_sync.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.valid.expected tests/training/restoring/exp-smoothing/expsmooth.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.expected tests/training/restoring/exp-smoothing/expsmooth.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.expected tests/training/restoring/exp-smoothing/expsmooth_sync.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.valid.expected tests/training/restoring/exp-smoothing/expsmooth_sync.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.valid.expected tests/training/restoring/exp-smoothing/expsmooth.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.expected tests/training/restoring/exp-smoothing/expsmooth.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.expected tests/training/restoring/exp-smoothing/expsmooth_s2s.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.expected tests/training/restoring/exp-smoothing/expsmooth_sync.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth_sync.valid.expected tests/training/restoring/exp-smoothing/expsmooth_sync.valid.out
+backup_and_update tests/training/restoring/exp-smoothing/expsmooth.valid.expected tests/training/restoring/exp-smoothing/expsmooth.valid.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync_cpu.expected tests/training/restoring/multi-gpu/adam_sync_cpu.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync.expected tests/training/restoring/multi-gpu/adam_sync.out
+backup_and_update tests/training/restoring/multi-gpu/async.expected tests/training/restoring/multi-gpu/async.out
+backup_and_update tests/training/restoring/multi-gpu/async.unsorted.expected tests/training/restoring/multi-gpu/async.unsorted.out
+backup_and_update tests/training/restoring/multi-gpu/sync.expected tests/training/restoring/multi-gpu/sync.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync_cpu.expected tests/training/restoring/multi-gpu/adam_sync_cpu.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync.expected tests/training/restoring/multi-gpu/adam_sync.out
+backup_and_update tests/training/restoring/multi-gpu/async.expected tests/training/restoring/multi-gpu/async.out
+backup_and_update tests/training/restoring/multi-gpu/async.unsorted.expected tests/training/restoring/multi-gpu/async.unsorted.out
+backup_and_update tests/training/restoring/multi-gpu/sync.expected tests/training/restoring/multi-gpu/sync.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync_cpu.expected tests/training/restoring/multi-gpu/adam_sync_cpu.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync.expected tests/training/restoring/multi-gpu/adam_sync.out
+backup_and_update tests/training/restoring/multi-gpu/async.expected tests/training/restoring/multi-gpu/async.out
+backup_and_update tests/training/restoring/multi-gpu/async.unsorted.expected tests/training/restoring/multi-gpu/async.unsorted.out
+backup_and_update tests/training/restoring/multi-gpu/sync.expected tests/training/restoring/multi-gpu/sync.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync_cpu.expected tests/training/restoring/multi-gpu/adam_sync_cpu.out
+backup_and_update tests/training/restoring/multi-gpu/adam_sync.expected tests/training/restoring/multi-gpu/adam_sync.out
+backup_and_update tests/training/restoring/multi-gpu/async.expected tests/training/restoring/multi-gpu/async.out
+backup_and_update tests/training/restoring/multi-gpu/async.unsorted.expected tests/training/restoring/multi-gpu/async.unsorted.out
+backup_and_update tests/training/restoring/multi-gpu/sync.expected tests/training/restoring/multi-gpu/sync.out
+backup_and_update tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out
+backup_and_update tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out
+backup_and_update tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out
+backup_and_update tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out
+backup_and_update tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out
+backup_and_update tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out
+backup_and_update tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out
+backup_and_update tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out
+backup_and_update tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out
+backup_and_update tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out
+backup_and_update tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out
+backup_and_update tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out
+backup_and_update tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out
+backup_and_update tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out
+backup_and_update tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out
+backup_and_update tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out
+backup_and_update tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/restoring/validation/valid_add.expected tests/training/restoring/validation/valid_add.out
+backup_and_update tests/training/restoring/validation/valid_lowisbet.expected tests/training/restoring/validation/valid_lowisbet.out
+backup_and_update tests/training/restoring/validation/valid_newbest.expected tests/training/restoring/validation/valid_newbest.out
+backup_and_update tests/training/restoring/validation/valid.expected tests/training/restoring/validation/valid.out
+backup_and_update tests/training/restoring/validation/valid_reset_add.expected tests/training/restoring/validation/valid_reset_add.out
+backup_and_update tests/training/restoring/validation/valid_reset_all.expected tests/training/restoring/validation/valid_reset_all.out
+backup_and_update tests/training/restoring/validation/valid_reset_stalled.expected tests/training/restoring/validation/valid_reset_stalled.out
+backup_and_update tests/training/restoring/validation/valid_stalled.expected tests/training/restoring/validation/valid_stalled.out
+backup_and_update tests/training/scheduler/log_epoch_e.expected tests/training/scheduler/log_epoch_e.out
+backup_and_update tests/training/scheduler/log_epoch_t.expected tests/training/scheduler/log_epoch_t.out
+backup_and_update tests/training/scheduler/log_epoch_u.expected tests/training/scheduler/log_epoch_u.out
+backup_and_update tests/training/scheduler/log_epoch_e.expected tests/training/scheduler/log_epoch_e.out
+backup_and_update tests/training/scheduler/log_epoch_t.expected tests/training/scheduler/log_epoch_t.out
+backup_and_update tests/training/scheduler/log_epoch_u.expected tests/training/scheduler/log_epoch_u.out
+backup_and_update tests/training/scheduler/log_epoch_e.expected tests/training/scheduler/log_epoch_e.out
+backup_and_update tests/training/scheduler/log_epoch_t.expected tests/training/scheduler/log_epoch_t.out
+backup_and_update tests/training/scheduler/log_epoch_u.expected tests/training/scheduler/log_epoch_u.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
+backup_and_update tests/training/validation/eps_stop_on_1st.expected tests/training/validation/eps_stop_on_1st.out
+backup_and_update tests/training/validation/eps_stop_on_all.expected tests/training/validation/eps_stop_on_all.out
+backup_and_update tests/training/validation/final_batch.expected tests/training/validation/final_batch.out
+backup_and_update tests/training/validation/final_epoch.expected tests/training/validation/final_epoch.out
+backup_and_update tests/training/validation/final_match.expected tests/training/validation/final_match.out
+backup_and_update tests/training/validation/stop_on_1st.expected tests/training/validation/stop_on_1st.out
+backup_and_update tests/training/validation/stop_on_all.expected tests/training/validation/stop_on_all.out
+backup_and_update tests/training/validation/stop_on_any.expected tests/training/validation/stop_on_any.out
+backup_and_update tests/training/validation/trans_empty_lines.expected tests/training/validation/trans_empty_lines.out
+backup_and_update tests/training/validation/trans_maxlen.expected tests/training/validation/trans_maxlen.out
+backup_and_update tests/training/validation/trans.expected tests/training/validation/trans.out
+backup_and_update tests/training/validation/valid.expected tests/training/validation/valid.out
 # === END PASSED TEST UPDATES ===
 
 # === BEGIN FAILED TEST CANDIDATES (commented) ===
@@ -1412,12 +2212,33 @@ backup_and_update tests/sentencepiece/vocabs.en.expected tests/sentencepiece/voc
 # FAILED: tests/decoder/shortlist/test_shortlist_server.sh -> tests/decoder/shortlist/rnn_gpu.expected
 # diff (reconstruct): diff -u tests/decoder/shortlist/rnn_gpu.expected tests/decoder/shortlist/rnn_gpu.out > tests/decoder/shortlist/rnn_gpu.diff
 # backup_and_update tests/decoder/shortlist/rnn_gpu.expected tests/decoder/shortlist/rnn_gpu.out
+# FAILED: tests/decoder/wmt16/test_nbest.sh -> tests/decoder/wmt16/nbest.expected
+# diff (reconstruct): diff -u tests/decoder/wmt16/nbest.expected tests/decoder/wmt16/nbest.out > tests/decoder/wmt16/nbest.diff
+# backup_and_update tests/decoder/wmt16/nbest.expected tests/decoder/wmt16/nbest.out
+# FAILED: tests/decoder/wmt16/test_nbest.sh -> tests/decoder/wmt16/text.expected
+# diff (reconstruct): diff -u tests/decoder/wmt16/text.expected tests/decoder/wmt16/text.out > tests/decoder/wmt16/text.diff
+# backup_and_update tests/decoder/wmt16/text.expected tests/decoder/wmt16/text.out
 # FAILED: tests/decoder/wmt17/test_nbest.sh -> tests/decoder/wmt17/nbest.expected
 # diff (reconstruct): diff -u tests/decoder/wmt17/nbest.expected tests/decoder/wmt17/nbest.out > tests/decoder/wmt17/nbest.diff
 # backup_and_update tests/decoder/wmt17/nbest.expected tests/decoder/wmt17/nbest.out
 # FAILED: tests/decoder/wmt17/test_nbest.sh -> tests/decoder/wmt17/text.expected
 # diff (reconstruct): diff -u tests/decoder/wmt17/text.expected tests/decoder/wmt17/text.out > tests/decoder/wmt17/text.diff
 # backup_and_update tests/decoder/wmt17/text.expected tests/decoder/wmt17/text.out
+# FAILED: tests/decoder/word-scores/test_word_scores_batch.sh -> tests/decoder/word-scores/ensemble.expected
+# diff (reconstruct): diff -u tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out > tests/decoder/word-scores/ensemble.diff
+# backup_and_update tests/decoder/word-scores/ensemble.expected tests/decoder/word-scores/ensemble.out
+# FAILED: tests/decoder/word-scores/test_word_scores_batch.sh -> tests/decoder/word-scores/nbest_align_nrm.expected
+# diff (reconstruct): diff -u tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out > tests/decoder/word-scores/nbest_align_nrm.diff
+# backup_and_update tests/decoder/word-scores/nbest_align_nrm.expected tests/decoder/word-scores/nbest_align_nrm.out
+# FAILED: tests/decoder/word-scores/test_word_scores_batch.sh -> tests/decoder/word-scores/nbest.expected
+# diff (reconstruct): diff -u tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out > tests/decoder/word-scores/nbest.diff
+# backup_and_update tests/decoder/word-scores/nbest.expected tests/decoder/word-scores/nbest.out
+# FAILED: tests/decoder/word-scores/test_word_scores_batch.sh -> tests/decoder/word-scores/scores_nrm.expected
+# diff (reconstruct): diff -u tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out > tests/decoder/word-scores/scores_nrm.diff
+# backup_and_update tests/decoder/word-scores/scores_nrm.expected tests/decoder/word-scores/scores_nrm.out
+# FAILED: tests/decoder/word-scores/test_word_scores_batch.sh -> tests/decoder/word-scores/scores.expected
+# diff (reconstruct): diff -u tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out > tests/decoder/word-scores/scores.diff
+# backup_and_update tests/decoder/word-scores/scores.expected tests/decoder/word-scores/scores.out
 # FAILED: tests/interface/input/test_score_with_blank_lines.sh -> tests/interface/input/blank_decode.expected
 # diff (reconstruct): diff -u tests/interface/input/blank_decode.expected tests/interface/input/blank_decode.out > tests/interface/input/blank_decode.diff
 # backup_and_update tests/interface/input/blank_decode.expected tests/interface/input/blank_decode.out
@@ -1493,6 +2314,9 @@ backup_and_update tests/sentencepiece/vocabs.en.expected tests/sentencepiece/voc
 # FAILED: tests/interface/input-tsv/test_tsv_train_stdin_2_epochs.sh -> tests/interface/input-tsv/valid.expected
 # diff (reconstruct): diff -u tests/interface/input-tsv/valid.expected tests/interface/input-tsv/valid.out > tests/interface/input-tsv/valid.diff
 # backup_and_update tests/interface/input-tsv/valid.expected tests/interface/input-tsv/valid.out
+# FAILED: tests/models/wmt17-ende/test_translation_b6n.sh -> tests/models/wmt17-ende/marian.b6n.expected
+# diff (reconstruct): diff -u tests/models/wmt17-ende/marian.b6n.expected tests/models/wmt17-ende/marian.b6n.out > tests/models/wmt17-ende/marian.b6n.diff
+# backup_and_update tests/models/wmt17-ende/marian.b6n.expected tests/models/wmt17-ende/marian.b6n.out
 # FAILED: tests/scorer/align/test_scorer_align_nbest.sh -> tests/scorer/align/align.expected
 # diff (reconstruct): diff -u tests/scorer/align/align.expected tests/scorer/align/align.out > tests/scorer/align/align.diff
 # backup_and_update tests/scorer/align/align.expected tests/scorer/align/align.out
@@ -1595,6 +2419,186 @@ backup_and_update tests/sentencepiece/vocabs.en.expected tests/sentencepiece/voc
 # FAILED: tests/sentencepiece/test_sentencepiece_normalization.sh -> tests/sentencepiece/vocabs.en.expected
 # diff (reconstruct): diff -u tests/sentencepiece/vocabs.en.expected tests/sentencepiece/vocabs.en.out > tests/sentencepiece/vocabs.en.diff
 # backup_and_update tests/sentencepiece/vocabs.en.expected tests/sentencepiece/vocabs.en.out
+# FAILED: tests/server/test_ende_batch32.sh -> tests/server/text.align.expected
+# diff (reconstruct): diff -u tests/server/text.align.expected tests/server/text.align.out > tests/server/text.align.diff
+# backup_and_update tests/server/text.align.expected tests/server/text.align.out
+# FAILED: tests/server/test_ende_batch32.sh -> tests/server/text.expected
+# diff (reconstruct): diff -u tests/server/text.expected tests/server/text.out > tests/server/text.diff
+# backup_and_update tests/server/text.expected tests/server/text.out
+# FAILED: tests/server/test_ende_batch32.sh -> tests/server/text.someempty.expected
+# diff (reconstruct): diff -u tests/server/text.someempty.expected tests/server/text.someempty.out > tests/server/text.someempty.diff
+# backup_and_update tests/server/text.someempty.expected tests/server/text.someempty.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_rnn.sh -> tests/training/features/guided-alignment/rnn.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out > tests/training/features/guided-alignment/rnn.diff
+# backup_and_update tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_rnn.sh -> tests/training/features/guided-alignment/transformer.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out > tests/training/features/guided-alignment/transformer.diff
+# backup_and_update tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_transformer.sh -> tests/training/features/guided-alignment/rnn.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out > tests/training/features/guided-alignment/rnn.diff
+# backup_and_update tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_transformer.sh -> tests/training/features/guided-alignment/transformer.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out > tests/training/features/guided-alignment/transformer.diff
+# backup_and_update tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_transformer_sync.sh -> tests/training/features/guided-alignment/rnn.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out > tests/training/features/guided-alignment/rnn.diff
+# backup_and_update tests/training/features/guided-alignment/rnn.expected tests/training/features/guided-alignment/rnn.out
+# FAILED: tests/training/features/guided-alignment/test_guided_alignment_transformer_sync.sh -> tests/training/features/guided-alignment/transformer.expected
+# diff (reconstruct): diff -u tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out > tests/training/features/guided-alignment/transformer.diff
+# backup_and_update tests/training/features/guided-alignment/transformer.expected tests/training/features/guided-alignment/transformer.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel_log.sh -> tests/training/features/quantized-model/model_centers.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out > tests/training/features/quantized-model/model_centers.diff
+# backup_and_update tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel_log.sh -> tests/training/features/quantized-model/quantized-log4bit.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out > tests/training/features/quantized-model/quantized-log4bit.diff
+# backup_and_update tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel_log.sh -> tests/training/features/quantized-model/quantized-opt.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out > tests/training/features/quantized-model/quantized-opt.diff
+# backup_and_update tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel_log.sh -> tests/training/features/quantized-model/quantized.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out > tests/training/features/quantized-model/quantized.diff
+# backup_and_update tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel_log.sh -> tests/training/features/quantized-model/quantized-with-bias.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out > tests/training/features/quantized-model/quantized-with-bias.diff
+# backup_and_update tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel.sh -> tests/training/features/quantized-model/model_centers.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out > tests/training/features/quantized-model/model_centers.diff
+# backup_and_update tests/training/features/quantized-model/model_centers.expected tests/training/features/quantized-model/model_centers.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel.sh -> tests/training/features/quantized-model/quantized-log4bit.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out > tests/training/features/quantized-model/quantized-log4bit.diff
+# backup_and_update tests/training/features/quantized-model/quantized-log4bit.expected tests/training/features/quantized-model/quantized-log4bit.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel.sh -> tests/training/features/quantized-model/quantized-opt.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out > tests/training/features/quantized-model/quantized-opt.diff
+# backup_and_update tests/training/features/quantized-model/quantized-opt.expected tests/training/features/quantized-model/quantized-opt.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel.sh -> tests/training/features/quantized-model/quantized.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out > tests/training/features/quantized-model/quantized.diff
+# backup_and_update tests/training/features/quantized-model/quantized.expected tests/training/features/quantized-model/quantized.out
+# FAILED: tests/training/features/quantized-model/test_quantmodel.sh -> tests/training/features/quantized-model/quantized-with-bias.expected
+# diff (reconstruct): diff -u tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out > tests/training/features/quantized-model/quantized-with-bias.diff
+# backup_and_update tests/training/features/quantized-model/quantized-with-bias.expected tests/training/features/quantized-model/quantized-with-bias.out
+# FAILED: tests/training/features/right-left/test_right_left_rnn.sh -> tests/training/features/right-left/rnn.expected
+# diff (reconstruct): diff -u tests/training/features/right-left/rnn.expected tests/training/features/right-left/rnn.out > tests/training/features/right-left/rnn.diff
+# backup_and_update tests/training/features/right-left/rnn.expected tests/training/features/right-left/rnn.out
+# FAILED: tests/training/features/right-left/test_right_left_rnn.sh -> tests/training/features/right-left/transformer.expected
+# diff (reconstruct): diff -u tests/training/features/right-left/transformer.expected tests/training/features/right-left/transformer.out > tests/training/features/right-left/transformer.diff
+# backup_and_update tests/training/features/right-left/transformer.expected tests/training/features/right-left/transformer.out
+# FAILED: tests/training/features/right-left/test_right_left_transformer.sh -> tests/training/features/right-left/rnn.expected
+# diff (reconstruct): diff -u tests/training/features/right-left/rnn.expected tests/training/features/right-left/rnn.out > tests/training/features/right-left/rnn.diff
+# backup_and_update tests/training/features/right-left/rnn.expected tests/training/features/right-left/rnn.out
+# FAILED: tests/training/features/right-left/test_right_left_transformer.sh -> tests/training/features/right-left/transformer.expected
+# diff (reconstruct): diff -u tests/training/features/right-left/transformer.expected tests/training/features/right-left/transformer.out > tests/training/features/right-left/transformer.diff
+# backup_and_update tests/training/features/right-left/transformer.expected tests/training/features/right-left/transformer.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu_expsmooth.sh -> tests/training/multi-gpu/async_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out > tests/training/multi-gpu/async_sgd.diff
+# backup_and_update tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu_expsmooth.sh -> tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out > tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu_expsmooth.sh -> tests/training/multi-gpu/sync_sgd_1gpu.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out > tests/training/multi-gpu/sync_sgd_1gpu.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu_expsmooth.sh -> tests/training/multi-gpu/sync_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out > tests/training/multi-gpu/sync_sgd.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu.sh -> tests/training/multi-gpu/async_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out > tests/training/multi-gpu/async_sgd.diff
+# backup_and_update tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu.sh -> tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out > tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu.sh -> tests/training/multi-gpu/sync_sgd_1gpu.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out > tests/training/multi-gpu/sync_sgd_1gpu.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd_1gpu.sh -> tests/training/multi-gpu/sync_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out > tests/training/multi-gpu/sync_sgd.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd.sh -> tests/training/multi-gpu/async_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out > tests/training/multi-gpu/async_sgd.diff
+# backup_and_update tests/training/multi-gpu/async_sgd.expected tests/training/multi-gpu/async_sgd.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd.sh -> tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out > tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.expected tests/training/multi-gpu/sync_sgd_1gpu_expsmooth.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd.sh -> tests/training/multi-gpu/sync_sgd_1gpu.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out > tests/training/multi-gpu/sync_sgd_1gpu.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd_1gpu.expected tests/training/multi-gpu/sync_sgd_1gpu.out
+# FAILED: tests/training/multi-gpu/test_sync_sgd.sh -> tests/training/multi-gpu/sync_sgd.expected
+# diff (reconstruct): diff -u tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out > tests/training/multi-gpu/sync_sgd.diff
+# backup_and_update tests/training/multi-gpu/sync_sgd.expected tests/training/multi-gpu/sync_sgd.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_fit.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out > tests/training/restoring/corpus/corpus_fit.diff
+# backup_and_update tests/training/restoring/corpus/corpus_fit.expected tests/training/restoring/corpus/corpus_fit.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_fit_transformer_sync.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out > tests/training/restoring/corpus/corpus_fit_transformer_sync.diff
+# backup_and_update tests/training/restoring/corpus/corpus_fit_transformer_sync.expected tests/training/restoring/corpus/corpus_fit_transformer_sync.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_maxi.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out > tests/training/restoring/corpus/corpus_maxi.diff
+# backup_and_update tests/training/restoring/corpus/corpus_maxi.expected tests/training/restoring/corpus/corpus_maxi.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_noshuf.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out > tests/training/restoring/corpus/corpus_noshuf.diff
+# backup_and_update tests/training/restoring/corpus/corpus_noshuf.expected tests/training/restoring/corpus/corpus_noshuf.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_one.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out > tests/training/restoring/corpus/corpus_one.diff
+# backup_and_update tests/training/restoring/corpus/corpus_one.expected tests/training/restoring/corpus/corpus_one.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out > tests/training/restoring/corpus/corpus.diff
+# backup_and_update tests/training/restoring/corpus/corpus.expected tests/training/restoring/corpus/corpus.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_s2s.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out > tests/training/restoring/corpus/corpus_s2s.diff
+# backup_and_update tests/training/restoring/corpus/corpus_s2s.expected tests/training/restoring/corpus/corpus_s2s.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/corpus_s2s_sync.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out > tests/training/restoring/corpus/corpus_s2s_sync.diff
+# backup_and_update tests/training/restoring/corpus/corpus_s2s_sync.expected tests/training/restoring/corpus/corpus_s2s_sync.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/finetune.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out > tests/training/restoring/corpus/finetune.diff
+# backup_and_update tests/training/restoring/corpus/finetune.expected tests/training/restoring/corpus/finetune.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/sqlite_maxi.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out > tests/training/restoring/corpus/sqlite_maxi.diff
+# backup_and_update tests/training/restoring/corpus/sqlite_maxi.expected tests/training/restoring/corpus/sqlite_maxi.out
+# FAILED: tests/training/restoring/corpus/test_finetune.sh -> tests/training/restoring/corpus/sqlite.expected
+# diff (reconstruct): diff -u tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out > tests/training/restoring/corpus/sqlite.diff
+# backup_and_update tests/training/restoring/corpus/sqlite.expected tests/training/restoring/corpus/sqlite.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adagrad.costs.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out > tests/training/restoring/optimizer/adagrad.costs.diff
+# backup_and_update tests/training/restoring/optimizer/adagrad.costs.expected tests/training/restoring/optimizer/adagrad.costs.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adagrad.gt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out > tests/training/restoring/optimizer/adagrad.gt.diff
+# backup_and_update tests/training/restoring/optimizer/adagrad.gt.expected tests/training/restoring/optimizer/adagrad.gt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adagrad.keys.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out > tests/training/restoring/optimizer/adagrad.keys.diff
+# backup_and_update tests/training/restoring/optimizer/adagrad.keys.expected tests/training/restoring/optimizer/adagrad.keys.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_async.costs.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out > tests/training/restoring/optimizer/adam_async.costs.diff
+# backup_and_update tests/training/restoring/optimizer/adam_async.costs.expected tests/training/restoring/optimizer/adam_async.costs.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_async.mt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out > tests/training/restoring/optimizer/adam_async.mt.diff
+# backup_and_update tests/training/restoring/optimizer/adam_async.mt.expected tests/training/restoring/optimizer/adam_async.mt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_async.vt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out > tests/training/restoring/optimizer/adam_async.vt.diff
+# backup_and_update tests/training/restoring/optimizer/adam_async.vt.expected tests/training/restoring/optimizer/adam_async.vt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam.costs.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out > tests/training/restoring/optimizer/adam.costs.diff
+# backup_and_update tests/training/restoring/optimizer/adam.costs.expected tests/training/restoring/optimizer/adam.costs.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam.keys.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out > tests/training/restoring/optimizer/adam.keys.diff
+# backup_and_update tests/training/restoring/optimizer/adam.keys.expected tests/training/restoring/optimizer/adam.keys.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_load.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out > tests/training/restoring/optimizer/adam_load.diff
+# backup_and_update tests/training/restoring/optimizer/adam_load.expected tests/training/restoring/optimizer/adam_load.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam.mt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out > tests/training/restoring/optimizer/adam.mt.diff
+# backup_and_update tests/training/restoring/optimizer/adam.mt.expected tests/training/restoring/optimizer/adam.mt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_sync.costs.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out > tests/training/restoring/optimizer/adam_sync.costs.diff
+# backup_and_update tests/training/restoring/optimizer/adam_sync.costs.expected tests/training/restoring/optimizer/adam_sync.costs.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_sync.mt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out > tests/training/restoring/optimizer/adam_sync.mt.diff
+# backup_and_update tests/training/restoring/optimizer/adam_sync.mt.expected tests/training/restoring/optimizer/adam_sync.mt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam_sync.vt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out > tests/training/restoring/optimizer/adam_sync.vt.diff
+# backup_and_update tests/training/restoring/optimizer/adam_sync.vt.expected tests/training/restoring/optimizer/adam_sync.vt.out
+# FAILED: tests/training/restoring/optimizer/test_adam_params.sh -> tests/training/restoring/optimizer/adam.vt.expected
+# diff (reconstruct): diff -u tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out > tests/training/restoring/optimizer/adam.vt.diff
+# backup_and_update tests/training/restoring/optimizer/adam.vt.expected tests/training/restoring/optimizer/adam.vt.out
 # === END FAILED TEST CANDIDATES ===
 
 echo "Update complete: $updated updated, $skipped skipped." >&2

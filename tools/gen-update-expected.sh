@@ -127,8 +127,9 @@ updated=0
 skipped=0
 
 backup_and_update() {
-  local exp="$1"; shift
-  local out="$2"; shift
+  # Usage: backup_and_update <expected-file> <out-file>
+  local exp="$1"
+  local out="$2"
   if [[ ! -f "$exp" || ! -f "$out" ]]; then
     echo "[skip] Missing file for pair: $exp | $out" >&2
     ((skipped++))
