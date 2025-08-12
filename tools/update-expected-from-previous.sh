@@ -21,7 +21,7 @@ backup_and_update() {
   local out="$2"
   if [[ ! -f "$exp" || ! -f "$out" ]]; then
     echo "[skip] Missing file for pair: $exp | $out" >&2
-    ((skipped++))
+  ((++skipped))
     return
   fi
   local dest="$backup_root/$exp"
@@ -33,10 +33,11 @@ backup_and_update() {
   fi
   cp -p "$out" "$exp"
   echo "[upd] $exp <- $out" >&2
-  ((updated++))
+  ((++updated))
 }
 
 # === BEGIN PASSED TEST UPDATES ===
+
 backup_and_update tests/decoder/align-ensemble/align.b1.expected tests/decoder/align-ensemble/align.b1.out
 backup_and_update tests/decoder/align-ensemble/align.expected tests/decoder/align-ensemble/align.out
 backup_and_update tests/decoder/align-ensemble/align.b1.expected tests/decoder/align-ensemble/align.b1.out

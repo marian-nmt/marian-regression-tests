@@ -132,7 +132,7 @@ backup_and_update() {
   local out="$2"
   if [[ ! -f "$exp" || ! -f "$out" ]]; then
     echo "[skip] Missing file for pair: $exp | $out" >&2
-    ((skipped++))
+  ((++skipped))
     return
   fi
   local dest="$backup_root/$exp"
@@ -144,11 +144,14 @@ backup_and_update() {
   fi
   cp -p "$out" "$exp"
   echo "[upd] $exp <- $out" >&2
-  ((updated++))
+  ((++updated))
 }
 
 # === BEGIN PASSED TEST UPDATES ===
 EOF
+
+# Ensure newline separation before inserting active pairs
+echo >> "$OUT_SCRIPT"
 
 cat "$active_tmp" >> "$OUT_SCRIPT"
 
