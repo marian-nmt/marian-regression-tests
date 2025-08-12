@@ -11,7 +11,7 @@ Seen 1,542 samples
 Starting data epoch 4 in logical epoch 2.100
 Seen 1,542 samples
 Starting data epoch 5 in logical epoch 2.800
-Ep. 3.000 : Up. 30 : Sen. 512 : Cost 9.65089798 * 54,621 @ 7,219 after 177,215
+Ep. 3.000 : Up. 30 : Sen. 512 : Cost 9.65089703 * 54,621 @ 7,219 after 177,215
 Training finished
 Saving model to log_epoch_u/model.npz
 Saving Adam parameters
