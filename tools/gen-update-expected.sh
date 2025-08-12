@@ -33,6 +33,18 @@ set -euo pipefail
 LOG_FILE="${1:-previous.log}"
 OUT_SCRIPT="${2:-update-expected-from-previous.sh}"
 
+BASE_DIR=$(pwd)
+
+relpath() {
+  local p="$1"
+  # Remove leading ./
+  p="${p#./}"
+  if [[ "$p" == "$BASE_DIR"* ]]; then
+    p="${p#$BASE_DIR/}"
+  fi
+  printf '%s' "$p"
+}
+
 if [[ ! -f "$LOG_FILE" ]]; then
   echo "Error: log file '$LOG_FILE' not found" >&2
   exit 1
@@ -42,28 +54,146 @@ fi
 mapfile -t passed_tests < <(grep -E 'Running tests/.+\.sh \.\.\. OK' "$LOG_FILE" | sed -E 's/.*Running (tests\/[^ ]+) \.\.\. OK/\1/' | sort -u)
 mapfile -t failed_tests < <(grep -E 'Running tests/.+\.sh \.\.\. failed' "$LOG_FILE" | sed -E 's/.*Running (tests\/[^ ]+) \.\.\. failed/\1/' | sort -u)
 
-# Extract diff commands from the log so we can show the exact comparison command
-# for each failed expected/out pair. We attempt to capture lines that look like:
-#   diff -u path/file.expected path/file.out > path/file.diff
-# or variants with additional flags. We index them by the .expected path.
+# Extract diff commands (classic diff and diff-nums.py variants) from the log so we can
+# show the exact comparison command for each failed expected/out pair. We also support
+# occasionally misspelled variants like diff-numps.py. Output redirection ('> file.diff')
+# is stripped so the command, when copied, shows output in the console.
 declare -A diff_cmds
 while IFS= read -r _line; do
-  # Fast filter to lines containing '.expected' and '.out' and the word 'diff'
-  [[ "$_line" == *diff* && "$_line" == *.expected* && "$_line" == *.out* ]] || continue
-  # Regex to capture the expected and out file (first occurrence) after 'diff' and its flags
-  if [[ $_line =~ diff[[:space:][:alnum:][:punct:]]*([^[:space:]]+\.expected)[[:space:]]+([^[:space:]]+\.out) ]]; then
+  # Need both an .expected and a .out reference and either the word 'diff' or 'diff-nums'
+  [[ "$_line" == *.expected* && "$_line" == *.out* ]] || continue
+  if [[ "$_line" != *diff* && "$_line" != *diff-nums* && "$_line" != *diff-numps* ]]; then
+    continue
+  fi
+  # Strip any output redirection portion ( > something ) to keep command minimal
+  sanitized="$_line"
+  # Remove everything after an unescaped > (simplistic but sufficient for our logs)
+  sanitized=${sanitized%%>*}
+  sanitized="${sanitized%%[[:space:]]}" # trim trailing space possibly left
+  # Remove '-o file.diff' patterns so output goes to console
+  sanitized=$(echo "$sanitized" | sed -E 's/[[:space:]]-o[[:space:]]+[^[:space:]]+//g')
+  # Identify first .expected and .out tokens (order agnostic)
+  if [[ $sanitized =~ ([^[:space:]]+\.expected) ]] && [[ $sanitized =~ ([^[:space:]]+\.out) ]]; then
     exp_path="${BASH_REMATCH[1]}"
-    out_path="${BASH_REMATCH[2]}"
-    # Only record the first occurrence per expected file to avoid noise
-    if [[ -z ${diff_cmds[$exp_path]+_} ]]; then
-      diff_cmds["$exp_path"]="$_line"
+    # second match context lost; re-run for out via separate regex
+    if [[ $sanitized =~ ([^[:space:]]+\.out) ]]; then
+      out_path="${BASH_REMATCH[1]}"
+    fi
+    [[ -n "$exp_path" && -n "$out_path" ]] || continue
+    # Only record first occurrence per expected file
+    key_rel=$(relpath "$exp_path")
+    if [[ -z ${diff_cmds[$key_rel]+_} ]]; then
+  sanitized_display=$(echo "$sanitized" | sed -E "s#${BASE_DIR}/##g")
+  # Remove environment variable prefixes like $MRT_TOOLS/ or ${MRT_TOOLS}/
+  sanitized_display=$(echo "$sanitized_display" | sed -E 's#\$\{?MRT_TOOLS\}?/##g')
+      # Ensure file arguments appear with proper relative paths (including directories) when original used only basenames
+      rel_exp=$(relpath "$exp_path"); rel_out=$(relpath "$out_path")
+      base_exp=$(basename "$exp_path"); base_out=$(basename "$out_path")
+      # Replace standalone basenames (followed by space or end) with rel paths if different
+      if [[ "$rel_exp" != "$base_exp" ]]; then
+        sanitized_display="${sanitized_display// $base_exp/ $rel_exp}"
+        # Handle start-of-line case
+        sanitized_display="${sanitized_display/#$base_exp /$rel_exp }"
+      fi
+      if [[ "$rel_out" != "$base_out" ]]; then
+        sanitized_display="${sanitized_display// $base_out/ $rel_out}"
+        sanitized_display="${sanitized_display/#$base_out /$rel_out }"
+      fi
+  # Normalize tool path prefixes so they are executable from repo root
+  sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff-nums\.py#\1tools/diff-nums.py#g')
+  sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff\.sh#\1tools/diff.sh#g')
+  diff_cmds["$key_rel"]="$sanitized_display"
     fi
   fi
 done < "$LOG_FILE"
 
+# Also scan individual test scripts and their *.log counterparts for additional diff
+# commands (including diff-nums.py / diff-numps.py) that may not appear in the
+# aggregate log. This helps surface the exact invocation used inside the test.
+parse_additional_diff_cmds() {
+  local -n _scripts_ref=$1
+  local script file dir line sanitized exp_path out_path
+  for script in "${_scripts_ref[@]}"; do
+    [[ -f "$script" ]] || continue
+    dir=$(dirname "$script")
+    for file in "$script" "$script.log"; do
+      [[ -f "$file" ]] || continue
+      while IFS= read -r line; do
+        [[ "$line" == *.expected* && "$line" == *.out* ]] || continue
+        if [[ "$line" != *diff* && "$line" != *diff-nums* && "$line" != *diff-numps* ]]; then
+          continue
+        fi
+  sanitized=${line%%>*}
+  sanitized="${sanitized%%[[:space:]]}"
+  sanitized=$(echo "$sanitized" | sed -E 's/[[:space:]]-o[[:space:]]+[^[:space:]]+//g')
+        # Capture first expected and out tokens; order agnostic
+        exp_path=""
+        out_path=""
+        if [[ $sanitized =~ ([^[:space:]]+\.expected) ]]; then
+          exp_path="${BASH_REMATCH[1]}"
+        fi
+        if [[ $sanitized =~ ([^[:space:]]+\.out) ]]; then
+          out_path="${BASH_REMATCH[1]}"
+        fi
+        [[ -n "$exp_path" && -n "$out_path" ]] || continue
+        # Normalize relative paths relative to script directory
+        [[ "$exp_path" == /* ]] || exp_path="$dir/${exp_path#./}"
+        [[ "$out_path" == /* ]] || out_path="$dir/${out_path#./}"
+        # Only set if not already present to keep the first occurrence
+        key_rel=$(relpath "$exp_path")
+        if [[ -z ${diff_cmds[$key_rel]+_} ]]; then
+          sanitized_display=$(echo "$sanitized" | sed -E "s#${BASE_DIR}/##g")
+          sanitized_display=$(echo "$sanitized_display" | sed -E 's#\$\{?MRT_TOOLS\}?/##g')
+          rel_exp=$(relpath "$exp_path"); rel_out=$(relpath "$out_path")
+          base_exp=$(basename "$exp_path"); base_out=$(basename "$out_path")
+          if [[ "$rel_exp" != "$base_exp" ]]; then
+            sanitized_display="${sanitized_display// $base_exp/ $rel_exp}"
+            sanitized_display="${sanitized_display/#$base_exp /$rel_exp }"
+          fi
+            if [[ "$rel_out" != "$base_out" ]]; then
+            sanitized_display="${sanitized_display// $base_out/ $rel_out}"
+            sanitized_display="${sanitized_display/#$base_out /$rel_out }"
+          fi
+          sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff-nums\.py#\1tools/diff-nums.py#g')
+          sanitized_display=$(echo "$sanitized_display" | sed -E 's#(^|[[:space:]])diff\.sh#\1tools/diff.sh#g')
+          diff_cmds["$key_rel"]="$sanitized_display"
+        fi
+      done < "$file"
+    done
+  done
+}
+
+# Enrich diff_cmds from passed and failed test scripts/logs
+parse_additional_diff_cmds passed_tests
+parse_additional_diff_cmds failed_tests
+
 if [[ ${#passed_tests[@]} -eq 0 ]]; then
   echo "No passed tests found to process." >&2
 fi
+
+# Number of diff output lines to embed for failed examples
+MAX_DIFF_LINES=10
+
+# Run the appropriate diff command (captured or generic) and emit first N lines as commented snippet
+produce_diff_snippet() {
+  local exp_rel="$1" out_rel="$2" key_rel cmd snippet total_lines head_lines
+  key_rel="$exp_rel"
+  if [[ -n ${diff_cmds[$key_rel]+_} ]]; then
+    cmd="${diff_cmds[$key_rel]}"
+  else
+    cmd="diff -u $exp_rel $out_rel"
+  fi
+  snippet=$(bash -c "$cmd" 2>&1 || true)
+  [[ -n "$snippet" ]] || { echo "# | (no diff output)"; return; }
+  total_lines=$(printf '%s\n' "$snippet" | wc -l | tr -d ' ')
+  head_lines=$(printf '%s\n' "$snippet" | head -n "${MAX_DIFF_LINES}")
+  while IFS= read -r line; do
+    printf '# | %s\n' "$line"
+  done <<< "$head_lines"
+  if (( total_lines > MAX_DIFF_LINES )); then
+    echo "# | ... (${total_lines} total lines, truncated)"
+  fi
+}
 
 # Helper to collect exp/out pairs for a given list of tests.
 collect_pairs() {
@@ -81,17 +211,20 @@ collect_pairs() {
       local exp_file="${out_file%.out}.expected"
       [[ -f "$exp_file" ]] || continue
       if [[ "$mode" == active ]]; then
-        printf 'backup_and_update %q %q\n' "$exp_file" "$out_file" >> "$outfile"
+        rel_exp=$(relpath "$exp_file"); rel_out=$(relpath "$out_file")
+        printf 'backup_and_update %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
       else
-        printf '# FAILED: %s -> %s\n' "$test_path" "$exp_file" >> "$outfile"
+        rel_exp=$(relpath "$exp_file"); rel_out=$(relpath "$out_file")
+        printf '# FAILED: %s -> %s\n' "$test_path" "$rel_exp" >> "$outfile"
         # If we saw an original diff command referencing this expected file, include it.
-        if [[ -n ${diff_cmds[$exp_file]+_} ]]; then
-          printf '# diff: %s\n' "${diff_cmds[$exp_file]}" >> "$outfile"
+        key_rel=$(relpath "$exp_file")
+        if [[ -n ${diff_cmds[$key_rel]+_} ]]; then
+          printf '# diff: %s\n' "${diff_cmds[$key_rel]}" >> "$outfile"
         else
-          # Provide a generic diff command as a fallback.
-            printf '# diff (reconstruct): diff -u %q %q > %q.diff\n' "$exp_file" "$out_file" "${exp_file%.expected}" >> "$outfile"
+          printf '# diff (reconstruct): diff -u %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
         fi
-        printf '# backup_and_update %q %q\n' "$exp_file" "$out_file" >> "$outfile"
+        produce_diff_snippet "$rel_exp" "$rel_out" >> "$outfile"
+        printf '# backup_and_update %q %q\n' "$rel_exp" "$rel_out" >> "$outfile"
       fi
     done
     shopt -u nullglob
@@ -112,6 +245,8 @@ failed_pair_count=$(grep -c '^# backup_and_update ' "$commented_tmp" || true)
 existing_pairs_tmp=$(mktemp)
 grep '^backup_and_update ' "$active_tmp" | awk '{print $2"|"$3}' > "$existing_pairs_tmp" || true
 grep '^# backup_and_update ' "$commented_tmp" | awk '{print $3"|"$4}' >> "$existing_pairs_tmp" || true
+
+# Number of diff output lines to embed for failed examples
 
 # Function to add cross-file pairs discovered in test scripts where the .out and .expected
 # filenames do not share the same basename (e.g. batched.out vs scores.expected)
@@ -152,10 +287,19 @@ add_cross_file_pairs() {
       if grep -Fqx "$key" "$existing_pairs_tmp"; then continue; fi
       echo "$key" >> "$existing_pairs_tmp"
       if [[ "$mode" == active ]]; then
-        printf 'backup_and_update %q %q # cross-file\n' "$eFile" "$oFile" >> "$target_file"
+        rel_e=$(relpath "$eFile"); rel_o=$(relpath "$oFile")
+        printf 'backup_and_update %q %q # cross-file\n' "$rel_e" "$rel_o" >> "$target_file"
       else
-        printf '# FAILED (cross-file): %s -> %s <= %s\n' "$script" "$eFile" "$oFile" >> "$target_file"
-        printf '# backup_and_update %q %q # cross-file\n' "$eFile" "$oFile" >> "$target_file"
+        rel_e=$(relpath "$eFile"); rel_o=$(relpath "$oFile")
+        printf '# FAILED (cross-file): %s -> %s <= %s\n' "$script" "$rel_e" "$rel_o" >> "$target_file"
+        key_rel=$(relpath "$eFile")
+        if [[ -n ${diff_cmds[$key_rel]+_} ]]; then
+          printf '# diff: %s\n' "${diff_cmds[$key_rel]}" >> "$target_file"
+        else
+          printf '# diff (reconstruct): diff -u %q %q\n' "$rel_e" "$rel_o" >> "$target_file"
+        fi
+        produce_diff_snippet "$rel_e" "$rel_o" >> "$target_file"
+        printf '# backup_and_update %q %q # cross-file\n' "$rel_e" "$rel_o" >> "$target_file"
       fi
     done < "$script"
   done
