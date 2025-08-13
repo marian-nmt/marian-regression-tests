@@ -15,8 +15,19 @@ Maxwell/Pascal GPUs.
 The following command is used to compile Marian on a V100 VM on our singularity image from
 marcinjd.azurecr.io/marian/marian-cuda12.3-ubuntu22.04:latest
 
-@TODO: update image to include openssl and bc
-@TODO: update command to build and test pymarian
+This was run on the following software/hardware
+```
+Ubuntu 22.04.3 LTS
+CUDA 12030
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+Python 3.10.12
+NVIDIA-SMI 550.90.07
+Tesla V100-SXM2-32GB
+Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+```
+
+* @TODO: update image to include openssl and bc
+* @TODO: update command to build and test pymarian
 
 ```
 cmake .. -DUSE_MPI=OFF -DUSE_STATIC_LIBS=ON -DCOMPILE_PASCAL=OFF -DCOMPILE_VOLTA=ON -DCOMPILE_AMPERE=OFF \
