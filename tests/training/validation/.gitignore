@@ -19,4 +19,5 @@ stop_on_1st
 eps_stop_on_any
 eps_stop_on_all
 eps_stop_on_1st
+eps_stop_mismatch
 devset.??

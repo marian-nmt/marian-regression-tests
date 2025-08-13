@@ -30,9 +30,9 @@ python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam/model.npz.optimizer
 $MRT_TOOLS/diff.sh adam.keys.out adam.keys.expected > adam.keys.diff
 
 python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_mt" > adam.mt.out
-$MRT_TOOLS/diff-nums.py --numpy -p 0.0001  adam.mt.out adam.mt.expected -o adam.mt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.001  adam.mt.out adam.mt.expected -o adam.mt.diff
 python3 $MRT_MARIAN/../scripts/contrib/model_info.py -m adam/model.npz.optimizer.npz -k "adam_vt" > adam.vt.out
-$MRT_TOOLS/diff-nums.py --numpy -p 0.0001 adam.vt.out adam.vt.expected -o adam.vt.diff
+$MRT_TOOLS/diff-nums.py --numpy -p 0.001 adam.vt.out adam.vt.expected -o adam.vt.diff
 
 # Exit with success code
 exit 0

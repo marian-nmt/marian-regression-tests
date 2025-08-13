@@ -6,5 +6,4 @@ dim-rnn: 32
 train-sets:
 vocabs:
 after-batches: 2
-cpu-threads: 0
 mini-batch: 8

@@ -10,6 +10,31 @@ repository: https://github.com/marian-nmt/marian-dev.
 Tests have been developed for Linux for Marian compiled using GCC 8+ and Nvidia
 Maxwell/Pascal GPUs.
 
+## Marian compilation on V100:
+
+The following command is used to compile Marian on a V100 VM on our singularity image from
+marcinjd.azurecr.io/marian/marian-cuda12.3-ubuntu22.04:latest
+
+This was run on the following software/hardware
+```
+Ubuntu 22.04.3 LTS
+CUDA 12030
+gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+Python 3.10.12
+NVIDIA-SMI 550.90.07
+Tesla V100-SXM2-32GB
+Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz
+```
+
+* @TODO: update image to include openssl and bc
+* @TODO: update command to build and test pymarian
+
+```
+cmake .. -DUSE_MPI=OFF -DUSE_STATIC_LIBS=ON -DCOMPILE_PASCAL=OFF -DCOMPILE_VOLTA=ON -DCOMPILE_AMPERE=OFF \
+ -DCOMPILE_AMPERE_RTX=OFF -DCOMPILE_TURING=OFF -DBUILD_ARCH=x86-64 -DCOMPILE_AVX2=OFF -DCOMPILE_AVX512=OFF \
+ -DDETERMINISTIC=ON -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=ON -DUSE_TCMALLOC=ON -DUSE_OPENSSL=ON -DCOMPILE_CPU=ON \
+ -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON -DCOMPILE_SERVER=ON
+```
 
 ## Structure
 

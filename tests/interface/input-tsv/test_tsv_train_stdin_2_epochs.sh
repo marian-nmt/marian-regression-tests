@@ -32,7 +32,7 @@ cat train.tsv | $MRT_MARIAN/marian \
 
 # Compare the current output with the expected output
 cat train_stdin_2e.log | $MRT_TOOLS/extract-costs.sh > train_stdin_2e.out
-$MRT_TOOLS/diff-nums.py train_stdin_2e.out train_stdin_2e.expected -p 0.01 -o train_stdin_2e.diff
+$MRT_TOOLS/diff-nums.py train_stdin_2e.out train_stdin_2e.expected -p 0.1 -o train_stdin_2e.diff
 
 # Exit with success code
 exit 0

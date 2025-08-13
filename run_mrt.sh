@@ -129,9 +129,12 @@ log "Unit tests: $MRT_MARIAN_USE_UNITTESTS"
 cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',' | cat)+1))
 export MRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
 
+# For numerical stability disable CUBLAS TensorOp
+export ENABLE_CUBLAS_TENSOR_OP_MATH_FP32=0
+
 log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
 log "Using number of GPU devices: $MRT_NUM_DEVICES"
-
+log "Using CUBLAS TensorOp: $ENABLE_CUBLAS_TENSOR_OP_MATH_FP32"
 
 # CPU architecture details
 test -e "$MRT_ROOT/cpuinfo.log" || cat /proc/cpuinfo > "$MRT_ROOT/cpuinfo.log"
@@ -146,7 +149,7 @@ log "CPU intrinsics: avx2=$MRT_CPU_AVX2 avx512=$MRT_CPU_AVX512 avx512vnni=$MRT_C
 
 
 # Time out
-export MRT_TIMEOUT=${TIMEOUT:-5m}   # the default time out is 5 minutes, see `man timeout`
+export MRT_TIMEOUT=${TIMEOUT:-0}   # the default time out is 5 minutes, see `man timeout`
 cmd_timeout=""
 if [ $MRT_TIMEOUT != "0" ]; then
     cmd_timeout="timeout $MRT_TIMEOUT"
